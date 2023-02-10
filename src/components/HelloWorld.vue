@@ -96,10 +96,10 @@
 
 <script>
 export default {
-  name: "HelloWorld",
-  props: {
-    msg: String,
-  },
+    name: "HelloWorld",
+    props: {
+        msg: String,
+    },
 };
 </script>
 
