@@ -6,10 +6,11 @@
 
 import TempView from "../views/TempView.vue";
 import DisplayMenu from "@/components/DisplayMenu.vue";
+import { Endpoint } from "@/router/endPoint.js";
 
 export const structure = {
     "": {
-        "Lenova": TempView,
+        "Lenova": new Endpoint(TempView),
         "Characters": {
             "Balro": TempView,
             "Siren": TempView,
@@ -33,8 +34,11 @@ export function addStructureToRoutes(routes, structure, prefix="") {
         const slug = `${prefix}/${key}`;
 
         // Check if value is a vue component
-        if(value && typeof value.render === "function"){
+        if(typeof value.render === "function"){
             routes.push({path: slug, component: value});
+        }
+        else if (value instanceof Endpoint) {
+            routes.push({path: slug, component: value.vueComponent, props: value.props});
         }
         else {
             // Add a DisplayMenu to navigate the site
