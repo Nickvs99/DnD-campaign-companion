@@ -7,7 +7,10 @@
  */
 
 import DisplayMenu from "@/components/DisplayMenu.vue";
+import ExpandableImage from "@/components/ExpandableImage.vue";
 import GoogleDoc from "@/components/GoogleDoc.vue";
+import ImageDoc from "@/components/ImageDoc.vue";
+
 import TempView from "@/views/TempView.vue";
 
 import { Endpoint } from "@/router/endPoint.js";
@@ -15,7 +18,13 @@ import { Endpoint } from "@/router/endPoint.js";
 export const structure = {
     "": {
         "Lenova": {
-            "Session_recap": new Endpoint(GoogleDoc, {"src": "https://docs.google.com/document/d/e/2PACX-1vQntHl593EJQ8-uDr3-RxkAVt82--xxKyMOHRISDrqJSSVnXrB2DdhyQeDUFNOIWXv_q6LBTDX7PRUu/pub?embedded=true"})
+            "Session_recap": new Endpoint(GoogleDoc, {"src": "https://docs.google.com/document/d/e/2PACX-1vQntHl593EJQ8-uDr3-RxkAVt82--xxKyMOHRISDrqJSSVnXrB2DdhyQeDUFNOIWXv_q6LBTDX7PRUu/pub?embedded=true"}),
+            "Maps": {
+                "Overview": new Endpoint(ImageDoc, {"docSrc": "https://docs.google.com/document/d/e/2PACX-1vQntHl593EJQ8-uDr3-RxkAVt82--xxKyMOHRISDrqJSSVnXrB2DdhyQeDUFNOIWXv_q6LBTDX7PRUu/pub?embedded=true",
+                    "imgSrc": require("@/assets/images/lenova/worldmap.jpg")},
+                ),
+                "Virdos": new Endpoint(ExpandableImage, {"src": require("@/assets/images/lenova/virdos.jpg")})
+            }
         },
         "Characters": {
             "Balro": TempView,
