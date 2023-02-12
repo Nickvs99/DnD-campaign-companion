@@ -5,17 +5,23 @@
  */
 
 import TempView from "../views/TempView.vue";
+import DisplayMenu from "@/components/DisplayMenu.vue";
 
 export const structure = {
-    "Lenova": TempView,
-    "Characters": {
-        "Balro": TempView,
-        "Siren": TempView,
-        "Ginger": TempView,
-        "Grug": TempView,
-        "Safqwyn": TempView
-    },
-    "Julia": TempView,
+    "": {
+        "Lenova": TempView,
+        "Characters": {
+            "Balro": TempView,
+            "Siren": TempView,
+            "Ginger": TempView,
+            "Grug": TempView,
+            "Safqwyn": {
+                "Druid": TempView,
+                "Fighter": TempView,
+            }
+        },
+        "Julia": TempView,  
+    }
 };
 
 export function addStructureToRoutes(routes, structure, prefix="") {
@@ -28,9 +34,13 @@ export function addStructureToRoutes(routes, structure, prefix="") {
 
         // Check if value is a vue component
         if(value && typeof value.render === "function"){
-            routes.push({path: slug, component: TempView});
+            routes.push({path: slug, component: value});
         }
         else {
+            // Add a DisplayMenu to navigate the site
+            let items = Object.keys(value);
+            routes.push({path: slug, component: DisplayMenu, props: {items: items}});
+            
             // Recursively add to the routes, with an updated prefix
             addStructureToRoutes(routes, value, slug);
         }

@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
 
 import { structure, addStructureToRoutes } from "./siteStructure";
 
@@ -8,11 +7,6 @@ import { structure, addStructureToRoutes } from "./siteStructure";
  * the siteStructure structure.
  */
 const routes = [
-    {
-        path: "/",
-        name: "home",
-        component: HomeView,
-    },
     {
         path: "/about",
         name: "about",
@@ -30,6 +24,8 @@ const routes = [
 ];
 
 addStructureToRoutes(routes, structure);
+
+console.log(routes);
 
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
