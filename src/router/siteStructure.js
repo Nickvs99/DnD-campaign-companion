@@ -4,6 +4,8 @@
  *  component which is rendered as the content of the page. 
  * 
  * The keys can not have spaces, otherwise redirects within a google doc stop working.
+ * 
+ * img sources should be relative to "@/assets/images"
  */
 
 import DisplayMenu from "@/components/DisplayMenu.vue";
@@ -21,9 +23,9 @@ export const structure = {
             "Session_recap": new Endpoint(GoogleDoc, {"src": "https://docs.google.com/document/d/e/2PACX-1vQntHl593EJQ8-uDr3-RxkAVt82--xxKyMOHRISDrqJSSVnXrB2DdhyQeDUFNOIWXv_q6LBTDX7PRUu/pub?embedded=true"}),
             "Maps": {
                 "Overview": new Endpoint(ImageDoc, {"docSrc": "https://docs.google.com/document/d/e/2PACX-1vQntHl593EJQ8-uDr3-RxkAVt82--xxKyMOHRISDrqJSSVnXrB2DdhyQeDUFNOIWXv_q6LBTDX7PRUu/pub?embedded=true",
-                    "imgSrc": require("@/assets/images/lenova/worldmap.jpg")},
+                    "imgSrc": "lenova/worldmap.jpg"},
                 ),
-                "Virdos": new Endpoint(ExpandableImage, {"src": require("@/assets/images/lenova/virdos.jpg")})
+                "Virdos": new Endpoint(ExpandableImage, {"src": "lenova/virdos.jpg"})
             }
         },
         "Characters": {
