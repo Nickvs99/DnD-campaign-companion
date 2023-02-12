@@ -1,16 +1,22 @@
 /**
  * This file contains the structure of the site through nested dictionaries. 
  * The keys combined give the slug of the page. The end of the strucutre is a vue
- *  component which is rendered as the content of the page.
+ *  component which is rendered as the content of the page. 
+ * 
+ * The keys can not have spaces, otherwise redirects within a google doc stop working.
  */
 
-import TempView from "../views/TempView.vue";
 import DisplayMenu from "@/components/DisplayMenu.vue";
+import GoogleDoc from "@/components/GoogleDoc.vue";
+import TempView from "@/views/TempView.vue";
+
 import { Endpoint } from "@/router/endPoint.js";
 
 export const structure = {
     "": {
-        "Lenova": new Endpoint(TempView),
+        "Lenova": {
+            "Session_recap": new Endpoint(GoogleDoc, {"src": "https://docs.google.com/document/d/e/2PACX-1vQntHl593EJQ8-uDr3-RxkAVt82--xxKyMOHRISDrqJSSVnXrB2DdhyQeDUFNOIWXv_q6LBTDX7PRUu/pub?embedded=true"})
+        },
         "Characters": {
             "Balro": TempView,
             "Siren": TempView,

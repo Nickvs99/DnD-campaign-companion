@@ -16,11 +16,6 @@ const routes = [
         component: () =>
             import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
     },
-    {
-        path: "/docs",
-        name: "docs",
-        component: () => import(/* webpackChunkName: "docs" */ "../views/GoogleDocs.vue"), 
-    }
 ];
 
 addStructureToRoutes(routes, structure);

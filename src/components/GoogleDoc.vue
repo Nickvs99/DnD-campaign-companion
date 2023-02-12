@@ -13,7 +13,13 @@
 import {sleep} from "@/util.js";
 
 export default {
-    
+    props: {
+        "src": {
+            type: String,
+            required: true
+        }
+    },
+
     mounted() {
         this.loadGoogleDoc();
     },
@@ -24,10 +30,8 @@ export default {
             let d = document.createElement("div");
             d.classList.add("google-doc");
 
-            let url = "https://docs.google.com/document/d/e/2PACX-1vQntHl593EJQ8-uDr3-RxkAVt82--xxKyMOHRISDrqJSSVnXrB2DdhyQeDUFNOIWXv_q6LBTDX7PRUu/pub?embedded=true";
-
             let xhr = new XMLHttpRequest();
-            xhr.open("GET", url, true);
+            xhr.open("GET", this.src, true);
             xhr.onload = async () => {
 
                 // TEMP
