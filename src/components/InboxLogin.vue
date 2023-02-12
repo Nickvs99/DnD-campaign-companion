@@ -7,6 +7,7 @@
         <button>Submit</button>        
     </form>
 
+    <div class="hidden" ref="invalidMessage">Invalid code</div>
 
 </template>
 
@@ -26,12 +27,11 @@ export default {
             let concat = pathSplit.slice(0, -1).join("/");
             let targetSlug = concat + "/messages/" + hashCode(this.$refs.personalCode.value + this.$refs.dmCode.value);
             
-            console.log(targetSlug);
             if(this.isValidRoute(targetSlug)) {
                 this.$router.push(targetSlug);
             }
             else{
-                console.log("Invalid code");
+                this.$refs.invalidMessage.classList.remove("hidden");
             }
 
         },
