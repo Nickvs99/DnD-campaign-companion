@@ -12,9 +12,11 @@ import DisplayMenu from "@/components/DisplayMenu.vue";
 import ExpandableImage from "@/components/ExpandableImage.vue";
 import GoogleDoc from "@/components/GoogleDoc.vue";
 import ImageDoc from "@/components/ImageDoc.vue";
+import InboxLogin from "@/components/InboxLogin.vue";
 
 import TempView from "@/views/TempView.vue";
 
+import { hashCode } from "@/util.js";
 import { Endpoint } from "@/router/endPoint.js";
 
 export const structure = {
@@ -26,6 +28,13 @@ export const structure = {
                     "imgSrc": "lenova/worldmap.jpg"},
                 ),
                 "Virdos": new Endpoint(ExpandableImage, {"src": "lenova/virdos.jpg"})
+            },
+            "Inbox": InboxLogin,
+            "messages": {
+                [hashCode("" + "")]: new Endpoint(TempView, {"id": "Global message"}),
+                [hashCode("Balro" + "")]: new Endpoint(TempView, {"id": "Personal message"}),
+                [hashCode("" + "Bonjour")]: new Endpoint(TempView, {"id": "secret note"}),
+                [hashCode("Balro" + "secret")]: new Endpoint(TempView, {"id": "personal message"}),
             }
         },
         "Characters": {
@@ -60,6 +69,10 @@ export function addStructureToRoutes(routes, structure, prefix="") {
         else {
             // Add a DisplayMenu to navigate the site
             let items = Object.keys(value);
+
+            // Remove messages from the click-through items
+            items = items.filter(item => item !== "messages");
+
             routes.push({path: slug, component: DisplayMenu, props: {items: items}});
             
             // Recursively add to the routes, with an updated prefix

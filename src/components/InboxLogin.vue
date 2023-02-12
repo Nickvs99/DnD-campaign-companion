@@ -1,0 +1,55 @@
+<template>
+
+    <form v-on:submit="onSubmit">
+        <input ref="personalCode" placeholder="Personal code" type="text" />
+        <input ref="dmCode" placeholder="DM code" type="text" />
+
+        <button>Submit</button>        
+    </form>
+
+
+</template>
+
+<script>
+
+import { hashCode } from "@/util.js";
+
+export default {
+    
+    methods:
+    {
+        onSubmit(event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            let pathSplit = this.$route.path.split("/");
+            let concat = pathSplit.slice(0, -1).join("/");
+            let targetSlug = concat + "/messages/" + hashCode(this.$refs.personalCode.value + this.$refs.dmCode.value);
+            
+            console.log(targetSlug);
+            if(this.isValidRoute(targetSlug)) {
+                this.$router.push(targetSlug);
+            }
+            else{
+                console.log("Invalid code");
+            }
+
+        },
+
+        isValidRoute(path) {
+
+            for(let route of this.$router.getRoutes())
+            {
+                // TEMP All paths start with an additional / due to bad code
+                if ("/" + path === route["path"]) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    }
+    
+};
+
+</script>
