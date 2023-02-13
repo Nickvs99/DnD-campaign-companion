@@ -13,13 +13,13 @@
 import {sleep} from "@/util.js";
 
 export default {
+    name: "GoogleDoc",
     props: {
         "src": {
             type: String,
-            required: true
-        }
+            required: true,
+        },
     },
-
     mounted() {
         this.loadGoogleDoc();
     },

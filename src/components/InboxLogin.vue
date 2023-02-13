@@ -16,7 +16,7 @@
 import { hashCode } from "@/util.js";
 
 export default {
-    
+    name: "InboxLogin",
     methods:
     {
         onSubmit(event) {

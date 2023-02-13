@@ -4,6 +4,7 @@
 
 <script>
 export default {
+    name: "DisplayMenu",
     props: {
         items: {
             type: Array,

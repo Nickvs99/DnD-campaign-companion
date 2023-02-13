@@ -20,10 +20,10 @@ export class Endpoint {
      */
     parseProps() {
 
-        if(this.vueComponent.__file === "src/components/ExpandableImage.vue") {
+        if(this.vueComponent.name === "ExpandableImage") {
             this.props["src"] = require(`@/assets/images/${this.props["src"]}`);
         }
-        else if(this.vueComponent.__file ==="src/components/ImageDoc.vue") {
+        else if(this.vueComponent.name === "ImageDoc") {
             this.props["imgSrc"] = require(`@/assets/images/${this.props["imgSrc"]}`);
         }
     }

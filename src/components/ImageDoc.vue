@@ -9,6 +9,7 @@ import ExpandableImage from "@/components/ExpandableImage.vue";
 import GoogleDoc from "@/components/GoogleDoc.vue";
 
 export default {
+    name: "ImageDoc",
     components:{GoogleDoc, ExpandableImage},
     props: {
         "docSrc": {

@@ -5,6 +5,7 @@
 <script>
 
 export default {
+    name: "ExpandableImage",
     props: {
         "src": {
             type: String,

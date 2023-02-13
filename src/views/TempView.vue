@@ -7,6 +7,7 @@
 <script>
 
 export default {
+    name: "TempView",
     props: ["id"]
 };
 
