@@ -40,8 +40,7 @@ export default {
 
             for(let route of this.$router.getRoutes())
             {
-                // TEMP All paths start with an additional / due to bad code
-                if ("/" + path === route["path"]) {
+                if (path === route["path"]) {
                     return true;
                 }
             }
