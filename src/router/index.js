@@ -16,6 +16,11 @@ const routes = [
         component: () =>
             import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
     },
+    {
+        path: "/:catchAll(.*)",
+        component: () =>
+            import(/* webpackChunkName: "404" */ "@/views/404View.vue"),
+    }
 ];
 
 addStructureToRoutes(routes, structure);
