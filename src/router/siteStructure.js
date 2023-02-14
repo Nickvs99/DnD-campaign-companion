@@ -32,7 +32,7 @@ export const structure = {
         "Inbox": InboxLogin,
         "messages": {
             [hashCode("" + "")]: new Endpoint(MessageBox, {"message": "This is a global message"}),
-            [hashCode("Balro" + "")]: new Endpoint(MessageBox, {"message": "This is a personal message"}),
+            [hashCode("Balro" + "")]: new Endpoint(MessageBox, {"message": "This is a personal message", "messageStyle": "child"}),
             [hashCode("" + "Bonjour")]: new Endpoint(MessageBox, {"message": "This is a secret note"}),
             [hashCode("Balro" + "secret")]: new Endpoint(MessageBox, {"message": "This is a personal message"}),
         }
