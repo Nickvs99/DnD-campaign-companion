@@ -27,9 +27,6 @@ export default {
     methods: {
         async loadGoogleDoc() {
 
-            let d = document.createElement("div");
-            d.classList.add("google-doc");
-
             let xhr = new XMLHttpRequest();
             xhr.open("GET", this.src, true);
             xhr.onload = async () => {
@@ -38,12 +35,41 @@ export default {
                 await sleep(2000);
                 
                 let divToReplace = this.$refs.divToReplace;
-                divToReplace.parentElement.replaceChild(d, divToReplace);
 
-                d.innerHTML = xhr.responseText;
+                let docElement = this.parseResponse(xhr.responseText);
+                docElement.classList.add("google-doc");
+
+                divToReplace.parentElement.replaceChild(docElement, divToReplace);
             };
             xhr.send();
         },
+
+        parseResponse(response) {
+
+            let parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(response, "text/html");
+
+            let aTags = htmlDoc.getElementsByTagName("a");
+            
+            for (let tag of aTags)
+            {
+                // The hashes do not work, therefore their behaviour is overriden
+                if (tag.hash != "")
+                {
+                    // #id => id
+                    let el = htmlDoc.getElementById(tag.hash.slice(1));
+
+                    tag.onclick = event => { 
+                        event.preventDefault();
+                        event.stopPropagation();
+                        
+                        el.scrollIntoView({behavior: "smooth"});
+                    };
+                }
+            }
+
+            return htmlDoc.documentElement;
+        }
     },
 };
 
