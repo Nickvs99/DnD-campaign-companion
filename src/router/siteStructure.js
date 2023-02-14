@@ -13,6 +13,7 @@ import ExpandableImage from "@/components/ExpandableImage.vue";
 import GoogleDoc from "@/components/GoogleDoc.vue";
 import ImageDoc from "@/components/ImageDoc.vue";
 import InboxLogin from "@/components/InboxLogin.vue";
+import MessageBox from "@/components/MessageBox.vue";
 
 import TempView from "@/views/TempView.vue";
 
@@ -30,10 +31,10 @@ export const structure = {
         },
         "Inbox": InboxLogin,
         "messages": {
-            [hashCode("" + "")]: new Endpoint(TempView, {"id": "Global message"}),
-            [hashCode("Balro" + "")]: new Endpoint(TempView, {"id": "Personal message"}),
-            [hashCode("" + "Bonjour")]: new Endpoint(TempView, {"id": "secret note"}),
-            [hashCode("Balro" + "secret")]: new Endpoint(TempView, {"id": "personal message"}),
+            [hashCode("" + "")]: new Endpoint(MessageBox, {"message": "This is a global message"}),
+            [hashCode("Balro" + "")]: new Endpoint(MessageBox, {"message": "This is a personal message"}),
+            [hashCode("" + "Bonjour")]: new Endpoint(MessageBox, {"message": "This is a secret note"}),
+            [hashCode("Balro" + "secret")]: new Endpoint(MessageBox, {"message": "This is a personal message"}),
         }
     },
     "Characters": {
