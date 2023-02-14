@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 
-import { structure, addStructureToRoutes } from "./siteStructure";
+import { structure } from "@/assets/content/structure.js";
+import { addStructureToRoutes } from "@/router/util.js";
 
 /**
  * These routes are manually added and should only be added if it does not follow
