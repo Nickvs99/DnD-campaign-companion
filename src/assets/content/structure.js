@@ -17,7 +17,7 @@ import TempView from "@/views/TempView.vue";
 import { Endpoint } from "@/router/endPoint.js";
 import { hashCode } from "@/util.js";
 
-import { lenovaMessages } from "@/assets/content/lenovaMessages.js";
+import { lenovaPersonalCodes, lenovaMessages } from "@/assets/content/lenovaMessages.js";
 
 export const structure = {
     "Lenova": {
@@ -29,7 +29,7 @@ export const structure = {
             "Virdos": new Endpoint(ExpandableImage, {"src": "lenova/virdos.jpg"})
         },
         "Inbox": InboxLogin,
-        "messages": CreateMessageRoutes(lenovaMessages),       
+        "messages": CreateMessageRoutes(lenovaMessages, lenovaPersonalCodes),       
     },
     "Characters": {
         "Balro": TempView,
@@ -44,7 +44,7 @@ export const structure = {
     "Julia": TempView,  
 };
 
-function CreateMessageRoutes(messageData) {
+function CreateMessageRoutes(messageData, validPersonalCodes) {
 
     // Collect messages for each hash
     let messageMap = {};
@@ -54,6 +54,10 @@ function CreateMessageRoutes(messageData) {
         let DmCode = row[1];
         let message = row[2];
         let messageStyle = row[3]; 
+
+        if(!validPersonalCodes.includes(personalCode)) {
+            throw new Error(`${personalCode} is not a valid personal code.`);
+        }
 
         let hash = hashCode(personalCode + DmCode);
 

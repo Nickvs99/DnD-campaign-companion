@@ -1,4 +1,13 @@
 /**
+ * An array of personal codes. These are used to check 
+ * for possible typing errors.
+ */
+export const lenovaPersonalCodes = [
+    "", "Balro"
+];
+
+
+/**
  * Index 0: personal code
  * Index 1: DM code
  * Index 2: message
