@@ -1,4 +1,5 @@
 import DisplayMenu from "@/components/DisplayMenu.vue";
+import InvalidCodeView from "@/views/InvalidCodeView.vue";
 
 import { Endpoint } from "@/router/endPoint.js";
 
@@ -17,6 +18,11 @@ export function addStructureToRoutes(routes, structure, prefix="") {
         const value = structure[key];
 
         const slug = `${prefix}/${key}`;
+
+        // Catch invalid codes 
+        if(key === "messages") {
+            routes.push({path: `${slug}/:code`, component: InvalidCodeView});
+        }
 
         // Check if value is a vue component
         if(typeof value.render === "function"){
