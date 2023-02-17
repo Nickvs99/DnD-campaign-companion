@@ -8,5 +8,6 @@ export const lenovaMessages = [
     ["", "", "This is a global message", ""],
     ["Balro", "", "This is a personal message", "child"],
     ["", "Bonjour", "This is a secret note", ""],
-    ["Balro", "Secret", "This is a personal message"],
+    ["Balro", "Secret", "This is a personal message", ""],
+    ["", "", "A seconday message appeared", "child"],
 ];

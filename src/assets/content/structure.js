@@ -10,7 +10,7 @@ import ExpandableImage from "@/components/ExpandableImage.vue";
 import GoogleDoc from "@/components/GoogleDoc.vue";
 import ImageDoc from "@/components/ImageDoc.vue";
 import InboxLogin from "@/components/InboxLogin.vue";
-import MessageBox from "@/components/MessageBox.vue";
+import MailBox from "@/components/MailBox.vue";
 
 import TempView from "@/views/TempView.vue";
 
@@ -46,8 +46,8 @@ export const structure = {
 
 function CreateMessageRoutes(messageData) {
 
-    let routes = {};
-
+    // Collect messages for each hash
+    let messageMap = {};
     for(let row of messageData)
     {
         let personalCode = row[0];
@@ -56,8 +56,22 @@ function CreateMessageRoutes(messageData) {
         let messageStyle = row[3]; 
 
         let hash = hashCode(personalCode + DmCode);
-        routes[hash] = new Endpoint(MessageBox, {"message": message, "messageStyle": messageStyle});
+
+        if(!(hash in messageMap))
+        {
+            messageMap[hash] = [];
+        }
+
+        messageMap[hash].push({"message": message, "messageStyle": messageStyle});
+    }
+
+    // Create routes with the messages
+    let routes = {};
+    for(let hash in messageMap)
+    {
+        routes[hash] = new Endpoint(MailBox, {"messages": messageMap[hash]});
     }
 
     return routes;
+
 }
