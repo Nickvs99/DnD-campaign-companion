@@ -1,14 +1,14 @@
 <template>
 
-    <form v-on:submit="onSubmit">
-        <input ref="personalCode" placeholder="Personal code" type="text" />
-        <input ref="dmCode" placeholder="DM code" type="text" />
+<form v-on:submit="onSubmit">
+    <input ref="personalCode" placeholder="Personal code" type="text" />
+    <input ref="dmCode" placeholder="DM code" type="text" />
 
-        <button>Submit</button>        
-    </form>
+    <button>Submit</button>        
+</form>
 
-    <LoadIcon v-if="showLoadIcon"/>
-    <div v-if="showInvalidCode">Invalid code</div>
+<LoadIcon v-if="showLoadIcon"/>
+<div v-if="showInvalidCode">Invalid code</div>
 
 </template>
 
@@ -27,7 +27,7 @@ export default {
             showInvalidCode: false,
         };
     },
-    
+
     methods:
     {
         async onSubmit(event) {
@@ -36,11 +36,14 @@ export default {
             
             event.preventDefault();
             event.stopPropagation();
-        
-            // Show artificial loading screen
-            this.showLoadIcon = true,
-            await sleep(1000);
-            this.showLoadIcon = false;
+            
+            if (this.$refs.dmCode.value != "")
+            {
+                // Show artificial loading screen
+                this.showLoadIcon = true,
+                await sleep(1000);
+                this.showLoadIcon = false;
+            }
 
             let pathSplit = this.$route.path.split("/");
             let concat = pathSplit.slice(0, -1).join("/");
@@ -52,7 +55,6 @@ export default {
             else{
                 this.showInvalidCode = true;
             }
-
         },
 
         isValidRoute(path) {
@@ -66,8 +68,7 @@ export default {
 
             return false;
         }
-    }
-    
+    } 
 };
 
 </script>
