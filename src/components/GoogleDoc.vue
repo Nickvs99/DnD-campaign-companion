@@ -1,6 +1,6 @@
 <template>
     
-<LoadIcon ref="loadIcon"/>
+<LoadIcon v-if="showLoadIcon"/>
 <div ref="docWrapper" class="google-doc"></div>
     
 </template>
@@ -18,6 +18,11 @@ export default {
             type: String,
             required: true,
         },
+    },
+    data() {
+        return {
+            showLoadIcon: true,
+        };
     },
     mounted() {
         this.loadGoogleDoc();
@@ -38,7 +43,7 @@ export default {
 
                 docWrapper.appendChild(docElement);
 
-                this.$refs.loadIcon.$el.remove();
+                this.showLoadIcon = false;
             };
             xhr.send();
         },
