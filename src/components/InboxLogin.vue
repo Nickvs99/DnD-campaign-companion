@@ -7,21 +7,40 @@
         <button>Submit</button>        
     </form>
 
-    <div class="hidden" ref="invalidMessage">Invalid code</div>
+    <LoadIcon v-if="showLoadIcon"/>
+    <div v-if="showInvalidCode">Invalid code</div>
 
 </template>
 
 <script>
 
-import { hashCode } from "@/util.js";
+import LoadIcon from "@/components/LoadIcon.vue";
+import { sleep, hashCode } from "@/util.js";
 
 export default {
     name: "InboxLogin",
+    components: {LoadIcon},
+
+    data() {
+        return {
+            showLoadIcon: false,
+            showInvalidCode: false,
+        };
+    },
+    
     methods:
     {
-        onSubmit(event) {
+        async onSubmit(event) {
+            
+            this.showInvalidCode = false;
+            
             event.preventDefault();
             event.stopPropagation();
+        
+            // Show artificial loading screen
+            this.showLoadIcon = true,
+            await sleep(1000);
+            this.showLoadIcon = false;
 
             let pathSplit = this.$route.path.split("/");
             let concat = pathSplit.slice(0, -1).join("/");
@@ -31,7 +50,7 @@ export default {
                 this.$router.push(targetSlug);
             }
             else{
-                this.$refs.invalidMessage.classList.remove("hidden");
+                this.showInvalidCode = true;
             }
 
         },
