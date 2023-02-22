@@ -23,32 +23,44 @@ export default {
         return {
             showLoadIcon: true,
             loadMessage: "",
+            maxArtificialLoadTime: 2000,
         };
     },
     mounted() {
         this.loadGoogleDoc();
     },
+    unmounted() {
+        this.xhr.abort();
+    },
     
     methods: {
         async loadGoogleDoc() {
 
-            let xhr = new XMLHttpRequest();
-            xhr.open("GET", this.src, true);
-            xhr.onload = async () => {
 
-                this.loadMessage = "Fetching document";
-                await sleep(1000);
-                this.loadMessage = "Parsing data";
-                await sleep(1000);
+            this.xhr = new XMLHttpRequest();
+            this.xhr.open("GET", this.src, true);
+            this.xhr.onload = async () => {
+
+                // Calculate any possible remaining wait time
+                let artificialWaitTime = Math.max(this.maxArtificialLoadTime - (Date.now() - sendTime), 0);
+                await sleep(artificialWaitTime);
                 
                 let docWrapper = this.$refs.docWrapper;
-                let docElement = this.parseResponse(xhr.responseText);
+                let docElement = this.parseResponse(this.xhr.responseText);
 
                 docWrapper.appendChild(docElement);
 
                 this.showLoadIcon = false;
             };
-            xhr.send();
+
+            let sendTime = Date.now();
+            this.xhr.send();
+
+            // Display techy quotes on the load icon
+            this.loadMessage = "Fetching document";
+            await sleep(1000);
+            this.loadMessage = "Parsing data";
+            await sleep(1000);
         },
 
         parseResponse(response) {
