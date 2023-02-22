@@ -1,6 +1,6 @@
 <template>
     
-<LoadIcon v-if="showLoadIcon"/>
+<LoadIcon v-if="showLoadIcon" :message="this.loadMessage"/>
 <div ref="docWrapper" class="google-doc"></div>
     
 </template>
@@ -22,6 +22,7 @@ export default {
     data() {
         return {
             showLoadIcon: true,
+            loadMessage: "",
         };
     },
     mounted() {
@@ -35,8 +36,10 @@ export default {
             xhr.open("GET", this.src, true);
             xhr.onload = async () => {
 
-                // TEMP
-                await sleep(2000);
+                this.loadMessage = "Fetching document";
+                await sleep(1000);
+                this.loadMessage = "Parsing data";
+                await sleep(1000);
                 
                 let docWrapper = this.$refs.docWrapper;
                 let docElement = this.parseResponse(xhr.responseText);

@@ -7,7 +7,7 @@
     <button>Submit</button>        
 </form>
 
-<LoadIcon v-if="showLoadIcon"/>
+<LoadIcon v-if="showLoadIcon" :message="this.loadMessage"/>
 <div v-if="showInvalidCode">Invalid code</div>
 
 </template>
@@ -25,6 +25,7 @@ export default {
         return {
             showLoadIcon: false,
             showInvalidCode: false,
+            loadMessage: "",
         };
     },
 
@@ -37,19 +38,33 @@ export default {
             event.preventDefault();
             event.stopPropagation();
             
-            if (this.$refs.dmCode.value != "")
-            {
-                // Show artificial loading screen
-                this.showLoadIcon = true,
-                await sleep(1000);
-                this.showLoadIcon = false;
-            }
-
             let pathSplit = this.$route.path.split("/");
             let concat = pathSplit.slice(0, -1).join("/");
             let targetSlug = concat + "/messages/" + hashCode(this.$refs.personalCode.value + this.$refs.dmCode.value);
             
-            if(this.isValidRoute(targetSlug)) {
+            let validRoute = this.isValidRoute(targetSlug);
+
+            if (this.$refs.dmCode.value != "")
+            {
+                // Show artificial loading screen
+                this.showLoadIcon = true,
+
+                this.loadMessage = "Encrypting code";
+                await sleep(1000);
+
+                this.loadMessage = "Validating code";
+                await sleep(1000);
+
+                if(validRoute) {
+                    this.loadMessage = "Fetching message";
+                    await sleep(1000);                    
+                }
+
+                this.showLoadIcon = false;
+            }
+
+
+            if(validRoute) {
                 this.$router.push(targetSlug);
             }
             else{
