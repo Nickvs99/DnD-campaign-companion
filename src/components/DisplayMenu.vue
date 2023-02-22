@@ -23,7 +23,7 @@ export default {
                 return this.$route.path + target;
             }
             else {
-                return this.$route.path + "/" + target;
+                return this.$route.path + "/" + target.replace(" ", "%20");
             }
         }
     }

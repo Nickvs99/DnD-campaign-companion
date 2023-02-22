@@ -17,7 +17,7 @@ export function addStructureToRoutes(routes, structure, prefix="") {
         
         const value = structure[key];
 
-        const slug = `${prefix}/${key}`;
+        const slug = `${prefix}/${key}`.replace(" ", "%20");
 
         // Catch invalid codes 
         if(key === "messages") {
