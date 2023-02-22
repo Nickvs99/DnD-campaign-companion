@@ -21,6 +21,7 @@ export default {
     },
     data() {
         return {
+            isDestroyed: false,
             showLoadIcon: true,
             loadMessage: "",
             maxArtificialLoadTime: 2000,
@@ -31,6 +32,7 @@ export default {
     },
     unmounted() {
         this.xhr.abort();
+        this.isDestroyed = true;
     },
     
     methods: {
@@ -45,6 +47,11 @@ export default {
                 let artificialWaitTime = Math.max(this.maxArtificialLoadTime - (Date.now() - sendTime), 0);
                 await sleep(artificialWaitTime);
                 
+                // This component might be destroyed during the delays
+                if (this.isDestroyed) {
+                    return;
+                }
+
                 let docWrapper = this.$refs.docWrapper;
                 let docElement = this.parseResponse(this.xhr.responseText);
 
