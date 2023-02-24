@@ -1,7 +1,3 @@
-export function sleep(ms) {
-    return new Promise(r => setTimeout(r, ms));
-};
-
 export function hashCode(str) {
     let hash = 0;
     for (let i = 0, len = str.length; i < len; i++) {
@@ -11,3 +7,11 @@ export function hashCode(str) {
     }
     return hash;
 }
+
+export function randomUniform(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
+export function sleep(ms) {
+    return new Promise(r => setTimeout(r, ms));
+};

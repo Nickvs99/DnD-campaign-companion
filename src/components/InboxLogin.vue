@@ -15,7 +15,7 @@
 <script>
 
 import LoadIcon from "@/components/LoadIcon.vue";
-import { sleep, hashCode } from "@/util.js";
+import { hashCode, randomUniform, sleep } from "@/util.js";
 
 export default {
     name: "InboxLogin",
@@ -50,14 +50,14 @@ export default {
                 this.showLoadIcon = true,
 
                 this.loadMessage = "Encrypting code";
-                await sleep(1000);
+                await sleep(randomUniform(500, 750));
 
                 this.loadMessage = "Validating code";
-                await sleep(1000);
+                await sleep(randomUniform(1500, 3500));
 
                 if(validRoute) {
                     this.loadMessage = "Fetching message";
-                    await sleep(1000);                    
+                    await sleep(randomUniform(500, 750));                    
                 }
 
                 this.showLoadIcon = false;

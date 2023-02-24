@@ -8,7 +8,7 @@
 <script>
 
 import LoadIcon from "@/components/LoadIcon.vue";
-import {sleep} from "@/util.js";
+import {randomUniform, sleep} from "@/util.js";
 
 export default {
     name: "GoogleDoc",
@@ -24,7 +24,7 @@ export default {
             isDestroyed: false,
             showLoadIcon: true,
             loadMessage: "",
-            maxArtificialLoadTime: 2000,
+            maxArtificialLoadTime: randomUniform(2500, 4000),
         };
     },
     mounted() {
@@ -65,9 +65,10 @@ export default {
 
             // Display techy quotes on the load icon
             this.loadMessage = "Fetching document";
-            await sleep(1000);
+            await sleep(randomUniform(1500, 2500));
+            
+            // Final load message
             this.loadMessage = "Parsing data";
-            await sleep(1000);
         },
 
         parseResponse(response) {
