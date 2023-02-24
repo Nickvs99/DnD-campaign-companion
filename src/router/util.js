@@ -6,12 +6,25 @@ import { Endpoint } from "@/router/endPoint.js";
 export function addStructureToRoutes(routes, structure, prefix="") {
 
     // Create a DisplayMenu to navigate the site
-    let items = Object.keys(structure);
+    let keys = Object.keys(structure);
 
     // Remove messages from the click-through items
-    items = items.filter(item => item !== "messages");
+    keys = keys.filter(key => key !== "messages");
 
-    routes.push({path: prefix, component: DisplayMenu, props: {items: items}});
+    // Check if there is only one item to click through, automatically forward if so
+    if(keys.length == 1 && structure[keys[0]].constructor == Object) {
+        let key = keys[0];
+        let value = structure[keys[0]];
+
+        const slug = `${prefix}/${key}`.replace(" ", "%20");
+
+        // 
+        routes.push({path: prefix, redirect: slug});
+        addStructureToRoutes(routes, value, slug);
+        return;
+    }
+
+    routes.push({path: prefix, component: DisplayMenu, props: {items: keys}});
 
     for(const key in structure) {
         

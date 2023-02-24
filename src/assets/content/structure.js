@@ -32,14 +32,16 @@ export const structure = {
         "messages": CreateMessageRoutes(lenovaMessages, lenovaPersonalCodes),       
     },
     "Characters": {
-        "Balro": TempView,
-        "Siren": TempView,
-        "Ginger": TempView,
-        "Grug": TempView,
-        "Safqwyn": {
-            "Druid": TempView,
-            "Fighter": TempView,
-        }
+        "empty": {
+            "Balro": TempView,
+            "Siren": TempView,
+            "Ginger": TempView,
+            "Grug": TempView,
+            "Safqwyn": {
+                "Druid": TempView,
+                "Fighter": TempView,
+            }
+        },
     },
     "Julia": TempView,  
 };
