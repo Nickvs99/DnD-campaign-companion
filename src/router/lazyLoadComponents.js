@@ -8,5 +8,5 @@ export const Component = Object.freeze({
     ImageDoc: "components/ImageDoc.vue",
     InboxLogin: "components/InboxLogin.vue",
     MailBox: "components/MailBox.vue",
-    TempView: "views/TempView.vue",
+    UnderConstructionView: "views/UnderConstructionView.vue",
 });

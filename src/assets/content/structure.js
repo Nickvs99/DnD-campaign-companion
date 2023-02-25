@@ -27,17 +27,17 @@ export const structure = {
     },
     "Characters": {
         "empty": {
-            "Balro": new Endpoint(Component.TempView),
-            "Siren": new Endpoint(Component.TempView),
-            "Ginger": new Endpoint(Component.TempView),
-            "Grug": new Endpoint(Component.TempView),
+            "Balro": new Endpoint(Component.UnderConstructionView),
+            "Siren": new Endpoint(Component.UnderConstructionView),
+            "Ginger": new Endpoint(Component.UnderConstructionView),
+            "Grug": new Endpoint(Component.UnderConstructionView),
             "Safqwyn": {
-                "Druid": new Endpoint(Component.TempView),
-                "Fighter": new Endpoint(Component.TempView),
+                "Druid": new Endpoint(Component.UnderConstructionView),
+                "Fighter": new Endpoint(Component.UnderConstructionView),
             }
         },
     },
-    "Julia": new Endpoint(Component.TempView),  
+    "Julia": new Endpoint(Component.UnderConstructionView),  
 };
 
 function CreateMessageRoutes(messageData, validPersonalCodes) {
