@@ -6,44 +6,38 @@
  * img sources should be relative to "@/assets/images"
  */
 
-import ExpandableImage from "@/components/ExpandableImage.vue";
-import GoogleDoc from "@/components/GoogleDoc.vue";
-import ImageDoc from "@/components/ImageDoc.vue";
-import InboxLogin from "@/components/InboxLogin.vue";
-import MailBox from "@/components/MailBox.vue";
-
-import TempView from "@/views/TempView.vue";
-
 import { Endpoint } from "@/router/endPoint.js";
+import { Component } from "@/router/lazyLoadComponents";
 import { hashCode } from "@/util.js";
 
 import { lenovaPersonalCodes, lenovaMessages } from "@/assets/content/lenovaMessages.js";
 
 export const structure = {
     "Lenova": {
-        "Session recap": new Endpoint(GoogleDoc, {"src": "https://docs.google.com/document/d/e/2PACX-1vQntHl593EJQ8-uDr3-RxkAVt82--xxKyMOHRISDrqJSSVnXrB2DdhyQeDUFNOIWXv_q6LBTDX7PRUu/pub?embedded=true"}),
+        "Session recap": new Endpoint(Component.GoogleDoc, {"src": "https://docs.google.com/document/d/e/2PACX-1vQntHl593EJQ8-uDr3-RxkAVt82--xxKyMOHRISDrqJSSVnXrB2DdhyQeDUFNOIWXv_q6LBTDX7PRUu/pub?embedded=true"}),
         "Maps": {
-            "Overview": new Endpoint(ImageDoc, {"docSrc": "https://docs.google.com/document/d/e/2PACX-1vQntHl593EJQ8-uDr3-RxkAVt82--xxKyMOHRISDrqJSSVnXrB2DdhyQeDUFNOIWXv_q6LBTDX7PRUu/pub?embedded=true",
-                "imgSrc": "lenova/worldmap.jpg"},
-            ),
-            "Virdos": new Endpoint(ExpandableImage, {"src": "lenova/virdos.jpg"})
+            "Overview": new Endpoint(Component.ImageDoc, {
+                "docSrc": "https://docs.google.com/document/d/e/2PACX-1vQntHl593EJQ8-uDr3-RxkAVt82--xxKyMOHRISDrqJSSVnXrB2DdhyQeDUFNOIWXv_q6LBTDX7PRUu/pub?embedded=true",
+                "imgSrc": "lenova/worldmap.jpg"
+            }),
+            "Virdos": new Endpoint(Component.ExpandableImage, {"src": "lenova/virdos.jpg"})
         },
-        "Inbox": InboxLogin,
+        "Inbox": new Endpoint(Component.InboxLogin),
         "messages": CreateMessageRoutes(lenovaMessages, lenovaPersonalCodes),       
     },
     "Characters": {
         "empty": {
-            "Balro": TempView,
-            "Siren": TempView,
-            "Ginger": TempView,
-            "Grug": TempView,
+            "Balro": new Endpoint(Component.TempView),
+            "Siren": new Endpoint(Component.TempView),
+            "Ginger": new Endpoint(Component.TempView),
+            "Grug": new Endpoint(Component.TempView),
             "Safqwyn": {
-                "Druid": TempView,
-                "Fighter": TempView,
+                "Druid": new Endpoint(Component.TempView),
+                "Fighter": new Endpoint(Component.TempView),
             }
         },
     },
-    "Julia": TempView,  
+    "Julia": new Endpoint(Component.TempView),  
 };
 
 function CreateMessageRoutes(messageData, validPersonalCodes) {
@@ -75,7 +69,7 @@ function CreateMessageRoutes(messageData, validPersonalCodes) {
     let routes = {};
     for(let hash in messageMap)
     {
-        routes[hash] = new Endpoint(MailBox, {"messages": messageMap[hash]});
+        routes[hash] = new Endpoint(Component.MailBox, {"messages": messageMap[hash]});
     }
 
     return routes;
