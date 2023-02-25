@@ -1,8 +1,10 @@
 <template>
-    
-<LoadIcon v-if="showLoadIcon" :message="this.loadMessage"/>
-<div ref="docWrapper" class="google-doc"></div>
-    
+
+<div>
+    <LoadIcon v-if="showLoadIcon" :message="this.loadMessage"/>
+    <div ref="docWrapper" class="google-doc"></div>
+</div>
+
 </template>
 
 <script>

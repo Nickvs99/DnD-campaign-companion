@@ -1,7 +1,8 @@
 <template>
-
 <div ref="messageWrapper">
-    {{  message }}
+    
+    {{ message }}
+    
 </div>
 
 </template>
@@ -27,7 +28,8 @@ export default {
 
     methods: {
         setMessageStyle() {
-            this.$refs.messageWrapper.classList.add(`${this.messageStyle}-style`);
+            let messageStyle = this.messageStyle === "" ? "default" : this.messageStyle;
+            this.$refs.messageWrapper.classList.add(`${messageStyle}-style`);
         }
     }
 };

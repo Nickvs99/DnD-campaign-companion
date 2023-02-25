@@ -1,6 +1,8 @@
 <template>
 
-<MessageBox v-for="message in messages" :key="message" :message="message.message" :messageStyle="message.messageStyle"></MessageBox>
+<div>
+    <MessageBox v-for="message in messages" :key="message" :message="message.message" :messageStyle="message.messageStyle"></MessageBox>
+</div>
 
 </template> 
 

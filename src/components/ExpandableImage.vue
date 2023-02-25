@@ -1,5 +1,9 @@
 <template>
+
+<div>
     <img :src="src" class="image"/>
+</div>
+
 </template>
 
 <script>

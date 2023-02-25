@@ -1,6 +1,10 @@
 <template>
+
+<div>
     <ExpandableImage :src="imgSrc"/>
     <GoogleDoc :src="docSrc"/>
+</div>
+
 </template>
 
 <script>

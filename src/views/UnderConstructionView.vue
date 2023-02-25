@@ -1,6 +1,8 @@
 <template>
 
-<h1>Binnenkort beschikbaar</h1>
+<div>
+    <h1>Binnenkort beschikbaar</h1>
+</div>
 
 </template>
 
