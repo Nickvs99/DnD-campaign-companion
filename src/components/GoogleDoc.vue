@@ -115,8 +115,12 @@ export default {
         background: none !important;
     }
 
+    body {
+        margin: 0;
+    }
+
     .doc-content {
-        padding: 5%;
+        padding: 0;
         max-width: inherit;
     }
 }
