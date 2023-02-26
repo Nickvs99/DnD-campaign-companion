@@ -24,7 +24,14 @@ export function addStructureToRoutes(routes, structure, prefix="") {
         return;
     }
 
-    routes.push({path: prefix, component: DisplayMenu, props: {items: keys}});
+    if(prefix.endsWith("messages")) {
+        // Redirect to inbox
+        let redirectPath = prefix.split("/").slice(0, -1).join("/") + "/Inbox";
+        routes.push({path: prefix, redirect: redirectPath});
+    }
+    else {
+        routes.push({path: prefix, component: DisplayMenu, props: {items: keys}});
+    }
 
     for(const key in structure) {
         
