@@ -1,7 +1,9 @@
 <template>
 
 <nav class="navbar">
-    <router-link class="navbar-item" v-for="item in navBarItems" :to="item.to" :key="item.to"> {{ item.text }} </router-link>
+    <TransitionGroup name="slide">
+            <router-link class="navbar-item" v-for="item in navBarItems" :to="item.to" :key="item.to"> {{ item.text }} </router-link>
+    </TransitionGroup>
 </nav>
 
 </template>
@@ -42,17 +44,34 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss">
 
 .navbar { 
     overflow:scroll;
     white-space: nowrap;
+
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+
+    &::-webkit-scrollbar { 
+        display: none;  /* Safari and Chrome */
+    }
 }
 
 .navbar-item {
+    display: inline-block;
     font-size: 3rem;
     background-color: aquamarine;
     border: 1px solid;
+}
+
+.slide-enter-active, .slide-leave-active {
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.slide-enter-from, .slide-leave-to {
+    opacity: 0;
+    transform: translateX(300px);
 }
 
 </style>
