@@ -61,8 +61,7 @@ export default {
 .navbar-item {
     display: inline-block;
     font-size: 3rem;
-    background-color: aquamarine;
-    border: 1px solid;
+    border: 1px solid;    
 }
 
 .slide-enter-active, .slide-leave-active {

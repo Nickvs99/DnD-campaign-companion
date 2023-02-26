@@ -51,7 +51,6 @@ export default {
 <style>
 
 .menu-wrapper {
-    background-color: olive;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -59,9 +58,10 @@ export default {
 }
 
 .menu-item {
-    background-color: firebrick;
     display: flex;
     align-items: center;
+
+    font-size: 3em;
 }
 
 </style>

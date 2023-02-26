@@ -47,7 +47,6 @@ export default {
 
 .load-icon-wrapper {
     height: 200px;
-    background-color: rebeccapurple;
 
     display:flex;
     flex-direction: column;
@@ -74,7 +73,6 @@ export default {
 }
 
 .load-message {
-    color: white;
     font-size: 1.5rem;
 }
 

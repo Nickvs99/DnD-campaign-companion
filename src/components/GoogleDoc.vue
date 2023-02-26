@@ -111,8 +111,8 @@ export default {
     
     // Overwrite default css applied by google
     * {
-    color: gold !important;
-    background-color: black !important;        
+        color: var(--secondary-color) !important;
+        background-color: var(--primary-color) !important;        
     }
 
     .doc-content {
