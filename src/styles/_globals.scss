@@ -1,33 +1,33 @@
 :root{
-    --primary-color: #333;
-    --secondary-color: #ffd400;
+    --font-color: #ffd400;
+    --gradient-color-primary: #666;
+    --gradient-color-secondary: #333;
 }
 
 a {
-    color: var(--secondary-color);
+    color: var(--font-color);
 }
 
 body {
     margin: 0;
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
+    color: var(--font-color);
 }
 
 button {
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    border-color: var(--secondary-color);
+    background: none;
+    color: var(--font-color);
+    border-color: var(--font-color);
     border-style: solid;
 }
 
 input {
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    border-color: var(--secondary-color);
+    background: none;
+    color: var(--font-color);
+    border-color: var(--font-color);
     border-style: solid;
 
     &::placeholder{
-        color: var(--secondary-color);
+        color: var(--font-color);
     }
 }
 

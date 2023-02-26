@@ -1,5 +1,6 @@
 <template>
 
+<BackGround />
 <NavBar />
 <router-view v-slot="{Component}">
     <transition name="fade" mode="out-in">
@@ -10,11 +11,12 @@
 </template>
 
 <script>
+import BackGround from "@/components/BackGround.vue";
 import NavBar from "@/components/NavBar.vue";
 
 export default {
     name: "App",
-    components: {NavBar}
+    components: {BackGround, NavBar}
 };
 </script>
 
