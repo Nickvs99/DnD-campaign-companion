@@ -3,9 +3,11 @@
 <BackGround />
 <NavBar />
 <router-view v-slot="{Component}">
-    <transition name="fade" mode="out-in">
-        <component :is="Component" :key="$route.path"></component>
-    </transition>
+    <div class="content-wrapper" ref="contentWrapper">
+        <transition name="fade" mode="out-in">
+                <component :is="Component" :key="$route.path"></component>
+        </transition>
+    </div>
 </router-view>
 
 </template>
@@ -16,11 +18,33 @@ import NavBar from "@/components/NavBar.vue";
 
 export default {
     name: "App",
-    components: {BackGround, NavBar}
+    components: {BackGround, NavBar},
+    mounted(){
+        window.addEventListener("resize", this.setMinHeight);
+        this.setMinHeight();
+    },
+    unmounted() {
+        window.removeEventListener("resize", this.setMinHeight);
+    },
+    methods: {
+        
+        /**
+         * Sets mimimum height such that it fills remaining height to the bottom
+         */
+        setMinHeight() {
+            let el = this.$refs.contentWrapper;
+            el.style.minHeight = (document.documentElement.clientHeight - el.offsetTop) + "px";
+        },
+    },
 };
+
 </script>
 
 <style lang="scss">
+
+.content-wrapper {
+    position: relative;
+}
 
 .fade-enter-active, .fade-leave-active {
     transition: opacity 0.3s;

@@ -15,14 +15,6 @@ export default {
             required: true
         }
     },
-    mounted(){
-        window.addEventListener("resize", this.setMinHeight);
-        this.setMinHeight();
-    },
-    unmounted() {
-        window.removeEventListener("resize", this.setMinHeight);
-    },
-
     methods: {
 
         /**
@@ -37,13 +29,6 @@ export default {
                 return this.$route.path + "/" + target.replace(" ", "%20");
             }
         },
-
-        /**
-         * Sets mimimum height such that it fills remaining height to the bottom
-         */
-        setMinHeight() {
-            this.$el.style.minHeight = (document.documentElement.clientHeight - this.$el.offsetTop) + "px";
-        }
     }
 };
 </script>
@@ -51,6 +36,8 @@ export default {
 <style>
 
 .menu-wrapper {
+    min-height: inherit;
+    
     display: flex;
     flex-direction: column;
     align-items: center;
