@@ -60,8 +60,14 @@ export default {
 
 .navbar-item {
     display: inline-block;
-    font-size: 3rem;
-    border: 1px solid;    
+    font-size: 2rem;
+
+    text-decoration: none;
+
+    &:not(:first-child)::before{
+        content: "\2219"; // Thick dot
+        margin: 0.25em;
+    }
 }
 
 .slide-enter-active, .slide-leave-active {
