@@ -1,7 +1,7 @@
 <template>
 
-<div>
-    <form v-on:submit="onSubmit">
+<div class="inbox-wrapper">
+    <form v-on:submit="onSubmit" class="login-form">
         <input ref="personalCode" placeholder="Personal code" type="text" />
         <input ref="dmCode" placeholder="DM code" type="text" />
 
@@ -11,7 +11,6 @@
     <LoadIcon v-if="showLoadIcon" :message="this.loadMessage"/>
     <div v-if="showInvalidCode">Invalid code</div>
 </div>
-
 
 </template>
 
@@ -90,3 +89,27 @@ export default {
 };
 
 </script>
+
+<style lang="scss">
+
+@import "@/styles/mixins.scss";
+
+.inbox-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 75%;
+    max-width: 20rem;
+
+    @include center-to-screen;
+}
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+}
+
+</style>

@@ -14,20 +14,49 @@ body {
 }
 
 button {
-    background: none;
+    background-color: rgba(0, 0, 0, 0.15);
     color: var(--font-color);
-    border-color: var(--font-color);
-    border-style: solid;
+    
+    border: solid 1px var(--font-color);
+    border-radius: 3px;
+    
+    font-size: 1rem;
+    padding: 1em;
+
+    transition: background-color 0.5s ease-out, color 0.5s ease-out;
+
+    &:focus-visible, &:active {
+        background-color: var(--font-color);
+        color: var(--gradient-color-primary); // Should ideally be see through
+        outline: none;
+    }
 }
 
-input {
-    background: none;
+input[type=text] {
+    background-color: rgba(0, 0, 0, 0.15);
     color: var(--font-color);
-    border-color: var(--font-color);
-    border-style: solid;
 
-    &::placeholder{
+    border: none;
+    border-radius: 3px;
+    border-color: transparent;
+    
+    font-size: 1rem;
+    padding: 1em;
+
+    transition: border-color 500ms ease-out;
+
+    &::placeholder {
         color: var(--font-color);
+    }
+
+    &:focus-visible {
+        border: solid 1px;
+        border-color:  var(--font-color);
+        outline: none;
+
+        &::placeholder {
+            color: transparent;
+        }
     }
 }
 
