@@ -4,10 +4,10 @@
  */
 export const Component = Object.freeze({
     AccessDenied: "views/AccessDenied.vue",
+    DisplayInbox: "components/DisplayInbox.vue",
     ExpandableImage: "components/ExpandableImage.vue",
     GoogleDoc: "components/GoogleDoc.vue",
     ImageDoc: "components/ImageDoc.vue",
     InboxLogin: "components/InboxLogin.vue",
-    MailBox: "components/MailBox.vue",
     UnderConstructionView: "views/UnderConstructionView.vue",
 });

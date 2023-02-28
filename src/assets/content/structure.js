@@ -69,7 +69,7 @@ function CreateMessageRoutes(messageData, validPersonalCodes) {
     let routes = {};
     for(let hash in messageMap)
     {
-        routes[hash] = new Endpoint(Component.MailBox, {"messages": messageMap[hash]});
+        routes[hash] = new Endpoint(Component.DisplayInbox, {"messages": messageMap[hash]});
     }
 
     return routes;
