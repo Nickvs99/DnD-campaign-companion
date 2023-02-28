@@ -3,15 +3,19 @@
 <div class="menu-wrapper">
     <template v-for="(item, index) in items" :key="item">
         <router-link class="menu-item"  :to="getTo(item)"> {{ item }} </router-link>
-        <div class="menu-item-seperator" v-if="index != items.length - 1"></div>
+        <HorizontalBar v-if="index != items.length - 1"/>
     </template>
 </div>
 
 </template>
 
 <script>
+
+import HorizontalBar from "@/components/HorizontalBar.vue";
+
 export default {
     name: "DisplayMenu",
+    components: { HorizontalBar },
     props: {
         items: {
             type: Array,
@@ -56,12 +60,6 @@ export default {
     text-decoration: none;
 
     margin: 0.33em;
-}
-
-.menu-item-seperator {
-    width: 66.66%;
-    height: 2px;
-    background: linear-gradient(to right, transparent, var(--font-color), transparent);
 }
 
 </style>
