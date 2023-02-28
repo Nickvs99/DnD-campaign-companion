@@ -1,5 +1,5 @@
 import DisplayMenu from "@/components/DisplayMenu.vue";
-import InvalidCodeView from "@/views/InvalidCodeView.vue";
+import { Component } from "@/router/lazyLoadComponents.js";
 
 import { Endpoint } from "@/router/endPoint.js";
 
@@ -39,9 +39,9 @@ export function addStructureToRoutes(routes, structure, prefix="") {
 
         const slug = `${prefix}/${key}`.replace(" ", "%20");
 
-        // Catch invalid codes 
-        if(key === "messages") {
-            routes.push({path: `${slug}/:code`, component: InvalidCodeView});
+        // Restrict certain keys 
+        if(["messages", "Julia"].includes(key)) {
+            routes.push({path: `${slug}/:param`, component: () => import(`@/${Component.AccessDenied}`)});
         }
 
         // Check if value is a vue component

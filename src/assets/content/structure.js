@@ -37,7 +37,7 @@ export const structure = {
             }
         },
     },
-    "Julia": new Endpoint(Component.UnderConstructionView),  
+    "Julia": new Endpoint(Component.AccessDenied),  
 };
 
 function CreateMessageRoutes(messageData, validPersonalCodes) {
