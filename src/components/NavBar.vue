@@ -50,6 +50,8 @@ export default {
     overflow:scroll;
     white-space: nowrap;
 
+    -webkit-tap-highlight-color: transparent;
+
     -ms-overflow-style: none;  /* Internet Explorer 10+ */
     scrollbar-width: none;  /* Firefox */
 

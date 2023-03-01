@@ -60,6 +60,8 @@ export default {
     text-decoration: none;
 
     margin: 0.33em;
+
+    -webkit-tap-highlight-color: transparent;
 }
 
 </style>
