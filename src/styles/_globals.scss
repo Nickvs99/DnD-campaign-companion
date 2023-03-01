@@ -17,7 +17,7 @@ button {
     background-color: rgba(0, 0, 0, 0.15);
     color: var(--font-color);
     
-    border: solid 1px var(--font-color);
+    border: solid 2px var(--font-color);
     border-radius: 3px;
     
     font-size: 1rem;
@@ -38,22 +38,22 @@ input[type=text] {
 
     border: none;
     border-radius: 3px;
-    border-color: transparent;
+
+    outline: solid 2px;
+    outline-color: transparent;
     
     font-size: 1rem;
     padding: 1em;
 
-    transition: border-color 500ms ease-out;
+    transition: outline-color 500ms ease-out;
 
     &::placeholder {
         color: var(--font-color);
     }
 
     &:focus-visible {
-        border: solid 1px;
-        border-color:  var(--font-color);
-        outline: none;
-
+        outline-color: var(--font-color);
+        
         &::placeholder {
             color: transparent;
         }
