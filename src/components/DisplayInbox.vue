@@ -1,18 +1,22 @@
 <template>
 
 <div>
-    <MessageBox v-for="message in messages" :key="message" :message="message.message" :messageStyle="message.messageStyle"></MessageBox>
+    <template v-for="(message, index) in messages" :key="message">
+        <MessageBox :message="message.message" :messageStyle="message.messageStyle"></MessageBox>
+        <HorizontalBar v-if="index != messages.length - 1"/>
+    </template>
 </div>
 
 </template> 
 
 <script>
 
+import HorizontalBar from "./HorizontalBar.vue";
 import MessageBox from "@/components/MessageBox.vue";
 
 export default {
     name: "MailBox",
-    components: {MessageBox},
+    components: {HorizontalBar, MessageBox},
     props: {
         "messages": {
             type: Array,

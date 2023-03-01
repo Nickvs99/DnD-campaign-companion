@@ -14,7 +14,7 @@ export const lenovaPersonalCodes = [
  * Index 3: message style
  */
 export const lenovaMessages = [
-    ["", "", "This is a global message", ""],
+    ["", "", "Hi, <br><br> This is a global message. <br><br> Kind regards, <br> Alvyn", ""],
     ["Balro", "", "This is a personal message", "child"],
     ["", "Bonjour", "This is a secret note", ""],
     ["Balro", "Secret", "This is a personal message", ""],

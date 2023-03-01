@@ -1,9 +1,6 @@
 <template>
-<div ref="messageWrapper">
-    
-    {{ message }}
-    
-</div>
+
+<p ref="messageWrapper" class="message-wrapper"></p>
 
 </template>
 
@@ -23,6 +20,7 @@ export default {
     },
 
     mounted() {
+        this.$refs.messageWrapper.innerHTML = this.message;
         this.setMessageStyle();
     },
 
@@ -37,6 +35,10 @@ export default {
 </script>
 
 <style lang="scss">
+
+.message-wrapper {
+    margin: 2rem 0;
+}
     
 .default-style {
     font: inherit;
