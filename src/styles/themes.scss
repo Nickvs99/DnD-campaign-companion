@@ -1,12 +1,20 @@
-#app, #app[theme="default"] {
+@import "@/styles/_houdini.scss";
+
+#app {  
+    color: var(--font-color);
+    font-family: var(--font-family);
+
+    transition: --font-color, --gradient-color-primary, --gradient-color-secondary;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+}
+
+#app[theme="default"] {
     --font-color: #ffd400;
     --gradient-color-primary: #3b0066;
     --gradient-color-secondary: #333;
 
     --font-family: Garamond, serif;
-
-    color: var(--font-color);
-    font-family: var(--font-family);
 }
 
 #app[theme="grug"] {
@@ -14,7 +22,7 @@
 }
 
 #app[theme="lenova"] {
+    --font-color: black;
     --gradient-color-primary: green;
     --gradient-color-secondary: aquamarine;
-    --font-color: black;
 }

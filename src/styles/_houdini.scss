@@ -1,0 +1,17 @@
+@property --font-color {
+    syntax: '<color>';
+    initial-value: #ffd400;
+    inherits: true;
+}
+
+@property --gradient-color-primary {
+    syntax: '<color>';
+    initial-value: #3b0066;
+    inherits: true;
+}
+
+@property --gradient-color-secondary {
+    syntax: '<color>';
+    initial-value: #333;
+    inherits: true;
+}
