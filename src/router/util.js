@@ -3,6 +3,8 @@ import { Component } from "@/router/lazyLoadComponents.js";
 
 import { Endpoint } from "@/router/endPoint.js";
 
+import { Theme } from "@/assets/content/themes.js";
+
 export function addStructureToRoutes(routes, structure, prefix="") {
 
     // Create a DisplayMenu to navigate the site
@@ -58,10 +60,57 @@ export function addStructureToRoutes(routes, structure, prefix="") {
     }
 }
 
+/**
+ * Create an object which follows the same tree structure as 'structure'.
+ * Except each key branch gets an additional leaf. All leaves are intitialized
+ * to the default theme.
+ */
+export function createThemeTreeStructure(themeStructure, structure) {
 
-//TEMP import
-import { Theme } from "@/assets/content/themes";
+    for(let key in structure) {
+        let value = structure[key];
+
+
+        if (typeof value === "function" || value instanceof Endpoint) {
+            themeStructure[key] = Theme.Default;
+            continue;
+        }
+        themeStructure[key] = {"": Theme.Default};
+
+        createThemeTreeStructure(themeStructure[key], value);
+    }
+
+    return themeStructure;
+}
+
+/**
+ * Get the appropiate theme from the path. The path is split. These items are
+ * used to traverse the themeStructure, until all items have been enumerated.
+ * If the end is a string, then that is simply the theme name, if not it can be
+ * an object. Then we take the empty string as a key for its theme name.
+ */
 export function getTheme(themeStructure, path) {
-    console.log(themeStructure, path);
-    return Theme.Grug;
+
+    let tempStructure = themeStructure;
+    let pathSplit = path.split("/").filter(item => item != "");
+
+    for(let item of pathSplit) {
+
+        if (item in tempStructure) {
+            tempStructure = tempStructure[item];
+        }
+        else {
+            return Theme.Default;
+        }
+    }
+    
+    if(typeof tempStructure === "string") {
+        return tempStructure;
+    }
+
+    if ("" in tempStructure) {
+        return tempStructure[""];
+    }
+
+    return Theme.Default;
 }

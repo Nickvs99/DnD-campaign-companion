@@ -12,3 +12,9 @@
 #app[theme="grug"] {
     --gradient-color-primary: darkred;
 }
+
+#app[theme="lenova"] {
+    --gradient-color-primary: green;
+    --gradient-color-secondary: aquamarine;
+    --font-color: black;
+}

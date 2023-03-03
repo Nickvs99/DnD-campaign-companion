@@ -1,5 +1,7 @@
 
 import { structure } from "@/assets/content/structure.js";
+import { createThemeTreeStructure } from "@/router/util.js";
+import { Theme } from "@/assets/content/themes.js";
 
 /**
  * Follows the tree-structure of structure.js. The one exeptions is that each key gets
@@ -8,8 +10,11 @@ import { structure } from "@/assets/content/structure.js";
  */
 let themeStructure = {};
 
-themeStructure = structure;
+createThemeTreeStructure(themeStructure, structure);
 
-console.log("THEME");
+
+// Overrides
+themeStructure["Characters"]["empty"]["Grug"] = Theme.Grug;
+themeStructure["Lenova"][""] = Theme.Lenova;
 
 export { themeStructure };
