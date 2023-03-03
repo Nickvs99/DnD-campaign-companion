@@ -1,0 +1,14 @@
+#app, #app[theme="default"] {
+    --font-color: #ffd400;
+    --gradient-color-primary: #3b0066;
+    --gradient-color-secondary: #333;
+
+    --font-family: Garamond, serif;
+
+    color: var(--font-color);
+    font-family: var(--font-family);
+}
+
+#app[theme="grug"] {
+    --gradient-color-primary: darkred;
+}

@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import { structure } from "@/assets/content/structure.js";
-import { addStructureToRoutes } from "@/router/util.js";
+import { addStructureToRoutes, getTheme } from "@/router/util.js";
+import { themeStructure } from "@/assets/content/themeStructure";
 
 /**
  * These routes are manually added and should only be added if it does not follow
@@ -42,7 +43,12 @@ router.beforeEach((to) => {
     if (to.query.redirect) {
         let direct = to.query.redirect.replace(" ", "%20");
         router.replace(direct);
+        return;
     }
+
+    // Apply styling according to the themestructure
+    let theme = getTheme(themeStructure, to.fullPath);
+    document.getElementById("app").setAttribute("theme", theme);
 });
 
 export default router;

@@ -57,3 +57,11 @@ export function addStructureToRoutes(routes, structure, prefix="") {
         }
     }
 }
+
+
+//TEMP import
+import { Theme } from "@/assets/content/themes";
+export function getTheme(themeStructure, path) {
+    console.log(themeStructure, path);
+    return Theme.Grug;
+}
