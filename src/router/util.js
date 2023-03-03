@@ -20,7 +20,6 @@ export function addStructureToRoutes(routes, structure, prefix="") {
 
         const slug = `${prefix}/${key}`.replace(" ", "%20");
 
-        // 
         routes.push({path: prefix, redirect: slug});
         addStructureToRoutes(routes, value, slug);
         return;
@@ -62,25 +61,45 @@ export function addStructureToRoutes(routes, structure, prefix="") {
 
 /**
  * Create an object which follows the same tree structure as 'structure'.
- * Except each key branch gets an additional leaf. All leaves are intitialized
- * to the default theme.
+ * Except each key branch gets an additional leaf. 
  */
-export function createThemeTreeStructure(themeStructure, structure) {
+export function createThemeStructure(themeStructure, structure) {
 
     for(let key in structure) {
         let value = structure[key];
 
-
         if (typeof value === "function" || value instanceof Endpoint) {
-            themeStructure[key] = Theme.Default;
+            themeStructure[key] = null;
             continue;
         }
-        themeStructure[key] = {"": Theme.Default};
+        themeStructure[key] = {"": null};
 
-        createThemeTreeStructure(themeStructure[key], value);
+        createThemeStructure(themeStructure[key], value);
     }
+}
 
-    return themeStructure;
+/**
+ * Fill the theme structure with themes. If a theme is already set,
+ * then the theme cacasades down the tree. 
+ */
+export function fillThemeStructure(themeStructure, theme) {
+
+    let currentTheme = theme;
+    for(let key in themeStructure) {
+        let value = themeStructure[key];
+        
+        if (typeof value === "object" && value != null) {
+            fillThemeStructure(value, currentTheme);
+        }
+        else {
+            if (value == null) {
+                themeStructure[key] = currentTheme;
+            }
+            else {
+                currentTheme = value;
+            }
+        }
+    }
 }
 
 /**
@@ -92,7 +111,7 @@ export function createThemeTreeStructure(themeStructure, structure) {
 export function getTheme(themeStructure, path) {
 
     let tempStructure = themeStructure;
-    let pathSplit = path.split("/").filter(item => item != "");
+    let pathSplit = path.replace("%20", " ").split("/").filter(item => item != "");
 
     for(let item of pathSplit) {
 

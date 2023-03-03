@@ -1,6 +1,6 @@
 
 import { structure } from "@/assets/content/structure.js";
-import { createThemeTreeStructure } from "@/router/util.js";
+import { createThemeStructure, fillThemeStructure } from "@/router/util.js";
 import { Theme } from "@/assets/content/themes.js";
 
 /**
@@ -10,11 +10,14 @@ import { Theme } from "@/assets/content/themes.js";
  */
 let themeStructure = {};
 
-createThemeTreeStructure(themeStructure, structure);
+createThemeStructure(themeStructure, structure);
 
-
-// Overrides
+// Overrides, these changes cascade down
 themeStructure["Characters"]["empty"]["Grug"] = Theme.Grug;
 themeStructure["Lenova"][""] = Theme.Lenova;
+themeStructure["Lenova"]["Maps"][""] = Theme.Grug;
+themeStructure["Lenova"]["Maps"]["Virdos"] = Theme.Default;
+
+fillThemeStructure(themeStructure, Theme.Default);
 
 export { themeStructure };
