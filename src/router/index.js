@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 
 import { structure } from "@/assets/content/structure.js";
 import { addStructureToRoutes } from "@/router/util.js";
@@ -27,8 +27,22 @@ const routes = [
 addStructureToRoutes(routes, structure);
 
 const router = createRouter({
-    history: createWebHashHistory(process.env.BASE_URL),
+    history: createWebHistory(process.env.BASE_URL),
     routes,
+});
+
+/**
+ * Since this is a SPA, directly going to a url like /lenova/... would not work, when
+ * the site is published on github pages. Instead github pages would throw a 404 error. 
+ * This then displays the 404.html in the public directory. This file redirects to the index
+ * page with a string query. This string query is catched by vue and the user is redirected
+ * accordingly.
+ */
+router.beforeEach((to) => {
+    if (to.query.redirect) {
+        let direct = to.query.redirect.replace(" ", "%20");
+        router.replace(direct);
+    }
 });
 
 export default router;

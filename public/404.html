@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Permissions-Policy" content="interest-cohort=()">
+
+    <title>Document</title>
+    <script>
+        // Redirects to the index page with the users attempted url. Index redirects
+        // to the attempted url
+  
+        hrefSplit = window.location.href.split("/");
+        index = hrefSplit.indexOf("DnD-campaign-companion")
+        slug = hrefSplit.slice(index + 1).join("/");
+        redirectUrl = `https://nickvs99.github.io/DnD-campaign-companion/?redirect=${slug}`
+        window.location.replace(redirectUrl);
+    </script>
+  
+</head>
+</html>

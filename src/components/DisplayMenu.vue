@@ -29,11 +29,12 @@ export default {
          */
         getTo(target){
             
+            target = target.replace(" ", "%20");            
             if(this.$route.path === "/"){
                 return this.$route.path + target;
             }
             else {
-                return this.$route.path + "/" + target.replace(" ", "%20");
+                return this.$route.path + "/" + target;
             }
         },
     }
