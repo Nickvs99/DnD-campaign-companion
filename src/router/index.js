@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import { structure } from "@/assets/content/structure.js";
 import { addStructureToRoutes, getTheme } from "@/router/util.js";
 import { themeStructure } from "@/assets/content/themeStructure";
+import { sleep } from "@/util.js";
 
 /**
  * These routes are manually added and should only be added if it does not follow
@@ -39,7 +40,7 @@ const router = createRouter({
  * page with a string query. This string query is catched by vue and the user is redirected
  * accordingly.
  */
-router.beforeEach((to) => {
+router.beforeEach((to, from) => {
     if (to.query.redirect) {
         let direct = to.query.redirect.replace(" ", "%20");
         router.replace(direct);
@@ -48,7 +49,23 @@ router.beforeEach((to) => {
 
     // Apply styling according to the themestructure
     let theme = getTheme(themeStructure, to.fullPath);
-    document.getElementById("app").setAttribute("theme", theme);
+    setTheme(theme, from);
+
 });
+
+async function setTheme(theme, from) {
+
+    /**
+     * If no register property, then the theme will not transition smoothly, therefore the new theme
+     * would already be updated before the content is updated. This manual sleep is to make sure that
+     * the theme only applies when the content has faded out. The sleep time should be equal to the 
+     * fade time in App.vue. Except on initial page load
+     */
+    if (!CSS.registerProperty && from.href != undefined) {
+        await sleep(500);
+    }
+
+    document.getElementById("app").setAttribute("theme", theme);
+}
 
 export default router;

@@ -1,20 +1,26 @@
 @import "@/styles/_houdini.scss";
 
-#app {  
+// This keyframe animation is triggered on route change by App.vue for browers which
+// do not support houdini properties
+@keyframes font-opacity-anim {
+    0% {color: transparent;}
+    50% { color: transparent;}
+    100% {color: var(--font-color);}
+}
+
+
+#app, #app[theme="default"] {  
+    --font-color: #ffd400;
+    --gradient-color-primary: #3b0066;
+    --gradient-color-secondary: #333;
+    --font-family: Garamond, serif;
+
     color: var(--font-color);
     font-family: var(--font-family);
 
     transition: --font-color, --gradient-color-primary, --gradient-color-secondary;
-    transition-duration: 0.3s;
+    transition-duration: 1s; // Duration should be twice the fade in/out time of App.vue
     transition-timing-function: ease-in-out;
-}
-
-#app[theme="default"] {
-    --font-color: #ffd400;
-    --gradient-color-primary: #3b0066;
-    --gradient-color-secondary: #333;
-
-    --font-family: Garamond, serif;
 }
 
 #app[theme="grug"] {
