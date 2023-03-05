@@ -1,14 +1,5 @@
 @import "@/styles/_houdini.scss";
 
-// This keyframe animation is triggered on route change by App.vue for browers which
-// do not support houdini properties
-@keyframes font-opacity-anim {
-    0% {color: transparent;}
-    50% { color: transparent;}
-    100% {color: var(--font-color);}
-}
-
-
 #app, #app[theme="default"] {  
     --font-color: #ffd400;
     --gradient-color-primary: #3b0066;

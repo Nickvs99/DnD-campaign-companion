@@ -26,17 +26,6 @@ export default {
     unmounted() {
         window.removeEventListener("resize", this.setMinHeight);
     },
-    watch: {
-        $route() {
-            // Trigger animation on route change, since the houdini transition do not work
-            // without the register property.
-            if (!CSS.registerProperty) {
-                this.$el.parentNode.style.animation = null;
-                this.$el.parentNode.offsetWidth; // Triggers reset, removing it would not reset the animation
-                this.$el.parentNode.style.animation = "font-opacity-anim 0.5s ease-in-out";
-            }
-        }
-    },
     methods: {
         
         /**
