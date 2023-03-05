@@ -84,19 +84,20 @@ export function createThemeStructure(themeStructure, structure) {
 export function fillThemeStructure(themeStructure, theme) {
 
     let currentTheme = theme;
+
+    // Cascade the theme to its siblings
+    if("" in themeStructure && themeStructure[""] !== null) {
+        currentTheme = themeStructure[""];
+    }
+
     for(let key in themeStructure) {
         let value = themeStructure[key];
         
-        if (typeof value === "object" && value != null) {
+        if (typeof value === "object" && value !== null) {
             fillThemeStructure(value, currentTheme);
         }
-        else {
-            if (value == null) {
-                themeStructure[key] = currentTheme;
-            }
-            else {
-                currentTheme = value;
-            }
+        else if (value === null) {
+            themeStructure[key] = currentTheme;
         }
     }
 }
