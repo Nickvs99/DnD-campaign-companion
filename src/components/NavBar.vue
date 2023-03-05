@@ -4,8 +4,11 @@
     <router-link class="navbar-item" to="/"><HomeIcon class="navbar-svg"/></router-link>
 
     <TransitionGroup name="slide">
-        <router-link class="navbar-item" v-for="item in navBarItems" :to="item.to" :key="item.to"> {{ item.text }} </router-link>
-    </TransitionGroup>
+        <template v-for="item in navBarItems" :key="item">
+            <div class="bullet">&#x2022;</div>
+            <router-link class="navbar-item" :to="item.to"> {{ item.text }} </router-link>
+        </template>
+</TransitionGroup>
 </nav>
 
 </template>
@@ -70,11 +73,12 @@ export default {
     font-size: 2rem;
 
     text-decoration: none;
+}
 
-    &:not(:first-child)::before{
-        content: "\2219"; // Thick dot
-        margin: 0.25em;
-    }
+.bullet {
+    display: inline-block;
+    margin: 0.5em;
+    vertical-align: bottom;
 }
 
 .slide-enter-active, .slide-leave-active {
