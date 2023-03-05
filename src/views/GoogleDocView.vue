@@ -13,7 +13,7 @@ import LoadIcon from "@/components/LoadIcon.vue";
 import {randomUniform, sleep} from "@/util.js";
 
 export default {
-    name: "GoogleDoc",
+    name: "GoogleDocView",
     components: {LoadIcon},
     props: {
         "src": {

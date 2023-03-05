@@ -1,7 +1,7 @@
 <template>
 
-<div>
-    <ExpandableImage :src="imgSrc"/>
+<div class="image-doc-container">
+    <img :src="imgSrc"/>
     <GoogleDoc :src="docSrc"/>
 </div>
 
@@ -9,12 +9,11 @@
 
 <script>
 
-import ExpandableImage from "@/components/ExpandableImage.vue";
-import GoogleDoc from "@/components/GoogleDoc.vue";
+import GoogleDoc from "@/views/GoogleDocView.vue";
 
 export default {
-    name: "ImageDoc",
-    components:{GoogleDoc, ExpandableImage},
+    name: "ImageDocView",
+    components: { GoogleDoc },
     props: {
         "docSrc": {
             type: String,
@@ -28,3 +27,13 @@ export default {
 };
 
 </script>
+
+<style>
+
+.image-doc-container img {
+    margin: 1rem 0;
+    width: 100%;
+}
+
+
+</style>

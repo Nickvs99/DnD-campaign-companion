@@ -3,11 +3,12 @@
  * e.g. ExpandableImage can be found at src/components/ExpandableImage.vue
  */
 export const Component = Object.freeze({
-    AccessDenied: "views/AccessDenied.vue",
-    DisplayInbox: "components/DisplayInbox.vue",
-    ExpandableImage: "components/ExpandableImage.vue",
-    GoogleDoc: "components/GoogleDoc.vue",
-    ImageDoc: "components/ImageDoc.vue",
-    InboxLogin: "components/InboxLogin.vue",
+    AccessDeniedView: "views/AccessDeniedView.vue",
+    ClickThroughView: "views/ClickThroughView",
+    GoogleDocView: "views/GoogleDocView.vue",
+    ImageView: "views/ImageView.vue",
+    ImageDocView: "views/ImageDocView.vue",
+    InboxLoginView: "views/InboxLoginView.vue",
+    InboxView: "views/InboxView.vue",
     UnderConstructionView: "views/UnderConstructionView.vue",
 });

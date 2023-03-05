@@ -1,4 +1,3 @@
-import DisplayMenu from "@/components/DisplayMenu.vue";
 import { Component } from "@/router/lazyLoadComponents.js";
 
 import { Endpoint } from "@/router/endPoint.js";
@@ -31,7 +30,7 @@ export function addStructureToRoutes(routes, structure, prefix="") {
         routes.push({path: prefix, redirect: redirectPath});
     }
     else {
-        routes.push({path: prefix, component: DisplayMenu, props: {items: keys}});
+        routes.push({path: prefix, component: () => import(`@/${Component.ClickThroughView}`), props: {items: keys}});
     }
 
     for(const key in structure) {
@@ -42,7 +41,7 @@ export function addStructureToRoutes(routes, structure, prefix="") {
 
         // Restrict certain keys 
         if(["messages", "Julia"].includes(key)) {
-            routes.push({path: `${slug}/:param`, component: () => import(`@/${Component.AccessDenied}`)});
+            routes.push({path: `${slug}/:param`, component: () => import(`@/${Component.AccessDeniedView}`)});
         }
 
         // Check if value is a vue component

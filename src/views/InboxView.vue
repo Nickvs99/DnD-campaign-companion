@@ -11,12 +11,12 @@
 
 <script>
 
-import HorizontalBar from "./HorizontalBar.vue";
+import HorizontalBar from "@/components/HorizontalBar.vue";
 import MessageBox from "@/components/MessageBox.vue";
 
 export default {
-    name: "MailBox",
-    components: {HorizontalBar, MessageBox},
+    name: "InboxView",
+    components: { HorizontalBar, MessageBox },
     props: {
         "messages": {
             type: Array,

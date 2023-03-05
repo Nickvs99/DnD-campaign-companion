@@ -14,15 +14,15 @@ import { lenovaPersonalCodes, lenovaMessages } from "@/assets/content/lenovaMess
 
 export const structure = {
     "Lenova": {
-        "Session recap": new Endpoint(Component.GoogleDoc, {"src": "https://docs.google.com/document/d/e/2PACX-1vQntHl593EJQ8-uDr3-RxkAVt82--xxKyMOHRISDrqJSSVnXrB2DdhyQeDUFNOIWXv_q6LBTDX7PRUu/pub?embedded=true"}),
+        "Session recap": new Endpoint(Component.GoogleDocView, {"src": "https://docs.google.com/document/d/e/2PACX-1vQntHl593EJQ8-uDr3-RxkAVt82--xxKyMOHRISDrqJSSVnXrB2DdhyQeDUFNOIWXv_q6LBTDX7PRUu/pub?embedded=true"}),
         "Maps": {
-            "Overview": new Endpoint(Component.ImageDoc, {
+            "Overview": new Endpoint(Component.ImageDocView, {
                 "docSrc": "https://docs.google.com/document/d/e/2PACX-1vQntHl593EJQ8-uDr3-RxkAVt82--xxKyMOHRISDrqJSSVnXrB2DdhyQeDUFNOIWXv_q6LBTDX7PRUu/pub?embedded=true",
                 "imgSrc": "lenova/worldmap.jpg"
             }),
-            "Virdos": new Endpoint(Component.ExpandableImage, {"src": "lenova/virdos.jpg"})
+            "Virdos": new Endpoint(Component.ImageView, {"src": "lenova/virdos.jpg"})
         },
-        "Inbox": new Endpoint(Component.InboxLogin),
+        "Inbox": new Endpoint(Component.InboxLoginView),
         "messages": CreateMessageRoutes(lenovaMessages, lenovaPersonalCodes),       
     },
     "Characters": {
@@ -37,7 +37,7 @@ export const structure = {
             }
         },
     },
-    "Julia": new Endpoint(Component.AccessDenied),  
+    "Julia": new Endpoint(Component.AccessDeniedView),  
 };
 
 function CreateMessageRoutes(messageData, validPersonalCodes) {
@@ -69,7 +69,7 @@ function CreateMessageRoutes(messageData, validPersonalCodes) {
     let routes = {};
     for(let hash in messageMap)
     {
-        routes[hash] = new Endpoint(Component.DisplayInbox, {"messages": messageMap[hash]});
+        routes[hash] = new Endpoint(Component.InboxView, {"messages": messageMap[hash]});
     }
 
     return routes;

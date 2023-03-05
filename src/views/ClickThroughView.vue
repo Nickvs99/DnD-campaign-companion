@@ -14,7 +14,7 @@
 import HorizontalBar from "@/components/HorizontalBar.vue";
 
 export default {
-    name: "DisplayMenu",
+    name: "ClickThroughView",
     components: { HorizontalBar },
     props: {
         items: {

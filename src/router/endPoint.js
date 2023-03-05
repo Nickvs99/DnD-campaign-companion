@@ -25,10 +25,10 @@ export class Endpoint {
      */
     parseProps() {
 
-        if(this.componentName === "ExpandableImage") {
+        if(this.componentName === "ImageView") {
             this.props["src"] = require(`@/assets/images/${this.props["src"]}`);
         }
-        else if(this.componentName === "ImageDoc") {
+        else if(this.componentName === "ImageDocView") {
             this.props["imgSrc"] = require(`@/assets/images/${this.props["imgSrc"]}`);
         }
     }

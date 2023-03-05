@@ -9,7 +9,7 @@
 <script>
 
 export default {
-    name: "ExpandableImage",
+    name: "ImageView",
     props: {
         "src": {
             type: String,
@@ -29,15 +29,9 @@ export default {
 }
 
 .image-container{
-    margin: 1rem 0;
+    width: 90%; 
 
-    &:only-child {
-        // Should be 100% of parent, but due to fixed position the width is
-        // relative to the body
-        width: 90%; 
-
-        @include center-to-screen;
-    }
+    @include center-to-screen;
 }
 
 </style>

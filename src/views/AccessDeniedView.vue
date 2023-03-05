@@ -12,7 +12,7 @@
 import LockIcon from "@/assets/icons/LockIcon.vue";
 
 export default {
-    name: "AccessDenied",
+    name: "AccessDeniedView",
     components: { LockIcon },
 };
 

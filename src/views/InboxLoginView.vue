@@ -20,8 +20,8 @@ import LoadIcon from "@/components/LoadIcon.vue";
 import { hashCode, randomUniform, sleep } from "@/util.js";
 
 export default {
-    name: "InboxLogin",
-    components: {LoadIcon},
+    name: "InboxLoginView",
+    components: { LoadIcon },
 
     data() {
         return {
