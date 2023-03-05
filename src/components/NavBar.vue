@@ -1,8 +1,10 @@
 <template>
 
 <nav class="navbar">
+    <router-link class="navbar-item" to="/"><HomeIcon class="navbar-svg"/></router-link>
+
     <TransitionGroup name="slide">
-            <router-link class="navbar-item" v-for="item in navBarItems" :to="item.to" :key="item.to"> {{ item.text }} </router-link>
+        <router-link class="navbar-item" v-for="item in navBarItems" :to="item.to" :key="item.to"> {{ item.text }} </router-link>
     </TransitionGroup>
 </nav>
 
@@ -10,11 +12,14 @@
 
 <script>
 
+import HomeIcon from "@/assets/icons/HomeIcon.vue";
+
 export default {
     name: "NavBar",
+    components: { HomeIcon },
     data() {
         return {
-            navBarItems: [{to: "/", text:"Vaarwel"}],
+            navBarItems: [],
         };
     },
     mounted() {
@@ -27,7 +32,7 @@ export default {
     },
     methods: {
         setNavBarItems(toPath) {
-            this.navBarItems = [{to: "/", text:"Home"}];
+            this.navBarItems = [];
 
             let path = "";
             let pathSplit = toPath.split("/").filter(item => item !== "");
@@ -79,6 +84,11 @@ export default {
 .slide-enter-from, .slide-leave-to {
     opacity: 0;
     transform: translateX(300px);
+}
+
+.navbar-svg {
+    width: 2rem;
+    height: 2rem;
 }
 
 </style>

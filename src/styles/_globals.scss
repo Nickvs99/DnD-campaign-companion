@@ -53,6 +53,11 @@ input[type=text] {
     }
 }
 
+svg {
+    fill: var(--font-color);
+    vertical-align: top;
+}
+
 .hidden {
     display: none;
 }
