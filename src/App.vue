@@ -44,6 +44,10 @@ export default {
 
 .content-wrapper {
     position: relative;
+
+    // Creates new Block formatting context, making sure that all
+    // margins are within the content-wrapper
+    overflow: auto;
 }
 
 .fade-enter-active, .fade-leave-active {
