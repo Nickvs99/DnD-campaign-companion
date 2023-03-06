@@ -29,7 +29,7 @@ export const structure = {
         "empty": {
             "Balro": new Endpoint(Component.UnderConstructionView),
             "Siren": new Endpoint(Component.UnderConstructionView),
-            "Ginger": new Endpoint(Component.UnderConstructionView),
+            "Ginger": new Endpoint(Component.CharacterView, {"character_id": "123456"}),
             "Grug": new Endpoint(Component.UnderConstructionView),
             "Safqwyn": {
                 "Druid": new Endpoint(Component.UnderConstructionView),

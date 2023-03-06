@@ -4,6 +4,7 @@
  */
 export const Component = Object.freeze({
     AccessDeniedView: "views/AccessDeniedView.vue",
+    CharacterView: "views/CharacterView.vue",
     ClickThroughView: "views/ClickThroughView",
     GoogleDocView: "views/GoogleDocView.vue",
     ImageView: "views/ImageView.vue",
