@@ -95,9 +95,8 @@ export default {
             let modifiers = raceModifiers.concat(classModifiers);
             for(let modifier of modifiers) {
                 
-                // Stat modifiers are of type bonus and the subtype is written like 'statName'-score
-                // e.g. strength-score
-                if(modifier.type !== "bonus" || !modifier.subType.endsWith("-score")) {
+                const validSubTypes = ["strength-score", "dexterity-score", "constitution-score", "intelligence-score", "wisdom-score", "charisma-score"];
+                if(modifier.type !== "bonus" || !validSubTypes.includes(modifier.subType)) {
                     continue;
                 }
 
