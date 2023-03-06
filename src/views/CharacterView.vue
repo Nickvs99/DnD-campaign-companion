@@ -3,6 +3,9 @@
 <div class="character-page-container">
 
     <h1>{{ name }}</h1>
+
+    <img :src="imgSrc"/>
+
     <h2>{{ race }}</h2>
     <h2>{{ className }} - {{ subclass }}</h2>
     <h2>Level: {{ level }}</h2>
@@ -10,6 +13,8 @@
     <div class="stat-block-container" v-if="stats[0].value != null">
         <StatBlock v-for="stat in stats" :key="stat.name" :name="stat.name" :value="stat.value"/>
     </div>
+
+    <a :href="characterPageUrl" target="_blank">{{ characterPageUrl }}</a>
 </div>
 
 </template>
@@ -33,6 +38,7 @@ export default {
             name: null,
             race: null,
             className: null,
+            imgSrc: "",
             subclass: null,
             level: null,
             stats: [
@@ -42,7 +48,8 @@ export default {
                 {"name": "Intelligence", "value": null},
                 {"name": "Wisdom", "value": null},
                 {"name": "Charisma", "value": null},
-            ]
+            ],
+            characterPageUrl: "",
         };
     },
     mounted() {
@@ -50,11 +57,16 @@ export default {
     },
     methods: {
         parseJsonResponse(json) {
+            this.setCharacterPageUrl(json);
             this.setClass(json);
+            this.setImgSrc(json);
             this.setLevel(json);
             this.setName(json);
             this.setRace(json);
             this.setStats(json);
+        },
+        setCharacterPageUrl(json) {
+            this.characterPageUrl = json.data.readonlyUrl;
         },
         setClass(json) {
 
@@ -65,6 +77,15 @@ export default {
 
             this.className = classes[0].definition.name;
             this.subclass = classes[0].subclassDefinition.name;
+        },
+        setImgSrc(json) {
+            
+            if(json.data.decorations.avatarUrl) {
+                this.imgSrc = json.data.decorations.avatarUrl;
+            }
+            else {
+                this.imgSrc = require("@/assets/images/default-avatar.jpg");
+            }
         },
         setLevel(json) {
 
