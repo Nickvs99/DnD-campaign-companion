@@ -1,15 +1,15 @@
 <template>
 
-<div class="inbox-wrapper">
-    <form v-on:submit="onSubmit" class="login-form">
+<div class="inbox-login-container">
+    <form v-if="!showLoadIcon" v-on:submit="onSubmit" class="login-form">
         <input ref="personalCode" placeholder="Personal code" type="text" />
         <input ref="dmCode" placeholder="DM code" type="text" />
 
         <button>Submit</button>
     </form>
 
+    <div v-if="showInvalidCode" class="invalid-message">Invalid code</div>
     <LoadIcon v-if="showLoadIcon" :message="this.loadMessage"/>
-    <div v-if="showInvalidCode">Invalid code</div>
 </div>
 
 </template>
@@ -46,7 +46,7 @@ export default {
             
             let validRoute = this.isValidRoute(targetSlug);
 
-            if (this.$refs.dmCode.value != "")
+            if (!(this.$refs.dmCode.value === "" && this.$refs.personalCode.value === ""))
             {
                 // Show artificial loading screen
                 this.showLoadIcon = true,
@@ -61,8 +61,11 @@ export default {
                     this.loadMessage = "Fetching message";
                     await sleep(randomUniform(500, 750));                    
                 }
-
-                this.showLoadIcon = false;
+                else {
+                    // Only disable the loadicon on invalid routes, otherwise the
+                    // fade on route change would not look good
+                    this.showLoadIcon = false;
+                }
             }
 
 
@@ -94,14 +97,9 @@ export default {
 
 @import "@/styles/mixins.scss";
 
-.inbox-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
+.inbox-login-container {
     width: 75%;
-    max-width: 20rem;
+    max-width: 15rem;
 
     @include center-to-screen;
 }
@@ -110,6 +108,15 @@ export default {
     display: flex;
     flex-direction: column;
     row-gap: 0.5rem;
+}
+
+.invalid-message {
+    text-align: center;
+
+    font-size: 1.25rem;
+    font-weight: bold;
+    
+    margin: 1em;
 }
 
 </style>
