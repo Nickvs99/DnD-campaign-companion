@@ -14,12 +14,18 @@
         <StatBlock v-for="stat in stats" :key="stat.name" :name="stat.name" :value="stat.value"/>
     </div>
 
+    <div v-if="description">
+        <h3>Omschrijving:</h3>
+        {{  description  }}
+    </div>
+
     <a :href="characterPageUrl" target="_blank">{{ characterPageUrl }}</a>
 </div>
 
 </template>
 
 <script>
+
 import StatBlock from "@/components/StatBlock.vue";
 import data from "@/assets/character.json";
 
@@ -35,12 +41,14 @@ export default {
     data() {
         return {
             data: data,
+            
+            characterPageUrl: "",
+            className: null,
+            description: null,
+            imgSrc: "",
+            level: null,
             name: null,
             race: null,
-            className: null,
-            imgSrc: "",
-            subclass: null,
-            level: null,
             stats: [
                 {"name": "Strength", "value": null},
                 {"name": "Dexterity", "value": null},
@@ -48,8 +56,9 @@ export default {
                 {"name": "Intelligence", "value": null},
                 {"name": "Wisdom", "value": null},
                 {"name": "Charisma", "value": null},
-            ],
-            characterPageUrl: "",
+            ],   
+            subclass: null,
+  
         };
     },
     mounted() {
@@ -59,6 +68,7 @@ export default {
         parseJsonResponse(json) {
             this.setCharacterPageUrl(json);
             this.setClass(json);
+            this.setDescription(json);
             this.setImgSrc(json);
             this.setLevel(json);
             this.setName(json);
@@ -77,6 +87,9 @@ export default {
 
             this.className = classes[0].definition.name;
             this.subclass = classes[0].subclassDefinition.name;
+        },
+        setDescription(json) {
+            this.description = json.data.notes.otherNotes;
         },
         setImgSrc(json) {
             
