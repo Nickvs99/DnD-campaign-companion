@@ -5,7 +5,7 @@
 
     <TransitionGroup name="slide">
         <template v-for="item in navBarItems" :key="item">
-            <div class="bullet">&#x2022;</div>
+            <DotSeperator class="navbar-seperator"/>
             <router-link class="navbar-item" :to="item.to"> {{ item.text }} </router-link>
         </template>
 </TransitionGroup>
@@ -15,11 +15,12 @@
 
 <script>
 
+import DotSeperator from "@/components/DotSeperator.vue";
 import HomeIcon from "@/assets/icons/HomeIcon.vue";
 
 export default {
     name: "NavBar",
-    components: { HomeIcon },
+    components: { DotSeperator, HomeIcon },
     data() {
         return {
             navBarItems: [],
@@ -75,10 +76,8 @@ export default {
     text-decoration: none;
 }
 
-.bullet {
-    display: inline-block;
-    margin: 0.5em;
-    vertical-align: bottom;
+.navbar-seperator {
+    vertical-align: super;
 }
 
 .slide-enter-active, .slide-leave-active {
