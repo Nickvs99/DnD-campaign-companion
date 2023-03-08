@@ -25,6 +25,10 @@ button {
     }
 }
 
+div {
+    color: var(--font-color);
+}
+
 input[type=text] {
     background-color: rgba(0, 0, 0, 0.15);
     color: var(--font-color);

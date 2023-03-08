@@ -1,7 +1,7 @@
 <template>
 
 <div class="stat-block">
-    <div class="stat-block-name">{{ name }}</div>
+    <div class="stat-block-name">{{ abbreviation }}</div>
     <div class="stat-block-value">{{ value }}</div>
 </div>
 
@@ -20,6 +20,12 @@ export default {
             required: true,
             type: Number,
         }
+    },
+    computed: {
+        abbreviation() {
+            // Add a space between each character, such that each 'word' can be on a newline
+            return this.name.slice(0, 3).toUpperCase().split("").join(" ");
+        }
     }
 };
 
@@ -29,21 +35,25 @@ export default {
 
 .stat-block {
     aspect-ratio: 1/1;
-    width: 40px;
 
-    background-color: darkblue;
+    background-color: rgba(0, 0, 0, 0.15);
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    padding: 0.2rem;
 }
 
 .stat-block-name {
-    margin: 1em;
+    font-size: 1.5rem;
+    word-break: break-all;
+    text-align: center;
+    margin: auto;
 
-    background-color: darkcyan;
+    word-spacing: 100vw;
 }
 
 .stat-block-value {
-    margin: 1em;
-
-    background-color: chocolate;
+    font-size: 4rem;
+    margin: auto;
 }
 
 </style>
