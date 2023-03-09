@@ -13,6 +13,8 @@ import requests
 def process_ID(ID):
     """ Requests and save data from the DnDbeyond endpoint. """
 
+    print(f"Processing character ID={ID}")
+
     url = f"https://character-service.dndbeyond.com/character/v5/character/{ID}"
     response = requests.get(url)
 

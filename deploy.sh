@@ -7,6 +7,9 @@ COMMIT_HASH=$(git rev-parse --short HEAD)
 # abort on errors
 set -e
 
+echo "Collecting character data..."
+python get_character_data.py
+
 # build
 npm run build
 
