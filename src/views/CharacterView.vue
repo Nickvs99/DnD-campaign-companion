@@ -5,7 +5,13 @@
     <div ref="imgContent" class="img-content">
         <div class="image-content-title">{{ name }}</div>
         <div class="image-content-text">Level {{ level }}<DotSeperator/>{{ race }}</div>
-        <div class="image-content-text">{{ className }} - {{ subclass }}</div>
+        
+        
+        <div class="image-content-text" v-for="clss in classes" :key="clss.name">       
+            {{ clss.name }} <div v-if="classes.length != 1">({{ clss.level }})&nbsp;</div> 
+            
+            <div v-if="clss.subclass">- {{ clss.subclass }}</div>
+        </div>
 
         <a :href="characterPageUrl" target="_blank">
             <OpenExternal class="open-external-svg"/>
@@ -41,7 +47,7 @@ export default {
     data() {
         return {
             characterPageUrl: "",
-            className: null,
+            classes: null,
             description: null,
             imgSrc: "",
             level: null,
@@ -79,14 +85,19 @@ export default {
             this.characterPageUrl = json.data.readonlyUrl;
         },
         setClass(json) {
-
+    
+            let classData = [];
             let classes = json.data.classes;
-            if (classes.length !== 1) {
-                alert("This page does not work yet with Multiclassing. Please notify Nick :) ");
+
+            for(let clss of classes) {
+                classData.push({
+                    "level": clss.level,
+                    "name": clss.definition.name,
+                    "subclass": clss.subclassDefinition != null ? clss.subclassDefinition.name : null,
+                });
             }
 
-            this.className = classes[0].definition.name;
-            this.subclass = classes[0].subclassDefinition.name;
+            this.classes = classData;
         },
         setDescription(json) {
             this.description = json.data.notes.otherNotes;
@@ -198,6 +209,10 @@ export default {
 
 .image-content-text {
     font-size: 1.25rem;
+
+    div {
+        display: inline-block;
+    }
 }
 
 .stat-container {
