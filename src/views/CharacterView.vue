@@ -27,10 +27,10 @@
             {{  description  }}
         </div>
     </div>
-    <div v-else class="error-container">
+    <CenterToScreen v-else class="error-container">
         <ErrorIcon />
         <h1>Error: 32</h1>
-    </div>
+    </CenterToScreen>
 
    
 </div>
@@ -39,6 +39,7 @@
 
 <script>
 
+import CenterToScreen from "@/components/CenterToScreen.vue";
 import OpenExternal from "@/assets/icons/OpenExternal.vue";
 import DotSeperator from "@/components/DotSeperator.vue";
 import StatBlock from "@/components/StatBlock.vue";
@@ -46,7 +47,7 @@ import ErrorIcon from "@/assets/icons/ErrorIcon.vue";
 
 export default {
     name: "CharacterView",
-    components: { DotSeperator, ErrorIcon, OpenExternal, StatBlock },
+    components: { CenterToScreen, DotSeperator, ErrorIcon, OpenExternal, StatBlock },
     props: {
         "data": {
             required: true,
@@ -185,8 +186,6 @@ export default {
 
 <style lang="scss">
 
-@import "@/styles/mixins.scss";
-
 .character-page-container {
     margin: 1rem 0;
 }
@@ -258,10 +257,6 @@ export default {
 }
 
 .error-container {
-    @include center-to-screen;
-
-    width: 90%;
-
     display: flex;
     flex-direction: column;
     align-items: center;

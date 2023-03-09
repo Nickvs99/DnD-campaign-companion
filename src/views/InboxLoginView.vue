@@ -1,6 +1,6 @@
 <template>
 
-<div class="inbox-login-container">
+<CenterToScreen class="inbox-login-container">
     <form v-if="!showLoadIcon" v-on:submit="onSubmit" class="login-form">
         <input ref="personalCode" placeholder="Personal code" type="text" />
         <input ref="dmCode" placeholder="DM code" type="text" />
@@ -10,18 +10,19 @@
 
     <div v-if="showInvalidCode" class="invalid-message">Invalid code</div>
     <LoadIcon v-if="showLoadIcon" :message="this.loadMessage"/>
-</div>
+</CenterToScreen>
 
 </template>
 
 <script>
 
+import CenterToScreen from "@/components/CenterToScreen.vue";
 import LoadIcon from "@/components/LoadIcon.vue";
 import { hashCode, randomUniform, sleep } from "@/util.js";
 
 export default {
     name: "InboxLoginView",
-    components: { LoadIcon },
+    components: { CenterToScreen, LoadIcon },
 
     data() {
         return {
@@ -95,13 +96,8 @@ export default {
 
 <style lang="scss">
 
-@import "@/styles/mixins.scss";
-
 .inbox-login-container {
-    width: 75%;
     max-width: 15rem;
-
-    @include center-to-screen;
 }
 
 .login-form{

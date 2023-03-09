@@ -1,32 +1,27 @@
 <template>
 
-<div class="denied-container">
+<CenterToScreen class="denied-container">
     <LockIcon />
     <h1>Access denied</h1>
-</div>
+</CenterToScreen>
     
 </template>
 
 <script>
 
+import CenterToScreen from "@/components/CenterToScreen.vue";
 import LockIcon from "@/assets/icons/LockIcon.vue";
 
 export default {
     name: "AccessDeniedView",
-    components: { LockIcon },
+    components: { CenterToScreen, LockIcon },
 };
 
 </script>
 
 <style lang="scss">
 
-@import "@/styles/mixins.scss";
-
 .denied-container {
-    @include center-to-screen;
-
-    width: 90%;
-
     display: flex;
     flex-direction: column;
     align-items: center;

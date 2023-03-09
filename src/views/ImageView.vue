@@ -1,16 +1,19 @@
 <template>
 
-<div class="image-container">
+<CenterToScreen class="image-container">
     <h1> {{ title }}</h1>
     <img :src="src"/>
-</div>
+</CenterToScreen>
 
 </template>
 
 <script>
 
+import CenterToScreen from "@/components/CenterToScreen.vue";
+
 export default {
     name: "ImageView",
+    components: { CenterToScreen },
     props: {
         "src": {
             type: String,
@@ -31,20 +34,12 @@ export default {
 
 </script>
 
-<style lang="scss" scoped>
-
-@import "@/styles/mixins.scss";
-
+<style lang="scss">
 
 .image-container{
-    width: 90%; 
-
-    @include center-to-screen;
-
     h1 {
         text-align: center;
     }
-
     img {
         width: 100%;
     }
