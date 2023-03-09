@@ -2,29 +2,37 @@
 
 <div class="character-page-container">
 
-    <div ref="imgContent" class="img-content">
-        <div class="image-content-title">{{ name }}</div>
-        <div class="image-content-text">Level {{ level }}<DotSeperator/>{{ race }}</div>
-        
-        
-        <div class="image-content-text" v-for="clss in classes" :key="clss.name">       
-            {{ clss.name }} <div v-if="classes.length != 1">({{ clss.level }})&nbsp;</div> 
+    <div v-if="valid">
+        <div ref="imgContent" class="img-content">
+            <div class="image-content-title">{{ name }}</div>
+            <div class="image-content-text">Level {{ level }}<DotSeperator/>{{ race }}</div>
             
-            <div v-if="clss.subclass">- {{ clss.subclass }}</div>
+            
+            <div class="image-content-text" v-for="clss in classes" :key="clss.name">       
+                {{ clss.name }} <div v-if="classes.length != 1">({{ clss.level }})&nbsp;</div> 
+                
+                <div v-if="clss.subclass">- {{ clss.subclass }}</div>
+            </div>
+
+            <a :href="characterPageUrl" target="_blank">
+                <OpenExternal class="open-external-svg"/>
+            </a>
         </div>
 
-        <a :href="characterPageUrl" target="_blank">
-            <OpenExternal class="open-external-svg"/>
-        </a>
+        <div class="stat-container" v-if="stats[0].value != null">
+            <StatBlock v-for="stat in stats" :key="stat.name" :name="stat.name" :value="stat.value"/>
+        </div>
+
+        <div v-if="description">
+            {{  description  }}
+        </div>
+    </div>
+    <div v-else class="error-container">
+        <ErrorIcon />
+        <h1>Error: 32</h1>
     </div>
 
-    <div class="stat-container" v-if="stats[0].value != null">
-        <StatBlock v-for="stat in stats" :key="stat.name" :name="stat.name" :value="stat.value"/>
-    </div>
-
-    <div v-if="description">
-        {{  description  }}
-    </div>
+   
 </div>
 
 </template>
@@ -34,10 +42,11 @@
 import OpenExternal from "@/assets/icons/OpenExternal.vue";
 import DotSeperator from "@/components/DotSeperator.vue";
 import StatBlock from "@/components/StatBlock.vue";
+import ErrorIcon from "@/assets/icons/ErrorIcon.vue";
 
 export default {
     name: "CharacterView",
-    components: { DotSeperator, OpenExternal, StatBlock },
+    components: { DotSeperator, ErrorIcon, OpenExternal, StatBlock },
     props: {
         "data": {
             required: true,
@@ -62,6 +71,7 @@ export default {
                 {"name": "Charisma", "value": null},
             ],   
             subclass: null,
+            valid: true,
   
         };
     },
@@ -70,6 +80,11 @@ export default {
     },
     methods: {
         parseJsonResponse(json) {
+            this.valid = this.isValid(json);
+            if(!this.valid) {
+                return;
+            }
+
             this.setCharacterPageUrl(json);
             this.setClass(json);
             this.setDescription(json);
@@ -150,6 +165,18 @@ export default {
                 
                 this.stats[statIndex].value += modifier.value;
             }
+        },
+        isValid(json) {
+            
+            // Invalid if there is any overriden stat
+            let overrideStats = json.data.overrideStats;
+            for(let stat of overrideStats) {
+                if (stat.value) {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 };
@@ -157,6 +184,8 @@ export default {
 </script>
 
 <style lang="scss">
+
+@import "@/styles/mixins.scss";
 
 .character-page-container {
     margin: 1rem 0;
@@ -226,6 +255,21 @@ export default {
     position: absolute;
     inset: 1rem 1rem auto auto;
     background-color: rgba(0,0,0,0.25);
+}
+
+.error-container {
+    @include center-to-screen;
+
+    width: 90%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    svg{
+        aspect-ratio: 1/1;
+        width: 10rem;
+    }
 }
 
 </style>
