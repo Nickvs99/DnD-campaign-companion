@@ -28,21 +28,18 @@
 import OpenExternal from "@/assets/icons/OpenExternal.vue";
 import DotSeperator from "@/components/DotSeperator.vue";
 import StatBlock from "@/components/StatBlock.vue";
-import data from "@/assets/character.json";
 
 export default {
     name: "CharacterView",
     components: { DotSeperator, OpenExternal, StatBlock },
     props: {
-        "character_id": {
+        "data": {
             required: true,
-            type: String,
+            type: Object,
         }
     },
     data() {
         return {
-            data: data,
-            
             characterPageUrl: "",
             className: null,
             description: null,

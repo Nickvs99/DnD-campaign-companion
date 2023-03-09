@@ -31,6 +31,9 @@ export class Endpoint {
         else if(this.componentName === "ImageDocView") {
             this.props["imgSrc"] = require(`@/assets/images/${this.props["imgSrc"]}`);
         }
+        else if(this.componentName === "CharacterView") {
+            this.props["data"] = require(`@/assets/characters/${this.props["ID"]}.json`);
+        }
     }
 
     getComponentName(componentPath) {

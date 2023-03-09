@@ -27,9 +27,9 @@ export const structure = {
     },
     "Characters": {
         "empty": {
-            "Balro": new Endpoint(Component.UnderConstructionView),
-            "Siren": new Endpoint(Component.UnderConstructionView),
-            "Ginger": new Endpoint(Component.CharacterView, {"character_id": "123456"}),
+            "Balro": new Endpoint(Component.CharacterView, {"ID": "53799196"}),
+            "Siren": new Endpoint(Component.CharacterView, {"ID": "87953644"}),
+            "Ginger": new Endpoint(Component.CharacterView, {"ID": "49093889"}),
             "Grug": new Endpoint(Component.UnderConstructionView),
             "Safqwyn": {
                 "Druid": new Endpoint(Component.UnderConstructionView),
