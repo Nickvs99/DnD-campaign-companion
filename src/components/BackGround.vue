@@ -1,8 +1,42 @@
 <template>
     
-<div class="background"></div>
+<div class="background">
+
+    <div v-if="sim != null" >
+        <BackgroundParticle v-for="particle in sim.particles" :key="particle.id" 
+            :x="particle.position[0]" 
+            :y="particle.position[1]"
+            :lifeSpan="particle.maxLifeSpan"
+        />
+    </div>
+
+
+</div>
 
 </template>
+
+<script>
+
+import BackgroundParticle from "@/components/BackgroundParticle.vue";
+import { Simulator } from "@/simulator/simulator.js";
+
+export default {
+    name: "BackGround",
+    components: { BackgroundParticle },
+    data() {
+        return {
+            dt: 0.05,
+            sim: null,
+        };
+    },
+    mounted() {
+        this.sim = new Simulator(4, 5, 5, this.dt);
+        setInterval(() => {
+            this.sim.update();
+        }, this.dt * 1000);
+    },
+};
+</script>
 
 <style>
 
