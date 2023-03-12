@@ -32,7 +32,7 @@ export default {
         };
     },
     mounted() {
-        this.sim = new Simulator(4, 5, 5, this.dt);
+        this.sim = new Simulator(8, 10, 7, this.dt);
         setInterval(() => {
             this.sim.update();
         }, this.dt * 1000);

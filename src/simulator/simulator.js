@@ -6,7 +6,7 @@ import { randomUniform } from "@/util.js";
 export class Simulator {
 
     /**
-     * The simulators bounding box spans from coordinates (0,0) to (100, 100)
+     * The simulators bounding box spans from coordinates (0,0) to (1, 1)
      */
     constructor(Nx, Ny, Nparticles, dt) {
         this.Nx = Nx;
@@ -44,8 +44,8 @@ export class Simulator {
                     xDir = directions[directionIndex];
                 }
 
-                let xForce = Math.random() * 0.75 * xDir;
-                let yForce = Math.max((0.5 - y) + randomUniform(-1, 1) * 0.5, 0);
+                let xForce = randomUniform(0, 0.75) * xDir;
+                let yForce = Math.max((0.5 - y) + randomUniform(-0.5, 0.5), 0.05);
 
                 forceField[i][j] = new Vector(xForce, yForce);
             }
@@ -77,7 +77,7 @@ export class Simulator {
     }
 
     getMaxLifeSpan() {
-        return randomUniform(2, 4);
+        return randomUniform(3, 6);
     }
 
     getMass() {

@@ -48,7 +48,7 @@ export default {
 <style lang="scss">
 
 @keyframes particle-fade{
-    from {opacity: 1; scale: var(--initScale); }
+    from {opacity: 0.75; scale: var(--initScale); }
     to {opacity: 0; scale: 0; }  
 }
 

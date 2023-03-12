@@ -23,9 +23,9 @@ export class Particle {
     }
 
     computeDragForce() {
-        let dragCoefficient = 10;
+        let dragCoefficient = 20;
         let speed = this.velocity.norm();
-        let dragNorm = speed ** 2 * dragCoefficient;
+        let dragNorm = speed ** 2 * dragCoefficient * this.mass;
 
         return this.velocity.multiply(-dragNorm);
     }
