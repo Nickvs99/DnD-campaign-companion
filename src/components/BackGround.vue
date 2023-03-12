@@ -7,6 +7,8 @@
             :x="particle.position[0]" 
             :y="particle.position[1]"
             :lifeSpan="particle.maxLifeSpan"
+            :mass="particle.mass"
+            :dt="sim.dt"
         />
     </div>
 

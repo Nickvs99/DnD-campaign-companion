@@ -1,6 +1,10 @@
 export class Particle {
 
     constructor(position, velocity, mass, maxLifeSpan, id) {
+        this.reset(position, velocity, mass, maxLifeSpan, id);
+    }
+
+    reset(position, velocity, mass, maxLifeSpan, id) {
         this.position = position;
         this.velocity = velocity;
         this.mass = mass;
@@ -9,13 +13,6 @@ export class Particle {
         this.lifeSpan = 0;
 
         this.id = id;
-    }
-
-    reset(position, velocity, id) {
-        this.position = position;
-        this.velocity = velocity;
-        this.id = id;
-        this.lifeSpan = 0;
     }
 
     applyForce(force, dt) {

@@ -20,6 +20,14 @@ export default {
         "lifeSpan": {
             required: true,
             type: Number,
+        },
+        "mass": {
+            required: true,
+            type: Number,
+        },
+        "dt": {
+            required: true,
+            type: Number,
         }
     },
     computed: {
@@ -28,6 +36,8 @@ export default {
                 "--x": this.x * document.documentElement.clientWidth + "px",
                 "--y": this.y * document.documentElement.clientHeight + "px",
                 "--lifeSpan": this.lifeSpan + "s",
+                "--initScale": this.mass,
+                "--dt": this.dt + "s",
             };
         }
     }
@@ -38,12 +48,14 @@ export default {
 <style lang="scss">
 
 @keyframes particle-fade{
-    from {opacity: 1 }
-    to {opacity: 0}  
+    from {opacity: 1; scale: var(--initScale); }
+    to {opacity: 0; scale: 0; }  
 }
 
 .particle {
-    background: radial-gradient(var(--font-color), transparent);
+    background: radial-gradient(var(--font-color), transparent 75%);
+
+    border-radius: 50%;
 
     position: fixed;
     width: 10px;
@@ -52,12 +64,17 @@ export default {
     left: var(--x);
     bottom: var(--y);
 
+    // Smooth the transition, allows for an increased dt
+    transition: all var(--dt) ease-in-out;
+    transition-property: left, bottom;
+
     // Set origin to center of particle
-    transform: translate(50%, 50%);
+    translate: 50% 50%;
 
     animation: particle-fade;
     animation-duration: var(--lifeSpan);
     animation-delay: 0.1s; // Prevents flickering
+    animation-timing-function: ease-in;
 }
 
 </style>
