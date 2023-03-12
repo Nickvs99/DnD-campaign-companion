@@ -36,7 +36,50 @@ export default {
         setInterval(() => {
             this.sim.update();
         }, this.dt * 1000);
+
+        window.addEventListener("click", (evt) => this.onClick(evt));
     },
+    methods: {
+        onClick(evt) {
+
+            let elements = document.elementsFromPoint(evt.clientX, evt.clientY);
+
+            if(this.checkSpawnCondition(elements)) {
+                this.spawnParticles();
+            }
+        },
+
+        /**
+         * Not all clicks should spawn particles. Only a location outside the content wrapper is clicked,
+         * or if the click-through menu is clicked within the content wrapper, or an empty space within
+         * the content wrapper is clicked
+         */
+        checkSpawnCondition(elements) {
+            
+            if(!this.containsQuerySelector(elements, ".content-wrapper") ||
+                this.containsQuerySelector(elements, ".menu-wrapper") ||
+                elements[0].matches(".content-wrapper")) {
+
+                return true;
+            }
+
+            return false;
+        },
+
+        containsQuerySelector(elements, selector) {
+            for(let element of elements) {
+                if (element.matches(selector)){
+                    return true;
+                }
+            }
+
+            return false;
+        },
+
+        spawnParticles() {
+            console.log("SPAWN");
+        }
+    }
 };
 </script>
 
