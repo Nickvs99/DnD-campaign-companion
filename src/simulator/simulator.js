@@ -8,15 +8,18 @@ export class Simulator {
     /**
      * The simulators bounding box spans from coordinates (0,0) to (1, 1)
      */
-    constructor(Nx, Ny, Nparticles, dt) {
+    constructor(Nx, Ny, nParticles, dt) {
         this.Nx = Nx;
         this.Ny = Ny;
+        this.maxNParticles = nParticles;
         this.dt = dt;
 
         this.id = 0;
 
         this.forceField = this.computeInitForceField();
-        this.particles = this.getInitParticles(Nparticles);
+        this.particles = this.getInitParticles(nParticles);
+
+        this.particleIDsToRemove = new Array();
     }
 
     /**
@@ -84,6 +87,14 @@ export class Simulator {
         return randomUniform(0.5, 2);
     }
 
+    getRandomIsotropicVector(radius) {
+        let angle = randomUniform(0, 2 * Math.PI);
+        let x = Math.cos(angle) * radius;
+        let y = Math.sin(angle) * radius;
+
+        return new Vector(x, y);
+    }
+
     initParticle() {
         let position = this.getInitParticlePosition();
         let velocity = this.getInitParticleVelocity();
@@ -105,23 +116,50 @@ export class Simulator {
         this.id += 1;
     }
 
+    spawnIsotropicParticles(position, nParticles) {
+
+        for (let i = 0; i < nParticles; i++) {
+            this.particles.push(new Particle(
+                position,
+                this.getRandomIsotropicVector(0.2),
+                this.getMass(),
+                this.getMaxLifeSpan(),
+                this.id
+            ));
+
+            // These particles are removed when they have reached the end of their life
+            this.particleIDsToRemove.push(this.id);
+
+            this.id += 1;
+        }
+    }
+
 
     update() {
 
-        for(let particle of this.particles) {
+        for(let i = this.particles.length - 1; i >= 0; i--) {
+            let particle = this.particles[i];
             
             if(!particle.isInBounds() || particle.isDeath()) {
-                this.resetParticle(particle);
+
+                if(this.particleIDsToRemove.includes(particle.id)) {
+                    this.particleIDsToRemove = this.particleIDsToRemove.filter(id => id !== particle.id);
+                    this.particles = this.particles.filter(p => p.id !== particle.id);
+                }
+                else {
+                    this.resetParticle(particle);
+                }
+                
                 continue;
             }
 
             // Map particle position to the correct grid cell 
-            let i = Math.floor(particle.position[0] * this.Nx);
-            let j = Math.floor(particle.position[1] * this.Ny);
+            let x = Math.floor(particle.position[0] * this.Nx);
+            let y = Math.floor(particle.position[1] * this.Ny);
             
             let dragForce = particle.computeDragForce();
 
-            particle.applyForce(this.forceField[j][i].add(dragForce), this.dt);
+            particle.applyForce(this.forceField[y][x].add(dragForce), this.dt);
         }
     }
 }

@@ -21,6 +21,7 @@
 
 import BackgroundParticle from "@/components/BackgroundParticle.vue";
 import { Simulator } from "@/simulator/simulator.js";
+import { Vector } from "@/simulator/vector.js";
 
 export default {
     name: "BackGround",
@@ -45,7 +46,14 @@ export default {
             let elements = document.elementsFromPoint(evt.clientX, evt.clientY);
 
             if(this.checkSpawnCondition(elements)) {
-                this.spawnParticles();
+                
+                // Map mouse coordinates to a 1x1 cell, with the origin at the bottom left
+                let position = new Vector(
+                    evt.clientX / document.documentElement.clientWidth, 
+                    1 - evt.clientY / document.documentElement.clientHeight
+                );
+
+                this.sim.spawnIsotropicParticles(position, 5);
             }
         },
 
@@ -75,10 +83,6 @@ export default {
 
             return false;
         },
-
-        spawnParticles() {
-            console.log("SPAWN");
-        }
     }
 };
 </script>
