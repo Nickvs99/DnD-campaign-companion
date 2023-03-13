@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkdnd_campaign_companion"]=self["webpackChunkdnd_campaign_companion"]||[]).push([[596],{3220:function(n,a,u){u.r(a),u.d(a,{default:function(){return p}});var c=u(3396);const e=(0,c._)("h1",null,"404 page not found",-1),o=[e];function r(n,a){return(0,c.wg)(),(0,c.iD)("div",null,o)}var t=u(89);const i={},d=(0,t.Z)(i,[["render",r]]);var p=d}}]);
+//# sourceMappingURL=404.7d189913.js.map

@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkdnd_campaign_companion"]=self["webpackChunkdnd_campaign_companion"]||[]).push([[233],{1233:function(n,a,r){r.r(a),r.d(a,{default:function(){return s}});var c=r(3396);const e=(0,c._)("h1",null,"Binnenkort beschikbaar",-1),i=[e];function t(n,a,r,e,t,u){return(0,c.wg)(),(0,c.iD)("div",null,i)}var u={name:"UnderConstruction"},o=r(89);const d=(0,o.Z)(u,[["render",t]]);var s=d}}]);
+//# sourceMappingURL=233.dbcbfda8.js.map
