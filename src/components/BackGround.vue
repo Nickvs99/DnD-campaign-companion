@@ -33,10 +33,16 @@ export default {
         };
     },
     mounted() {
+        
         this.sim = new Simulator(8, 10, 7, this.dt);
+        
         setInterval(() => {
             this.sim.update();
         }, this.dt * 1000);
+
+        setInterval(() => {
+            this.sim.setForceField();
+        }, 2000);
 
         window.addEventListener("click", (evt) => this.onClick(evt));
     },

@@ -16,17 +16,17 @@ export class Simulator {
 
         this.id = 0;
 
-        this.forceField = this.computeInitForceField();
+        this.setForceField();
         this.particles = this.getInitParticles(nParticles);
 
         this.particleIDsToRemove = new Array();
     }
 
     /**
-     * Creates an initial velocity field which is directed upwards and falls off
-     * as you get higher.
+     * Creates a force field which is directed upwards and falls off
+     * as you get higher. Furthermore, it points away from the edges.
      */
-    computeInitForceField() {
+    setForceField() {
 
         let forceField = new Array(this.Ny).fill(0).map(() => new Array(this.Nx).fill(0));
         
@@ -54,7 +54,7 @@ export class Simulator {
             }
         }
 
-        return forceField;
+        this.forceField = forceField;
     }
 
     /**
