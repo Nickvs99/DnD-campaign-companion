@@ -9,9 +9,9 @@
             
             
             <div class="image-content-text" v-for="clss in classes" :key="clss.name">       
-                {{ clss.name }} <div v-if="classes.length != 1">({{ clss.level }})&nbsp;</div> 
+                {{ clss.name }} <template v-if="classes.length != 1">({{ clss.level }})&nbsp;</template> 
                 
-                <div v-if="clss.subclass">- {{ clss.subclass }}</div>
+                <template v-if="clss.subclass">- {{ clss.subclass }}</template>
             </div>
 
             <a :href="characterPageUrl" target="_blank">
@@ -27,6 +27,7 @@
             {{  description  }}
         </div>
     </div>
+    
     <CenterToScreen v-else class="error-container">
         <ErrorIcon />
         <h1>Error: 32</h1>
@@ -238,9 +239,9 @@ export default {
 .image-content-text {
     font-size: 1.25rem;
 
-    div {
-        display: inline-block;
-    }
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .stat-container {
