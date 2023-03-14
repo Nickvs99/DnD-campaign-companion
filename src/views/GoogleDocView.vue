@@ -1,7 +1,11 @@
 <template>
 
 <div>
-    <LoadIcon v-if="showLoadIcon" :message="this.loadMessage"/>
+    
+    <CenterToScreen v-if="showLoadIcon">
+            <LoadIcon :message="this.loadMessage"/>
+    </CenterToScreen>
+
     <div ref="docWrapper" class="google-doc"></div>
 </div>
 
@@ -9,12 +13,13 @@
 
 <script>
 
+import CenterToScreen from "@/components/CenterToScreen.vue";
 import LoadIcon from "@/components/LoadIcon.vue";
 import {randomUniform, sleep} from "@/util.js";
 
 export default {
     name: "GoogleDocView",
-    components: {LoadIcon},
+    components: { CenterToScreen, LoadIcon },
     props: {
         "src": {
             type: String,
