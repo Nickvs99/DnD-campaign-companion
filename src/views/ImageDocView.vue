@@ -2,7 +2,7 @@
 
 <div class="image-doc-container">
     <img :src="imgSrc"/>
-    <GoogleDoc :src="docSrc"/>
+    <GoogleDoc :src="docSrc" :centerLoadIcon="false"/>
 </div>
 
 </template>

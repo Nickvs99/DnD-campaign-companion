@@ -1,12 +1,13 @@
 <template>
 
-<div>
+<div ref="docWrapper" class="google-doc">
     
-    <CenterToScreen v-if="showLoadIcon">
+    <CenterToScreen v-if="showLoadIcon && centerLoadIcon">
             <LoadIcon :message="this.loadMessage"/>
     </CenterToScreen>
 
-    <div ref="docWrapper" class="google-doc"></div>
+    <LoadIcon v-else-if="showLoadIcon && !centerLoadIcon" :message="this.loadMessage" />
+
 </div>
 
 </template>
@@ -25,6 +26,10 @@ export default {
             type: String,
             required: true,
         },
+        "centerLoadIcon": {
+            type: Boolean,
+            default: true,
+        }
     },
     data() {
         return {
@@ -35,6 +40,7 @@ export default {
         };
     },
     mounted() {
+        console.log(this.$el);
         this.loadGoogleDoc();
     },
     unmounted() {
@@ -60,6 +66,7 @@ export default {
                 }
 
                 let docWrapper = this.$refs.docWrapper;
+                console.log(docWrapper);
                 let docElement = this.parseResponse(this.xhr.responseText);
 
                 docWrapper.appendChild(docElement);
