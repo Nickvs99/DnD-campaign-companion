@@ -1,8 +1,7 @@
-import { Component } from "@/router/lazyLoadComponents.js";
-
-import { Endpoint } from "@/router/endPoint.js";
-
-import { Theme } from "@/assets/content/themes.js";
+import { Component } from "./lazyLoadComponents.js";
+import { Endpoint } from "./endPoint.js";
+import { hashCode } from "@/util.js";
+import { Theme } from "@/styles/themes.js";
 
 export function addStructureToRoutes(routes, structure, prefix="") {
 
@@ -59,54 +58,10 @@ export function addStructureToRoutes(routes, structure, prefix="") {
 }
 
 /**
- * Create an object which follows the same tree structure as 'structure'.
- * Except each key branch gets an additional leaf. 
- */
-export function createThemeStructure(themeStructure, structure) {
-
-    for(let key in structure) {
-        let value = structure[key];
-
-        if (typeof value === "function" || value instanceof Endpoint) {
-            themeStructure[key] = null;
-            continue;
-        }
-        themeStructure[key] = {"": null};
-
-        createThemeStructure(themeStructure[key], value);
-    }
-}
-
-/**
- * Fill the theme structure with themes. If a theme is already set,
- * then the theme cacasades down the tree. 
- */
-export function fillThemeStructure(themeStructure, theme) {
-
-    let currentTheme = theme;
-
-    // Cascade the theme to its siblings
-    if("" in themeStructure && themeStructure[""] !== null) {
-        currentTheme = themeStructure[""];
-    }
-
-    for(let key in themeStructure) {
-        let value = themeStructure[key];
-        
-        if (typeof value === "object" && value !== null) {
-            fillThemeStructure(value, currentTheme);
-        }
-        else if (value === null) {
-            themeStructure[key] = currentTheme;
-        }
-    }
-}
-
-/**
  * Get the appropiate theme from the path. The path is split. These items are
  * used to traverse the themeStructure, until all items have been enumerated.
- * If the end is a string, then that is simply the theme name, if not it can be
- * an object. Then we take the empty string as a key for its theme name.
+ * If the end is a string, then that is simply the theme name, else we take 
+ * the empty string as a key for its theme name.
  */
 export function getTheme(themeStructure, path) {
 
@@ -132,4 +87,40 @@ export function getTheme(themeStructure, path) {
     }
 
     return Theme.Default;
+}
+
+export function CreateMessageRoutes(messageData, validPersonalCodes) {
+
+    // Collect messages for each hash
+    let messageMap = {};
+    for(let row of messageData)
+    {
+        let personalCode = row[0];
+        let DmCode = row[1];
+        let message = row[2];
+        let messageStyle = row[3]; 
+
+        if(!validPersonalCodes.includes(personalCode)) {
+            throw new Error(`${personalCode} is not a valid personal code.`);
+        }
+
+        let hash = hashCode(personalCode + DmCode);
+
+        if(!(hash in messageMap))
+        {
+            messageMap[hash] = [];
+        }
+
+        messageMap[hash].push({"message": message, "messageStyle": messageStyle});
+    }
+
+    // Create routes with the messages
+    let routes = {};
+    for(let hash in messageMap)
+    {
+        routes[hash] = new Endpoint(Component.InboxView, {"messages": messageMap[hash]});
+    }
+
+    return routes;
+
 }
