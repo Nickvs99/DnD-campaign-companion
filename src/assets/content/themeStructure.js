@@ -1,8 +1,8 @@
 
 import { Endpoint } from "@/router/endPoint.js";
-import { structure } from "@/assets/content/structure.js";
 import { Theme } from "@/styles/themes.js";
 
+import { structure } from "./structure.js";
 import { characterThemes } from "./characters/themes.js";
 import { lenovaThemes } from "./lenova/themes.js";
 

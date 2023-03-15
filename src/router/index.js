@@ -1,9 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import { structure } from "@/assets/content/structure.js";
-import { addStructureToRoutes, getTheme } from "@/router/util.js";
 import { themeStructure } from "@/assets/content/themeStructure";
 import { sleep } from "@/util.js";
+
+import { addStructureToRoutes, getTheme } from "./util.js";
 
 /**
  * These routes are manually added and should only be added if it does not follow

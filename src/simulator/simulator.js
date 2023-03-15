@@ -1,7 +1,7 @@
-import { Particle } from "@/simulator/particle.js";
-import { Vector } from "@/simulator/vector.js";
-
 import { randomUniform } from "@/util.js";
+
+import { Particle } from "./particle.js";
+import { Vector } from "./vector.js";
 
 export class Simulator {
 

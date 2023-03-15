@@ -19,9 +19,10 @@
 
 <script>
 
-import BackgroundParticle from "@/components/BackgroundParticle.vue";
 import { Simulator } from "@/simulator/simulator.js";
 import { Vector } from "@/simulator/vector.js";
+
+import BackgroundParticle from "./BackgroundParticle.vue";
 
 export default {
     name: "BackGround",

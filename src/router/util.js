@@ -1,7 +1,8 @@
-import { Component } from "./lazyLoadComponents.js";
-import { Endpoint } from "./endPoint.js";
 import { hashCode } from "@/util.js";
 import { Theme } from "@/styles/themes.js";
+
+import { Component } from "./lazyLoadComponents.js";
+import { Endpoint } from "./endPoint.js";
 
 export function addStructureToRoutes(routes, structure, prefix="") {
 

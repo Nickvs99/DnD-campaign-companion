@@ -15,8 +15,9 @@
 
 <script>
 
-import DotSeperator from "@/components/DotSeperator.vue";
 import HomeIcon from "@/assets/icons/HomeIcon.vue";
+
+import DotSeperator from "./DotSeperator.vue";
 
 export default {
     name: "NavBar",
