@@ -20,7 +20,7 @@ let overrideThemes = {
     "Characters": characterThemes,
 };
 
-Object.assign(themeStructure, overrideThemes);
+applyOverrides(themeStructure, overrideThemes);
 
 fillThemeStructure(themeStructure, Theme.Default);
 
@@ -42,6 +42,18 @@ function createThemeStructure(themeStructure, structure) {
         themeStructure[key] = {"": null};
 
         createThemeStructure(themeStructure[key], value);
+    }
+}
+
+function applyOverrides(themeStructure, overrideThemes) {
+
+    for(const [key, value] of Object.entries(overrideThemes)) {
+        if (typeof value === "object" && value !== null) {
+            applyOverrides(themeStructure[key], overrideThemes[key]);
+        }
+        else {
+            themeStructure[key] = value;
+        }
     }
 }
 
