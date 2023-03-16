@@ -49,7 +49,27 @@ export function addStructureToRoutes(routes, structure, prefix="") {
             routes.push({path: slug, component: value});
         }
         else if (value instanceof Endpoint) {
-            routes.push({path: slug, component: value.vueComponent, props: value.props});
+            
+            if(value.componentName == "CalendarMonthView") {
+
+                // A calendar needs both the month as well as the day view
+                let monthPath = `${slug}/:year/:month`;
+                let dayPath = `${slug}/:year/:month/:day`;
+
+                let dayEndpoint = new Endpoint(Component.CalendarDayView);
+
+                // Redirect to the current date
+                let currentDatePath = `${slug}/${value.props.calendar.currentYear}/${value.props.calendar.currentMonth}`;
+                
+                routes.push({path: slug, redirect: currentDatePath});
+                routes.push({path: monthPath, component: value.vueComponent, props: value.props});
+                routes.push({path: dayPath, component: dayEndpoint.vueComponent, props: value.props});
+            }
+            else {
+                routes.push({path: slug, component: value.vueComponent, props: value.props});
+            }
+
+
         }
         else {
             // Recursively add to the routes, with an updated prefix
@@ -70,6 +90,13 @@ export function getTheme(themeStructure, path) {
     let pathSplit = path.replace("%20", " ").split("/").filter(item => item != "");
 
     for(let item of pathSplit) {
+
+        // We might reach the end of the themestructure even though we
+        // haven't looped over all items in the pathSplit. This is due to 
+        // dynamic routing.
+        if(typeof tempStructure === "string") {
+            return tempStructure;
+        }
 
         if (item in tempStructure) {
             tempStructure = tempStructure[item];

@@ -2,6 +2,7 @@ import { Component } from "@/router/lazyLoadComponents.js";
 import { CreateMessageRoutes } from "@/router/util.js";
 import { Endpoint } from "@/router/endPoint.js";
 
+import { lenovaCalendar } from "./calendar.js";
 import { lenovaPersonalCodes, lenovaMessages } from "./messages.js";
 
 export const lenovaStructure = {
@@ -14,5 +15,6 @@ export const lenovaStructure = {
         "Virdos": new Endpoint(Component.ImageView, {"src": "lenova/virdos.jpg"})
     },
     "Inbox": new Endpoint(Component.InboxLoginView),
-    "messages": CreateMessageRoutes(lenovaMessages, lenovaPersonalCodes),       
+    "messages": CreateMessageRoutes(lenovaMessages, lenovaPersonalCodes),    
+    "Calendar": new Endpoint(Component.CalendarMonthView, {"calendar": lenovaCalendar}),
 };

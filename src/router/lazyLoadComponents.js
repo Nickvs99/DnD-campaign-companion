@@ -4,6 +4,8 @@
  */
 export const Component = Object.freeze({
     AccessDeniedView: "views/AccessDeniedView.vue",
+    CalendarDayView: "views/CalendarDayView.vue",
+    CalendarMonthView: "views/CalendarMonthView.vue",
     CharacterView: "views/CharacterView.vue",
     ClickThroughView: "views/ClickThroughView",
     GoogleDocView: "views/GoogleDocView.vue",
