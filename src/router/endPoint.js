@@ -1,3 +1,5 @@
+import { ParseEvents } from "./calendarUtil.js";
+
 /** 
  * This class is used when additional data, such as props, is required at 
  * the final value of the siteStructure. It also simplifies the needed information
@@ -33,6 +35,9 @@ export class Endpoint {
         }
         else if(this.componentName === "CharacterView") {
             this.props["data"] = require(`@/assets/characters/${this.props["ID"]}.json`);
+        }
+        else if(this.componentName === "CalendarMonthView") {
+            this.props.calendar.events = ParseEvents(this.props.calendar);
         }
     }
 
