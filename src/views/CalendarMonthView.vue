@@ -6,7 +6,9 @@
         <div v-for="day in nDays" class="day-container" :key="day">
             
             <div class="day-count">{{ day }}</div>
-            <CalendarEvent v-for="evt in events[day]" :event="evt" :key="evt" />
+            <div class="event-container">
+                <CalendarEvent v-for="evt in events[day]" :event="evt" :key="evt" />
+            </div>
         </div>
     </div>
 </div>
@@ -63,6 +65,8 @@ export default {
 
 <style lang="scss">
 
+@import "@/styles/_mixins.scss";
+
 .content-wrapper:has(.calendar-container) {
     // Show overflow since the month container should span the entire width of the screen
     overflow:visible;
@@ -73,12 +77,14 @@ export default {
 }
 
 .month-container {
+    @include hide-scrollbar;
+
+    * {
+        @include hide-scrollbar;
+    }
+
     display: grid;
     grid-template: repeat(4, 1fr) / repeat(7, 1fr);
-
-    //https://stackoverflow.com/a/43312314
-    min-height: 0;  /* NEW */
-    min-width: 0;   /* NEW; needed for Firefox */
 
     // Removes double borders
     border-top: 1px solid rgba(0, 0, 0, 0.15);
@@ -88,14 +94,17 @@ export default {
     margin: 0 -5%;
 }
 
-.day-container {
+.day-container {    
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+
     padding: 5px;
 
     border-bottom: 1px solid rgba(0, 0, 0, 0.15);
     border-right: 1px solid rgba(0, 0, 0, 0.15);
 
-    overflow: hidden;  /* NEW */
-    min-width: 0;      /* NEW; needed for Firefox */
+    overflow: hidden;
 }
 
 .day-count {    
@@ -103,6 +112,14 @@ export default {
 
     text-align: center;
     font-weight: bold;;
+}
+
+.event-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    
+    overflow: scroll;
 }
 
 </style>

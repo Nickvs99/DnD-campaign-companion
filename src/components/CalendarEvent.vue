@@ -1,6 +1,6 @@
 <template>
     
-<div class="event"> {{ event }} </div>
+<div class="event"> {{ event[event.length - 1] }} </div>
 
 </template>
 
@@ -18,11 +18,21 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss">
 
 .event {
-    background-color: red;
-    font-size: 2rem;
+    background-color: rgba(0, 0, 0, 0.15);
+    font-size: 1rem;
+
+    // font-size + padding
+    min-height: calc(1rem + 2px);
+
+    overflow-x: scroll;
+
+    border-radius: 2px;
+    padding: 1px;
+
+    white-space: nowrap;
 }
 
 </style>
