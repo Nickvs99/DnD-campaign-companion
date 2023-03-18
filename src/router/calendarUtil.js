@@ -42,9 +42,6 @@ function addEvent(eventsObject, evt, calendar) {
 
 function addEventInterval(eventsObject, evt, calendar) {
 
-    let daysPerMonth = calendar.weeksPerMonth * calendar.dayNames.length;
-    let monthsPerYear = calendar.monthNames.length;
-
     let [startDate, endDate] = evt[0].split("-");
     let [targetDay, targetMonth, targetYear] = endDate.trim().split(" ");
     let [dateDay, dateMonth, dateYear] = startDate.trim().split(" "); 
@@ -83,18 +80,8 @@ function addEventInterval(eventsObject, evt, calendar) {
     // Only add the first year of an event to reduce output
     let counter = 0;
     while(true && counter < 365) {
-        
-        dateDay += 1;
 
-        if(dateDay == daysPerMonth + 1) {
-            dateDay = 1;
-            dateMonth += 1;
-        }
-
-        if(dateMonth == monthsPerYear + 1) {
-            dateMonth = 1;
-            dateYear += 1;
-        }
+        [dateDay, dateMonth, dateYear] = getNextDay(dateDay, dateMonth, dateYear, calendar);
 
         if(dateDay === targetDay && dateMonth === targetMonth && dateYear === targetYear) {
             break;
@@ -169,4 +156,56 @@ function sortEvents(eventsObject) {
             return 0;
         });
     }
+}
+
+export function getNextDay(day, month, year, calendar) {
+
+    let daysPerMonth = calendar.weeksPerMonth * calendar.dayNames.length;
+
+    day += 1;
+    if(day == daysPerMonth + 1) {
+        day = 1;
+        [month, year] = getNextMonth(month, year, calendar);
+    }
+
+    return [day, month, year];
+}
+
+export function getNextMonth(month, year, calendar) {
+    
+    let monthsPerYear = calendar.monthNames.length;
+
+    month += 1;
+    if(month == monthsPerYear + 1) {
+        month = 1;
+        year += 1;
+    }
+
+    return [month, year];
+}
+
+export function getPreviousDay(day, month, year, calendar) {
+    
+    let daysPerMonth = calendar.weeksPerMonth * calendar.dayNames.length;
+
+    day -= 1;
+    if(day == 0) {
+        day = daysPerMonth;
+        [month, year] = getPreviousMonth(month, year, calendar);
+    }
+
+    return [day, month, year];
+}
+
+export function getPreviousMonth(month, year, calendar) {
+
+    let monthsPerYear = calendar.monthNames.length;
+
+    month -= 1;
+    if(month == 0) {
+        month = monthsPerYear;
+        year -= 1;
+    }
+
+    return [month, year];
 }

@@ -1,7 +1,12 @@
 <template>
 
 <div class="calendar-view-container">
-    <div class="calendar-title">{{ month }} - {{ year }}</div>
+    <div class="title-container">
+        <ChevronLeft @click="goToPreviousMonth"/>
+        <div class="calendar-title">{{ month }} - {{ year }}</div>
+        <ChevronRight @click="goToNextMonth"/>
+    </div>
+
     <div class="calendar-container">
 
         <div class="day-name-container">
@@ -25,11 +30,15 @@
 <script>
 
 import CalendarEvent from "@/components/CalendarEvent.vue";
+import ChevronLeft from "@/assets/icons/ChevronLeft.vue";
+import ChevronRight from "@/assets/icons/ChevronRight.vue";
+
 import { containsQuerySelector } from "@/util.js";
+import { getNextMonth, getPreviousMonth } from "@/router/calendarUtil.js";
 
 export default {
     name: "CalendarMonthView",
-    components: { CalendarEvent },
+    components: { CalendarEvent, ChevronLeft, ChevronRight },
     props: {
         calendar: {
             type: Object,
@@ -38,7 +47,7 @@ export default {
     },
     data() {
         return {
-            year: this.$route.params.year,
+            year: parseInt(this.$route.params.year),
             month: this.$route.params.month,
             events: null,
             nDays: null,
@@ -47,7 +56,6 @@ export default {
         };
     },
     mounted() {
-        
         this.events = this.calendar.events[this.year][this.month];
         this.nWeeks = this.calendar.weeksPerMonth;
         this.nDays = this.nWeeks * this.calendar.dayNames.length;
@@ -68,7 +76,6 @@ export default {
             let el = this.$refs.monthContainer;
             el.style.height = (document.documentElement.clientHeight - el.getBoundingClientRect().top) - 1 + "px";
         },
-
         goToDayView(evt, day) {
 
             let elements = document.elementsFromPoint(evt.clientX, evt.clientY);
@@ -78,6 +85,30 @@ export default {
 
             let targetPath = this.$route.path + "/" + day;
             this.$router.push(targetPath);
+        },
+        goToDate(monthName, year) {
+
+            // Remove year and month parts from the url
+            let calendarPath = this.$route.path.split("/").slice(0, -2).join("/");
+            let targetPath = [calendarPath, year, monthName].join("/");
+
+            this.$router.push(targetPath);
+        },
+        goToPreviousMonth() {
+
+            let monthIndex = this.calendar.monthNames.indexOf(this.month) + 1;
+            let [month, year] = getPreviousMonth(monthIndex, this.year, this.calendar);
+            let monthName = this.calendar.monthNames[month - 1];
+
+            this.goToDate(monthName, year); 
+        },
+        goToNextMonth() {
+            
+            let monthIndex = this.calendar.monthNames.indexOf(this.month) + 1;
+            let [month, year] = getNextMonth(monthIndex, this.year, this.calendar);
+            let monthName = this.calendar.monthNames[month - 1];
+
+            this.goToDate(monthName, year);
         }
     },
 };
@@ -96,10 +127,19 @@ export default {
     float: left;
 }
 
+.title-container { 
+    display: flex;
+    justify-content: space-around;
+    
+    margin: 0.75rem 0;
+
+    svg {
+        width: 1.5rem;
+    }
+}
+
 .calendar-title {
-    text-align: center;
     font-size: 1.5rem;
-    margin: 0.5em 0;
 }
 
 .calendar-container {
