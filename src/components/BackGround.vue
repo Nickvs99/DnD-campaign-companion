@@ -21,6 +21,7 @@
 
 import { Simulator } from "@/simulator/simulator.js";
 import { Vector } from "@/simulator/vector.js";
+import { containsQuerySelector } from "@/util.js";
 
 import BackgroundParticle from "./BackgroundParticle.vue";
 
@@ -71,21 +72,11 @@ export default {
          */
         checkSpawnCondition(elements) {
             
-            if(!this.containsQuerySelector(elements, ".content-wrapper") ||
-                this.containsQuerySelector(elements, ".menu-wrapper") ||
+            if(!containsQuerySelector(elements, ".content-wrapper") ||
+                containsQuerySelector(elements, ".menu-wrapper") ||
                 elements[0].matches(".content-wrapper")) {
 
                 return true;
-            }
-
-            return false;
-        },
-
-        containsQuerySelector(elements, selector) {
-            for(let element of elements) {
-                if (element.matches(selector)){
-                    return true;
-                }
             }
 
             return false;

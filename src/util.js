@@ -15,3 +15,13 @@ export function randomUniform(min, max) {
 export function sleep(ms) {
     return new Promise(r => setTimeout(r, ms));
 };
+
+export function containsQuerySelector(elements, selector) {
+    for(let element of elements) {
+        if (element.matches(selector)){
+            return true;
+        }
+    }
+
+    return false;
+}

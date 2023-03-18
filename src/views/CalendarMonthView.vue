@@ -9,7 +9,7 @@
         </div>
 
         <div ref="monthContainer" class="month-container">
-            <div v-for="day in nDays" class="day-container calendar-item" :key="day">
+            <div v-for="day in nDays" class="day-container calendar-item" :key="day" @click="goToDayView($event, day)">
                 <div class="day-count">{{ day }}</div>
                 <div class="event-container">
                     <CalendarEvent v-for="evt in events[day]" :event="evt" :key="evt" />
@@ -25,6 +25,7 @@
 <script>
 
 import CalendarEvent from "@/components/CalendarEvent.vue";
+import { containsQuerySelector } from "@/util.js";
 
 export default {
     name: "CalendarMonthView",
@@ -67,6 +68,17 @@ export default {
             let el = this.$refs.monthContainer;
             el.style.height = (document.documentElement.clientHeight - el.getBoundingClientRect().top) - 1 + "px";
         },
+
+        goToDayView(evt, day) {
+
+            let elements = document.elementsFromPoint(evt.clientX, evt.clientY);
+
+            // Do not trigger route change if any of the events have been clicked
+            if(containsQuerySelector(elements, ".calendar-event")) return;
+
+            let targetPath = this.$route.path + "/" + day;
+            this.$router.push(targetPath);
+        }
     },
 };
 

@@ -1,6 +1,6 @@
 <template>
     
-<div class="event"> {{ event[event.length - 1] }} </div>
+<div class="calendar-event"> {{ event[event.length - 1] }} </div>
 
 </template>
 
@@ -20,7 +20,7 @@ export default {
 
 <style lang="scss">
 
-.event {
+.calendar-event {
     background-color: rgba(0, 0, 0, 0.15);
     font-size: 1rem;
 
