@@ -16,7 +16,7 @@
         <div ref="monthContainer" class="month-container">
             <div v-for="day in nDays" class="day-container calendar-item" :key="day" @click="goToDayView($event, day)">
                 <div class="day-count">{{ day }}</div>
-                <div class="event-container">
+                <div v-if="events != null"  class="event-container">
                     <CalendarEvent v-for="evt in events[day]" :event="evt" :key="evt" />
                 </div>
             </div>
@@ -56,7 +56,11 @@ export default {
         };
     },
     mounted() {
-        this.events = this.calendar.events[this.year][this.month];
+
+        if(this.year in this.calendar.events && this.month in this.calendar.events[this.year]) {
+            this.events = this.calendar.events[this.year][this.month];
+        }
+
         this.nWeeks = this.calendar.weeksPerMonth;
         this.nDays = this.nWeeks * this.calendar.dayNames.length;
         this.dayNames = this.calendar.dayNames;

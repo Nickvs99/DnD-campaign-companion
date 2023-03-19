@@ -48,6 +48,8 @@ export default {
     // Creates new Block formatting context, making sure that all
     // margins are within the content-wrapper
     overflow: auto;
+
+    width: 100%;
 }
 
 .fade-enter-active, .fade-leave-active {

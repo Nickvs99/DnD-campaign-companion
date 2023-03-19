@@ -51,7 +51,9 @@ export default {
         };
     },
     mounted() {
-        this.events = this.calendar.events[this.year][this.month][this.day];
+        if(this.year in this.calendar.events && this.month in this.calendar.events[this.year] && this.day in this.calendar.events[this.year][this.month]) {
+            this.events = this.calendar.events[this.year][this.month][this.day];
+        }
     },
 
     methods: {
