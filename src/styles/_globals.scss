@@ -22,6 +22,10 @@ button {
         background-color: var(--font-color);
         color: var(--gradient-color-primary); // Should ideally be see through
         outline: none;
+
+        svg {
+            fill: var(--gradient-color-primary);
+        }
     }
 }
 

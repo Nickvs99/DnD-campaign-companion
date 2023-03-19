@@ -20,12 +20,15 @@
         </CenterToScreen>
     </div>
 
+    <button @click="goToCreateEvent" class="create-event-button"><AddIcon /></button>
+
 </div>
 
 </template>
 
 <script>
 
+import AddIcon from "@/assets/icons/AddIcon.vue";
 import CalendarIcon from "@/assets/icons/CalendarIcon.vue";
 import CenterToScreen from "@/components/CenterToScreen.vue";
 import ChevronLeft from "@/assets/icons/ChevronLeft.vue";
@@ -35,7 +38,7 @@ import { getNextDay, getPreviousDay } from "@/router/calendarUtil.js";
 
 export default {
     name: "CalendarDayView",
-    components: { CalendarIcon, CenterToScreen, ChevronLeft, ChevronRight },
+    components: { AddIcon, CalendarIcon, CenterToScreen, ChevronLeft, ChevronRight },
     props: {
         calendar: {
             type: Object,
@@ -57,10 +60,13 @@ export default {
     },
 
     methods: {
+        getCalendarPath() {
+            // Remove day, month, and year parts from the url
+            return this.$route.path.split("/").slice(0, -3).join("/");
+        },
         goToDate(day, monthName, year) {
 
-            // Remove year and month parts from the url
-            let calendarPath = this.$route.path.split("/").slice(0, -3).join("/");
+            let calendarPath = this.getCalendarPath();
             let targetPath = [calendarPath, year, monthName, day].join("/");
 
             this.$router.push(targetPath);
@@ -80,6 +86,11 @@ export default {
             let monthName = this.calendar.monthNames[month - 1];
 
             this.goToDate(day, monthName, year);
+        },
+        goToCreateEvent() {
+            let calendarPath = this.getCalendarPath();
+            let targetPath = calendarPath + "/new";
+            this.$router.push({path: targetPath, query: { day: this.day, month: this.month, year: this.year }});
         }
     }
 };
@@ -131,6 +142,15 @@ export default {
 .no-events-container svg{
     aspect-ratio: 1/1;
     width: 10rem;
+}
+
+.create-event-button {
+    position: fixed;
+    width: 5rem;
+    border: none;
+    bottom: 5vw;
+    right: 5vw;
+    border-radius: 1rem;
 }
 
 </style>

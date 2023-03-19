@@ -8,6 +8,7 @@ export const Component = Object.freeze({
     CalendarMonthView: "views/CalendarMonthView.vue",
     CharacterView: "views/CharacterView.vue",
     ClickThroughView: "views/ClickThroughView",
+    CreateCalendarEventView: "views/CreateCalendarEventView",
     GoogleDocView: "views/GoogleDocView.vue",
     ImageView: "views/ImageView.vue",
     ImageDocView: "views/ImageDocView.vue",

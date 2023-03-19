@@ -53,14 +53,17 @@ export function addStructureToRoutes(routes, structure, prefix="") {
             if(value.componentName == "CalendarMonthView") {
 
                 // A calendar needs both the month as well as the day view, furthermore
-                // a click through menu is shown when a user navigates to just the year path
+                // a click through menu is shown when a user navigates to just the year path.
+                // User created events are created at the new path
                 let yearPath = `${slug}/:year`;
                 let monthPath = `${yearPath}/:month`;
                 let dayPath = `${monthPath}/:day`;
+                let newPath = `${slug}/new`;
 
                 let calendar = value.props.calendar;
                 let yearEndPoint = new Endpoint(Component.ClickThroughView, {items: calendar.monthNames});
                 let dayEndpoint = new Endpoint(Component.CalendarDayView);
+                let newEndpoint = new Endpoint(Component.CreateCalendarEventView, {calendar: calendar});
 
                 // Redirect to the current date
                 let currentDatePath = `${slug}/${calendar.currentYear}/${calendar.currentMonth}`;
@@ -69,6 +72,7 @@ export function addStructureToRoutes(routes, structure, prefix="") {
                 routes.push({path: yearPath, component: yearEndPoint.vueComponent, props: yearEndPoint.props});
                 routes.push({path: monthPath, component: value.vueComponent, props: value.props});
                 routes.push({path: dayPath, component: dayEndpoint.vueComponent, props: value.props});
+                routes.push({path: newPath, component: newEndpoint.vueComponent, props: newEndpoint.props});
             }
             else {
                 routes.push({path: slug, component: value.vueComponent, props: value.props});
