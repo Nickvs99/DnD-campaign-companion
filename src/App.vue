@@ -3,7 +3,7 @@
 <BackGround />
 <NavBar />
 <router-view v-slot="{Component}">
-    <div class="content-wrapper" ref="contentWrapper">
+    <div id="content-wrapper" ref="contentWrapper">
         <transition name="fade" mode="out-in">
                 <component :is="Component" :key="$route.path"></component>
         </transition>
@@ -42,7 +42,7 @@ export default {
 
 <style lang="scss">
 
-.content-wrapper {
+#content-wrapper {
     position: relative;
 
     // Creates new Block formatting context, making sure that all

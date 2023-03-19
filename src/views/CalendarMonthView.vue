@@ -67,9 +67,18 @@ export default {
 
         window.addEventListener("resize", this.setCalendarHeight);
         this.setCalendarHeight();
+
+        // Firefox does not support the :has selector, therefore the styles are manually added
+        let el = document.getElementById("content-wrapper");
+        let style = window.getComputedStyle(el);
+        if(style.overflow != "visible") {
+            el.classList.add("content-wrapper-firefox");
+        }
+
     },
     unmounted() {
         window.removeEventListener("resize", this.setCalendarHeight);
+        document.getElementById("content-wrapper").classList.remove("content-wrapper-firefox");
     },
     methods: {
         
@@ -123,12 +132,20 @@ export default {
 
 @import "@/styles/_mixins.scss";
 
-.content-wrapper:has(.calendar-view-container) {
+@mixin content-wrapper-override {
     // Show overflow since the month container should span the entire width of the screen
-    overflow: visible;
+    overflow: visible !important;
 
     // This still creates a new Block formatting context
     float: left;
+}
+
+.content-wrapper-firefox {    
+    @include content-wrapper-override;
+}
+
+#content-wrapper:has(.calendar-view-container){    
+    @include content-wrapper-override;
 }
 
 .title-container { 
