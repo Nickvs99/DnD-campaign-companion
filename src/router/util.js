@@ -52,24 +52,27 @@ export function addStructureToRoutes(routes, structure, prefix="") {
             
             if(value.componentName == "CalendarMonthView") {
 
-                // A calendar needs both the month as well as the day view
-                let monthPath = `${slug}/:year/:month`;
-                let dayPath = `${slug}/:year/:month/:day`;
+                // A calendar needs both the month as well as the day view, furthermore
+                // a click through menu is shown when a user navigates to just the year path
+                let yearPath = `${slug}/:year`;
+                let monthPath = `${yearPath}/:month`;
+                let dayPath = `${monthPath}/:day`;
 
+                let calendar = value.props.calendar;
+                let yearEndPoint = new Endpoint(Component.ClickThroughView, {items: calendar.monthNames});
                 let dayEndpoint = new Endpoint(Component.CalendarDayView);
 
                 // Redirect to the current date
-                let currentDatePath = `${slug}/${value.props.calendar.currentYear}/${value.props.calendar.currentMonth}`;
+                let currentDatePath = `${slug}/${calendar.currentYear}/${calendar.currentMonth}`;
                 
                 routes.push({path: slug, redirect: currentDatePath});
+                routes.push({path: yearPath, component: yearEndPoint.vueComponent, props: yearEndPoint.props});
                 routes.push({path: monthPath, component: value.vueComponent, props: value.props});
                 routes.push({path: dayPath, component: dayEndpoint.vueComponent, props: value.props});
             }
             else {
                 routes.push({path: slug, component: value.vueComponent, props: value.props});
             }
-
-
         }
         else {
             // Recursively add to the routes, with an updated prefix
