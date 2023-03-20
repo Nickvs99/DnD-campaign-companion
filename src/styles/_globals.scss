@@ -33,7 +33,11 @@ div {
     color: var(--font-color);
 }
 
-input[type=text] {
+fieldset {
+    border: solid 1px var(--font-color);
+}
+
+input[type=text], input[type=number], select {
     background-color: rgba(0, 0, 0, 0.15);
     color: var(--font-color);
 
@@ -59,6 +63,10 @@ input[type=text] {
             color: transparent;
         }
     }
+}
+
+label {
+    font-weight: bold;
 }
 
 svg {
