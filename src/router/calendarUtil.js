@@ -143,24 +143,26 @@ export function sortEvents(eventsObject) {
             continue;
         }
 
-        value.sort((a, b) => {
-            // No specified time gets preference over an event with time
-            if(a.length != b.length) return a.length - b.length; 
-
-            // Don't change order if both have no time
-            if(a.length === 1) return 0;
-
-            // Time is stored at index 0 of the event, then get the start time
-            // and remove any whitespace, finally split to get the hour and minute
-            let [aHour, aMinute] = a[0].split("-")[0].trim().split(":");
-            let [bHour, bMinute] = b[0].split("-")[0].trim().split(":");
-            
-            if(aHour != bHour) return aHour < bHour ? -1 : 1;
-            if(aMinute != bMinute) return aMinute < bMinute? -1 : 1;
-
-            return 0;
-        });
+        value.sort(sortEventFn);
     }
+}
+
+export function sortEventFn(event1, event2) {
+    // No specified time gets preference over an event with time
+    if(event1.length != event2.length) return event1.length - event2.length; 
+
+    // Don't change order if both have no time
+    if(event1.length === 1) return 0;
+
+    // Time is stored at index 0 of the event, then get the start time
+    // and remove any whitespace, finally split to get the hour and minute
+    let [event1Hour, event1Minute] = event1[0].split("-")[0].trim().split(":");
+    let [event2Hour, event2Minute] = event2[0].split("-")[0].trim().split(":");
+    
+    if(event1Hour != event2Hour) return event1Hour < event2Hour ? -1 : 1;
+    if(event1Minute != event2Minute) return event1Minute < event2Minute ? -1 : 1;
+
+    return 0;
 }
 
 export function getNextDay(day, month, year, calendar) {

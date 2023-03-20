@@ -34,7 +34,8 @@ import CenterToScreen from "@/components/CenterToScreen.vue";
 import ChevronLeft from "@/assets/icons/ChevronLeft.vue";
 import ChevronRight from "@/assets/icons/ChevronRight.vue";
 
-import { getNextDay, getPreviousDay } from "@/router/calendarUtil.js";
+import { objectContainsKeys } from "@/util.js";
+import { getNextDay, getPreviousDay, sortEventFn } from "@/router/calendarUtil.js";
 
 export default {
     name: "CalendarDayView",
@@ -50,13 +51,29 @@ export default {
             year: parseInt(this.$route.params.year),
             month: this.$route.params.month,
             day: parseInt(this.$route.params.day),
-            events: null,
+            events: [],
         };
     },
     mounted() {
-        if(this.year in this.calendar.events && this.month in this.calendar.events[this.year] && this.day in this.calendar.events[this.year][this.month]) {
-            this.events = this.calendar.events[this.year][this.month][this.day];
+        let customEvents = localStorage.getObject("events");
+        
+        let keys = [this.year, this.month, this.day];
+        if(customEvents && objectContainsKeys(customEvents, keys)) {
+            this.events = customEvents[this.year][this.month][this.day];
         }
+
+        if(objectContainsKeys(this.calendar.events, keys)) {
+            let dayEvents = this.calendar.events[this.year][this.month][this.day];
+      
+            if(this.events) {
+                this.events.push(...dayEvents);
+            }
+            else {
+                this.events = dayEvents;
+            }
+        }
+
+        this.events.sort(sortEventFn);
     },
 
     methods: {

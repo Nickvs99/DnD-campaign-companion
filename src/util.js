@@ -25,3 +25,20 @@ export function containsQuerySelector(elements, selector) {
 
     return false;
 }
+
+export function objectContainsKeys(object, keys) {
+
+    if(object == null) return false;
+
+    let key = keys[0];
+    if(key in object) {
+        
+        if(keys.length == 1) {
+            return true;
+        }
+
+        return objectContainsKeys(object[key], keys.slice(1));
+    }
+
+    return false;
+}

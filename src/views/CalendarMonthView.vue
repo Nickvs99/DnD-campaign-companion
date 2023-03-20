@@ -33,8 +33,8 @@ import CalendarEvent from "@/components/CalendarEvent.vue";
 import ChevronLeft from "@/assets/icons/ChevronLeft.vue";
 import ChevronRight from "@/assets/icons/ChevronRight.vue";
 
-import { containsQuerySelector } from "@/util.js";
-import { getNextMonth, getPreviousMonth } from "@/router/calendarUtil.js";
+import { containsQuerySelector, objectContainsKeys } from "@/util.js";
+import { getNextMonth, getPreviousMonth, sortEvents } from "@/router/calendarUtil.js";
 
 export default {
     name: "CalendarMonthView",
@@ -49,7 +49,7 @@ export default {
         return {
             year: parseInt(this.$route.params.year),
             month: this.$route.params.month,
-            events: null,
+            events: {},
             nDays: null,
             nWeeks: null,
             dayNames: null,
@@ -57,9 +57,30 @@ export default {
     },
     mounted() {
 
-        if(this.year in this.calendar.events && this.month in this.calendar.events[this.year]) {
-            this.events = this.calendar.events[this.year][this.month];
+        let customEvents = localStorage.getObject("events");
+
+        let keys = [this.year, this.month];
+        if(customEvents && objectContainsKeys(customEvents, keys)) {
+            this.events = customEvents[this.year][this.month];
         }
+
+        if(objectContainsKeys(this.calendar.events, keys)) {
+
+            for(let day in this.calendar.events[this.year][this.month]) {
+                let dayEvents = this.calendar.events[this.year][this.month][day];
+
+                // If there are already events at this date, then add them to the
+                // existing
+                if(objectContainsKeys(this.events, [day])) {
+                    this.events[day].push(...dayEvents);
+                }
+                else {
+                    this.events[day] = dayEvents;
+                }
+            }
+        }
+
+        sortEvents(this.events);
 
         this.nWeeks = this.calendar.weeksPerMonth;
         this.nDays = this.nWeeks * this.calendar.dayNames.length;
