@@ -53,6 +53,8 @@
 
 <script>
 
+import { prepareEventsObject, sortEvents } from "@/router/calendarUtil.js";
+
 export default {
     name: "CreateCalendarEventView",
     props: {
@@ -75,12 +77,59 @@ export default {
     },
     methods: {
         onSubmit(event) {
+            
             event.preventDefault();
             event.stopPropagation();
 
-            console.log(this.day, this.month, this.year);
-            console.log(this.startTimeHour, this.startTimeMinute, this.endTimeHour, this.endTimeMinute);
-            console.log(this.description);
+            let timeString = this.getTimeString();
+
+            let evt;
+            if(timeString === ""){
+                evt = [this.description];
+            }
+            else {
+                evt = [timeString, this.description];
+            }
+            
+            let customEvents = localStorage.getObject("events");
+            if(customEvents == null) {
+                customEvents = {};
+            }
+
+            prepareEventsObject(customEvents, this.day, this.month, this.year);
+            
+            customEvents[this.year][this.month][this.day].push(evt);
+            
+            sortEvents(customEvents);
+
+            localStorage.setObject("events", customEvents);
+        },
+        getTimeString() {
+
+            let timeString = "";
+            if(this.startTimeHour) {
+                timeString += this.startTimeHour + ":";
+
+                if(this.startTimeMinute) {
+                    timeString += this.startTimeMinute;
+                }
+                else {
+                    timeString += "00";
+                }
+            }
+
+            if(this.endTimeHour) {
+                timeString += "-" + this.endTimeHour + ":";
+
+                if(this.endTimeMinute) {
+                    timeString += this.endTimeMinute;
+                }
+                else {
+                    timeString += "00";
+                }
+            }
+
+            return timeString;
         }
     }
 };
@@ -141,7 +190,7 @@ fieldset > legend {
     flex-direction: column;
     column-gap: 5px;
 
-    margin: 2px 0;
+    margin: 0 2px;
 }
 
 </style>

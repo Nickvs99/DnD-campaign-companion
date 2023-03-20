@@ -26,6 +26,13 @@ function addEvent(eventsObject, evt, calendar) {
         throw new Error("Invalid date for " + evt);
     }
 
+    prepareEventsObject(eventsObject, day, month, year);
+
+    eventsObject[year][month][day].push(evt.slice(1));
+}
+
+export function prepareEventsObject(eventsObject, day, month, year) {
+    
     // Makes sure that the path to the event exists
     if(!(year in eventsObject)) {
         eventsObject[year] = {};
@@ -36,8 +43,6 @@ function addEvent(eventsObject, evt, calendar) {
     if(!(day in eventsObject[year][month])) {
         eventsObject[year][month][day] = [];
     }
-
-    eventsObject[year][month][day].push(evt.slice(1));
 }
 
 function addEventInterval(eventsObject, evt, calendar) {
@@ -129,7 +134,7 @@ function isValidDate(calendar, day, month, year) {
     return true;
 }
 
-function sortEvents(eventsObject) {
+export function sortEvents(eventsObject) {
 
     for(const value of Object.values(eventsObject)) {
 
