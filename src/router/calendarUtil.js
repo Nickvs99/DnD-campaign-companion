@@ -159,8 +159,8 @@ export function sortEventFn(event1, event2) {
     let [event1Hour, event1Minute] = event1[0].split("-")[0].trim().split(":");
     let [event2Hour, event2Minute] = event2[0].split("-")[0].trim().split(":");
     
-    if(event1Hour != event2Hour) return event1Hour < event2Hour ? -1 : 1;
-    if(event1Minute != event2Minute) return event1Minute < event2Minute ? -1 : 1;
+    if(event1Hour != event2Hour) return parseInt(event1Hour) < parseInt(event2Hour) ? -1 : 1;
+    if(event1Minute != event2Minute) return parseInt(event1Minute) < parseInt(event2Minute) ? -1 : 1;
 
     return 0;
 }
