@@ -14,14 +14,13 @@
         </div>
 
         <div ref="monthContainer" class="month-container">
-            <div v-for="day in nDays" class="day-container calendar-item" :key="day" @click="goToDayView($event, day)">
+            <div v-for="day in nDays" class="day-container calendar-item" :key="day" @click="goToDayView(day)">
                 <div class="day-count">{{ day }}</div>
                 <div v-if="events != null"  class="event-container">
                     <CalendarEvent v-for="evt in events[day]" :event="evt" :key="evt" />
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 
@@ -33,7 +32,7 @@ import CalendarEvent from "@/components/CalendarEvent.vue";
 import ChevronLeft from "@/assets/icons/ChevronLeft.vue";
 import ChevronRight from "@/assets/icons/ChevronRight.vue";
 
-import { containsQuerySelector, objectContainsKeys } from "@/util.js";
+import { objectContainsKeys } from "@/util.js";
 import { getNextMonth, getPreviousMonth, sortEvents } from "@/router/calendarUtil.js";
 
 export default {
@@ -110,13 +109,7 @@ export default {
             let el = this.$refs.monthContainer;
             el.style.height = (document.documentElement.clientHeight - el.getBoundingClientRect().top) - 1 + "px";
         },
-        goToDayView(evt, day) {
-
-            let elements = document.elementsFromPoint(evt.clientX, evt.clientY);
-
-            // Do not trigger route change if any of the events have been clicked
-            if(containsQuerySelector(elements, ".calendar-event")) return;
-
+        goToDayView(day) {
             let targetPath = this.$route.path + "/" + day;
             this.$router.push(targetPath);
         },

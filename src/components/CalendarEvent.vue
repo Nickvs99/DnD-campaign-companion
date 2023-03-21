@@ -22,10 +22,10 @@ export default {
 
 .calendar-event {
     background-color: rgba(0, 0, 0, 0.15);
-    font-size: 1rem;
+    font-size: 0.75rem;
 
     // font-size + padding
-    min-height: calc(1rem + 2px);
+    min-height: calc(1em + 2px);
 
     overflow-x: scroll;
 
