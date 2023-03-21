@@ -12,17 +12,19 @@
             {{ evt.join(" ") }}
             <CloseIcon v-if="this.customEvents && this.customEvents.includes(evt)" @click="removeEvent(evt)" class="delete-icon" />
         </div>
+        <button @click="goToCreateEvent" class="event">
+            Add event
+        </button>
     </div>
 
     <div v-else>
         <CenterToScreen class="no-events-container">
             <CalendarIcon />
-            <h1>Nog geen plannen voor vandaag</h1>
+            <h1>No events planned for today</h1>
         </CenterToScreen>
+
+        <button @click="goToCreateEvent" class="create-event-button"><AddIcon /></button>
     </div>
-
-    <button @click="goToCreateEvent" class="create-event-button event"><AddIcon /></button>
-
 </div>
 
 </template>
@@ -186,10 +188,12 @@ export default {
 
 .create-event-button {
     position: fixed;
-    width: 5rem;
-    border: none;
     bottom: 5vw;
     right: 5vw;
+
+    width: 5rem;
+    padding: 0.5em;
+
     border-radius: 1rem;
 }
 
