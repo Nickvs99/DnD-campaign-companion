@@ -10,6 +10,7 @@
     <div v-if="events && events.length != 0" class="event-container">
         <div v-for="(evt, i) in events" class="event" :key="i">
             {{ evt.join(" ") }}
+            <CloseIcon v-if="this.customEvents && this.customEvents.includes(evt)" @click="removeEvent(evt)" class="delete-icon" />
         </div>
     </div>
 
@@ -20,7 +21,7 @@
         </CenterToScreen>
     </div>
 
-    <button @click="goToCreateEvent" class="create-event-button"><AddIcon /></button>
+    <button @click="goToCreateEvent" class="create-event-button event"><AddIcon /></button>
 
 </div>
 
@@ -33,13 +34,14 @@ import CalendarIcon from "@/assets/icons/CalendarIcon.vue";
 import CenterToScreen from "@/components/CenterToScreen.vue";
 import ChevronLeft from "@/assets/icons/ChevronLeft.vue";
 import ChevronRight from "@/assets/icons/ChevronRight.vue";
+import CloseIcon from "@/assets/icons/CloseIcon.vue";
 
 import { objectContainsKeys } from "@/util.js";
 import { getNextDay, getPreviousDay, sortEventFn } from "@/router/calendarUtil.js";
 
 export default {
     name: "CalendarDayView",
-    components: { AddIcon, CalendarIcon, CenterToScreen, ChevronLeft, ChevronRight },
+    components: { AddIcon, CalendarIcon, CenterToScreen, ChevronLeft, ChevronRight, CloseIcon },
     props: {
         calendar: {
             type: Object,
@@ -52,14 +54,16 @@ export default {
             month: this.$route.params.month,
             day: parseInt(this.$route.params.day),
             events: [],
+            customEvents: null,
         };
     },
     mounted() {
         let customEvents = localStorage.getObject("events");
-        
+
         let keys = [this.year, this.month, this.day];
         if(customEvents && objectContainsKeys(customEvents, keys)) {
-            this.events = customEvents[this.year][this.month][this.day];
+            this.events = customEvents[this.year][this.month][this.day].slice();
+            this.customEvents = customEvents[this.year][this.month][this.day];
         }
 
         if(objectContainsKeys(this.calendar.events, keys)) {
@@ -108,6 +112,25 @@ export default {
             let calendarPath = this.getCalendarPath();
             let targetPath = calendarPath + "/new";
             this.$router.push({path: targetPath, query: { day: this.day, month: this.month, year: this.year }});
+        },
+        removeEvent(evt) {
+            // Remove event from the current shown events
+            this.events = this.events.filter(item => !this.areArraysEqual(item, evt));
+            
+            // Remove event from localstorage
+            let customEvents = localStorage.getObject("events");
+            customEvents[this.year][this.month][this.day] = customEvents[this.year][this.month][this.day].filter(item => !this.areArraysEqual(item, evt));
+            localStorage.setObject("events", customEvents);
+        },
+        areArraysEqual(arr1, arr2) {
+            if (arr1 === arr2) return true;
+            if (arr1 == null || arr2 == null) return false;
+            if (arr1.length !== arr2.length) return false;
+
+            for (var i = 0; i < arr1.length; ++i) {
+                if (arr1[i] !== arr2[i]) return false;
+            }
+            return true;
         }
     }
 };
@@ -168,6 +191,11 @@ export default {
     bottom: 5vw;
     right: 5vw;
     border-radius: 1rem;
+}
+
+.delete-icon {
+    width: 1em;
+    float: right;
 }
 
 </style>
