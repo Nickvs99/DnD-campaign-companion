@@ -47,6 +47,11 @@
     </div>
 
     <button type="submit">Add event</button>
+
+    <p>
+        Custom events are not available on other devices. Safari users should add this site to their homescreen, 
+        otherwise the events are automatically deleted after 7 days.
+    </p>
 </form>
 
 </template>
