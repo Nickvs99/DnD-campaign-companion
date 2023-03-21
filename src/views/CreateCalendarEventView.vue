@@ -103,6 +103,8 @@ export default {
             sortEvents(customEvents);
 
             localStorage.setObject("events", customEvents);
+
+            this.goToDayView();
         },
         getTimeString() {
 
@@ -130,6 +132,14 @@ export default {
             }
 
             return timeString;
+        },
+        goToDayView() {
+
+            // Remove new part from url
+            let calendarPath = this.$route.path.split("/").slice(0, -1).join("/");
+            
+            let targetPath = [calendarPath, this.year, this.month, this.day].join("/");
+            this.$router.push(targetPath);
         }
     }
 };
