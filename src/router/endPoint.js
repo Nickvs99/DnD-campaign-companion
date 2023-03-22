@@ -13,7 +13,7 @@ export class Endpoint {
 
         this.componentName = this.getComponentName(componentPath);
 
-        this.vueComponent = () => import(`@/${componentPath}`);
+        this.vueComponent = () => import(/* webpackChunkName: "[request]" */ `@/${componentPath}`);
         this.props = props;
 
         this.parseProps();

@@ -30,7 +30,9 @@ export function addStructureToRoutes(routes, structure, prefix="") {
         routes.push({path: prefix, redirect: redirectPath});
     }
     else {
-        routes.push({path: prefix, component: () => import(`@/${Component.ClickThroughView}`), props: {items: keys}});
+        // This line somehow prefetches everything. TODO this should only prefetch
+        // the click-through-view
+        routes.push({path: prefix, component: () => import(/* webpackPrefetch: true */ `@/${Component.ClickThroughView}`), props: {items: keys}});
     }
 
     for(const key in structure) {
