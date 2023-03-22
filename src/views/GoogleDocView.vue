@@ -40,7 +40,6 @@ export default {
         };
     },
     mounted() {
-        console.log(this.$el);
         this.loadGoogleDoc();
     },
     unmounted() {
@@ -66,7 +65,6 @@ export default {
                 }
 
                 let docWrapper = this.$refs.docWrapper;
-                console.log(docWrapper);
                 let docElement = this.parseResponse(this.xhr.responseText);
 
                 docWrapper.appendChild(docElement);
@@ -116,22 +114,22 @@ export default {
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
-.google-doc{
+.google-doc {
     width: 100%;
     
     // Overwrite default css applied by google
-    * {
+    :deep(*) {
         color: var(--font-color) !important;
         background: none !important;
     }
 
-    body {
+    :deep(body) {
         margin: 0;
     }
 
-    .doc-content {
+    :deep(.doc-content) {
         padding: 0;
         max-width: inherit;
     }

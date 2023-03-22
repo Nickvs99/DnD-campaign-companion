@@ -6,7 +6,7 @@
 
 </template>
 
-<style>
+<style scoped>
 
 .dot-seperator {
     display: inline-block;

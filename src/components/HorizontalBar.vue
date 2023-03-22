@@ -4,7 +4,7 @@
 
 </template>
 
-<style>
+<style scoped>
 
 .horizontal-bar {
     width: 66.66%;

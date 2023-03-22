@@ -94,7 +94,7 @@ export default {
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 .inbox-login-container {
     max-width: 15rem;

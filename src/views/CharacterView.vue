@@ -185,7 +185,7 @@ export default {
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 .character-page-container {
     margin: 1rem 0;

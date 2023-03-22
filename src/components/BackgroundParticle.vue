@@ -45,9 +45,9 @@ export default {
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
-@keyframes particle-fade{
+@keyframes particle-fade {
     from {opacity: 0.75; scale: var(--initScale); }
     to {opacity: 0; scale: 0; }  
 }
@@ -73,7 +73,7 @@ export default {
 
     animation: particle-fade;
     animation-duration: var(--lifeSpan);
-    animation-delay: 0.1s; // Prevents flickering
+    animation-delay: calc(var(--dt) + 0.1s); // Prevents flickering
     animation-timing-function: ease-in;
 }
 

@@ -158,9 +158,15 @@ export default {
     @include content-wrapper-override;
 }
 
-#content-wrapper:has(.calendar-view-container){    
+#content-wrapper:has(.calendar-view-container) {    
     @include content-wrapper-override;
 }
+
+</style>
+
+<style lang="scss" scoped>
+
+@import "@/styles/_mixins.scss";
 
 .title-container { 
     display: flex;

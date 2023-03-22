@@ -34,7 +34,7 @@ export default {
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 .message-wrapper {
     margin: 2rem 0;

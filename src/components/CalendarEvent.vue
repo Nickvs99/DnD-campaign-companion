@@ -18,7 +18,7 @@ export default {
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 .calendar-event {
     background-color: rgba(0, 0, 0, 0.15);
