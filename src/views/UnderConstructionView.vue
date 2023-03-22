@@ -1,7 +1,7 @@
 <template>
 
 <div>
-    <h1>Binnenkort beschikbaar</h1>
+    <h1>Under construction</h1>
 </div>
 
 </template>
