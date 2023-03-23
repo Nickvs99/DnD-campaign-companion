@@ -18,6 +18,8 @@
 
 import CenterToScreen from "@/components/CenterToScreen.vue";
 import LoadIcon from "@/components/LoadIcon.vue";
+import { Component } from "@/router/lazyLoadComponents.js";
+import { prefetchComponents } from "@/router/util.js";
 import { hashCode, randomUniform, sleep } from "@/util.js";
 
 export default {
@@ -31,7 +33,9 @@ export default {
             loadMessage: "",
         };
     },
-
+    mounted() {
+        prefetchComponents(Component.InboxView);
+    },
     methods:
     {
         async onSubmit(event) {

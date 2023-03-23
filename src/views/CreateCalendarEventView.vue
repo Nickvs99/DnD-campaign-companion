@@ -59,6 +59,8 @@
 <script>
 
 import { prepareEventsObject, sortEvents } from "@/router/calendarUtil.js";
+import { Component } from "@/router/lazyLoadComponents.js";
+import { prefetchComponents } from "@/router/util.js";
 
 export default {
     name: "CreateCalendarEventView",
@@ -79,6 +81,9 @@ export default {
             endTimeMinute: null,
             description: null,
         };
+    },
+    mounted() {
+        prefetchComponents(Component.CalendarDayView);
     },
     methods: {
         onSubmit(event) {

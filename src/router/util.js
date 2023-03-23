@@ -30,9 +30,7 @@ export function addStructureToRoutes(routes, structure, prefix="") {
         routes.push({path: prefix, redirect: redirectPath});
     }
     else {
-        // This line somehow prefetches everything. TODO this should only prefetch
-        // the click-through-view
-        routes.push({path: prefix, component: () => import(/* webpackPrefetch: true */ `@/${Component.ClickThroughView}`), props: {items: keys}});
+        routes.push({path: prefix, component: () => import(`@/${Component.ClickThroughView}`), props: {items: keys}});
     }
 
     for(const key in structure) {
@@ -159,5 +157,11 @@ export function CreateMessageRoutes(messageData, validPersonalCodes) {
     }
 
     return routes;
+}
 
+export async function prefetchComponents(...components) {
+
+    for(let component of components) {
+        import(`@/${component}`);
+    }
 }

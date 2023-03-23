@@ -32,8 +32,11 @@ import CalendarEvent from "@/components/CalendarEvent.vue";
 import ChevronLeft from "@/assets/icons/ChevronLeft.vue";
 import ChevronRight from "@/assets/icons/ChevronRight.vue";
 
-import { objectContainsKeys } from "@/util.js";
 import { getNextMonth, getPreviousMonth, sortEvents } from "@/router/calendarUtil.js";
+import { Component } from "@/router/lazyLoadComponents.js";
+import { prefetchComponents } from "@/router/util.js";
+
+import { objectContainsKeys } from "@/util.js";
 
 export default {
     name: "CalendarMonthView",
@@ -55,6 +58,8 @@ export default {
         };
     },
     mounted() {
+
+        prefetchComponents(Component.CalendarDayView);
 
         let customEvents = localStorage.getObject("events");
 

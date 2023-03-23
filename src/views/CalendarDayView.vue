@@ -40,6 +40,8 @@ import CloseIcon from "@/assets/icons/CloseIcon.vue";
 
 import { objectContainsKeys } from "@/util.js";
 import { getNextDay, getPreviousDay, sortEventFn } from "@/router/calendarUtil.js";
+import { Component } from "@/router/lazyLoadComponents.js";
+import { prefetchComponents } from "@/router/util.js";
 
 export default {
     name: "CalendarDayView",
@@ -60,6 +62,9 @@ export default {
         };
     },
     mounted() {
+
+        prefetchComponents(Component.CreateCalendarEventView);
+        
         let customEvents = localStorage.getObject("events");
 
         let keys = [this.year, this.month, this.day];
