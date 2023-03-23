@@ -3,6 +3,7 @@ import { Theme } from "@/styles/themes.js";
 
 import { Component } from "./lazyLoadComponents.js";
 import { Endpoint } from "./endPoint.js";
+import router from "./index.js";
 
 export function addStructureToRoutes(routes, structure, prefix="") {
 
@@ -163,5 +164,22 @@ export async function prefetchComponents(...components) {
 
     for(let component of components) {
         import(`@/${component}`);
+    }
+}
+
+export async function prefetchComponentsFromRoutes(...routes) {
+
+    for (let route of routes) {
+        let routeObj = router.getRoutes().find(obj => obj.path == route);
+        if (!routeObj) return;
+        
+        let component = routeObj.components;
+
+        // Trigger the component import by calling the default variable
+        // If the component is already loaded then it's value has
+        // been changed to an object and is thus not called.
+        if (typeof component?.default === "function") {
+            component.default();
+        }
     }
 }

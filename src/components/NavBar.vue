@@ -16,8 +16,9 @@
 <script>
 
 import HomeIcon from "@/assets/icons/HomeIcon.vue";
-
 import DotSeperator from "./DotSeperator.vue";
+
+import { prefetchComponentsFromRoutes } from "@/router/util.js";
 
 export default {
     name: "NavBar",
@@ -27,12 +28,12 @@ export default {
             navBarItems: [],
         };
     },
-    mounted() {
-        this.setNavBarItems(this.$route.path);
-    },
     watch: {
         $route(to) {
             this.setNavBarItems(to.fullPath);
+
+            let homeRoute = "";
+            prefetchComponentsFromRoutes(homeRoute, ...this.navBarItems.map(item => item.to));
         }
     },
     methods: {

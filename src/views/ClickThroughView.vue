@@ -13,6 +13,8 @@
 
 import HorizontalBar from "@/components/HorizontalBar.vue";
 
+import { prefetchComponentsFromRoutes } from "@/router/util.js";
+
 export default {
     name: "ClickThroughView",
     components: { HorizontalBar },
@@ -21,6 +23,9 @@ export default {
             type: Array,
             required: true
         }
+    },
+    mounted() {
+        prefetchComponentsFromRoutes(...this.items.map(item => this.getTo(item)));
     },
     methods: {
 
