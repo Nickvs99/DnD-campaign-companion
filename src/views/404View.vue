@@ -1,7 +1,19 @@
 <template>
 
-<div>
-    <h1>404 page not found</h1>
-</div>
+<IconWithHeader header="Page not found">
+    <NotFoundIcon />
+</IconWithHeader>
 
 </template>
+
+<script>
+
+import NotFoundIcon from "@/assets/icons/NotFoundIcon.vue";
+import IconWithHeader from "@/components/IconWithHeader.vue";
+
+export default {
+    name: "404View",
+    components: { NotFoundIcon, IconWithHeader },
+};
+
+</script>
