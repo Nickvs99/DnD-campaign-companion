@@ -2,10 +2,14 @@
 
 <BackGround />
 <NavBar />
+
 <router-view v-slot="{Component}">
     <div id="content-wrapper" ref="contentWrapper">
         <transition name="fade" mode="out-in">
-                <component :is="Component" :key="$route.path"></component>
+            <CenterToScreen v-if="isLoading">
+                <LoadIcon/>
+            </CenterToScreen>
+            <component v-else :is="Component" :key="$route.path"></component>
         </transition>
     </div>
 </router-view>
@@ -13,12 +17,21 @@
 </template>
 
 <script>
+
 import BackGround from "@/components/BackGround.vue";
+import CenterToScreen from "./components/CenterToScreen.vue";
+import LoadIcon from "./components/LoadIcon.vue";
 import NavBar from "@/components/NavBar.vue";
 
 export default {
     name: "App",
-    components: {BackGround, NavBar},
+    components: {BackGround, CenterToScreen, LoadIcon, NavBar},
+    data() {
+        return {
+            // This value is changed by the router
+            isLoading: false,
+        };
+    },
     mounted(){
         window.addEventListener("resize", this.setMinHeight);
         this.setMinHeight();

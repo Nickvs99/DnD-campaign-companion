@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 
+import { app } from "@/main.js";
 import { structure } from "@/assets/content/structure.js";
 import { themeStructure } from "@/assets/content/themeStructure";
 import { sleep } from "@/util.js";
@@ -42,6 +43,9 @@ const router = createRouter({
  * accordingly.
  */
 router.beforeEach((to, from) => {
+
+    app.isLoading = true;
+    
     if (to.query.redirect) {
         let direct = to.query.redirect.replace(" ", "%20");
         router.replace(direct);
@@ -51,7 +55,10 @@ router.beforeEach((to, from) => {
     // Apply styling according to the themestructure
     let theme = getTheme(themeStructure, to.fullPath);
     setTheme(theme, from);
+});
 
+router.afterEach( () => {
+    app.isLoading = false;
 });
 
 async function setTheme(theme, from) {

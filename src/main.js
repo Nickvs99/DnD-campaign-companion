@@ -7,4 +7,4 @@ import "@/styles/themes.scss";
 
 import "./prototypeOverrides.js";
 
-createApp(App).use(router).mount("#app");
+export const app = createApp(App).use(router).mount("#app");
