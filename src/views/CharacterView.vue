@@ -28,27 +28,24 @@
         </div>
     </div>
     
-    <CenterToScreen v-else class="error-container">
+    <IconWithHeader v-else header="Error: 32">
         <ErrorIcon />
-        <h1>Error: 32</h1>
-    </CenterToScreen>
-
-   
+    </IconWithHeader>
 </div>
 
 </template>
 
 <script>
 
-import CenterToScreen from "@/components/CenterToScreen.vue";
+import ErrorIcon from "@/assets/icons/ErrorIcon.vue";
 import OpenExternal from "@/assets/icons/OpenExternal.vue";
 import DotSeperator from "@/components/DotSeperator.vue";
+import IconWithHeader from "@/components/IconWithHeader.vue";
 import StatBlock from "@/components/StatBlock.vue";
-import ErrorIcon from "@/assets/icons/ErrorIcon.vue";
 
 export default {
     name: "CharacterView",
-    components: { CenterToScreen, DotSeperator, ErrorIcon, OpenExternal, StatBlock },
+    components: { DotSeperator, ErrorIcon, IconWithHeader, OpenExternal, StatBlock },
     props: {
         "data": {
             required: true,
@@ -255,17 +252,6 @@ export default {
     position: absolute;
     inset: 1rem 1rem auto auto;
     background-color: rgba(0,0,0,0.25);
-}
-
-.error-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    svg{
-        aspect-ratio: 1/1;
-        width: 10rem;
-    }
 }
 
 </style>

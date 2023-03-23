@@ -18,10 +18,9 @@
     </div>
 
     <div v-else>
-        <CenterToScreen class="no-events-container">
+        <IconWithHeader header="No events planned for today">
             <CalendarIcon />
-            <h1>No events planned for today</h1>
-        </CenterToScreen>
+        </IconWithHeader>
 
         <button @click="goToCreateEvent" class="create-event-button"><AddIcon /></button>
     </div>
@@ -33,10 +32,11 @@
 
 import AddIcon from "@/assets/icons/AddIcon.vue";
 import CalendarIcon from "@/assets/icons/CalendarIcon.vue";
-import CenterToScreen from "@/components/CenterToScreen.vue";
 import ChevronLeft from "@/assets/icons/ChevronLeft.vue";
 import ChevronRight from "@/assets/icons/ChevronRight.vue";
 import CloseIcon from "@/assets/icons/CloseIcon.vue";
+
+import IconWithHeader from "@/components/IconWithHeader.vue";
 
 import { objectContainsKeys } from "@/util.js";
 import { getNextDay, getPreviousDay, sortEventFn } from "@/router/calendarUtil.js";
@@ -45,7 +45,7 @@ import { prefetchComponents } from "@/router/util.js";
 
 export default {
     name: "CalendarDayView",
-    components: { AddIcon, CalendarIcon, CenterToScreen, ChevronLeft, ChevronRight, CloseIcon },
+    components: { AddIcon, CalendarIcon, ChevronLeft, ChevronRight, CloseIcon, IconWithHeader },
     props: {
         calendar: {
             type: Object,
@@ -173,22 +173,6 @@ export default {
 
     border-radius: 4px;
     padding: 0.5rem;
-}
-
-.no-events-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.no-events-container h1 {
-    margin-block-start: 0;
-    text-align: center;
-}
-
-.no-events-container svg{
-    aspect-ratio: 1/1;
-    width: 10rem;
 }
 
 .create-event-button {
