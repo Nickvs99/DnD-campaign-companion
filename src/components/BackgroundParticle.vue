@@ -73,8 +73,8 @@ export default {
 
     animation: particle-fade;
     animation-duration: var(--lifeSpan);
-    animation-delay: calc(var(--dt) + 0.1s); // Prevents flickering
     animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
 }
 
 </style>
