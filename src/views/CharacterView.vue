@@ -191,7 +191,7 @@ export default {
 .img-content {
 
     // Adjust font since the background will always be dark-ish
-    --font-color: antiquewhite;
+    --primary-color: antiquewhite;
     
     position: relative;
 
@@ -230,7 +230,7 @@ export default {
     font-size: 2rem;
     font-weight: bold;
 
-    color: var(--font-color);
+    color: var(--primary-color);
 }
 
 .image-content-text {

@@ -36,7 +36,7 @@ export default {
 .stat-block {
     aspect-ratio: 1/1;
 
-    background-color: rgba(0, 0, 0, 0.15);
+    background-color: var(--secondary-color);
     display: grid;
     grid-template-columns: 1fr 3fr;
     padding: 0.2rem;

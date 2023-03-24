@@ -1,5 +1,5 @@
 a {
-    color: var(--font-color);
+    color: var(--primary-color);
 }
 
 body {
@@ -7,10 +7,10 @@ body {
 }
 
 button {
-    background-color: rgba(0, 0, 0, 0.15);
-    color: var(--font-color);
+    background-color:  var(--secondary-color);
+    color: var(--primary-color);
     
-    border: solid 2px var(--font-color);
+    border: solid 2px var(--primary-color);
     border-radius: 3px;
     
     font-size: 1rem;
@@ -19,7 +19,7 @@ button {
     transition: background-color 0.5s ease-out, color 0.5s ease-out;
 
     &:focus-visible, &:active {
-        background-color: var(--font-color);
+        background-color: var(--primary-color);
         color: var(--gradient-color-primary); // Should ideally be see through
         outline: none;
 
@@ -30,16 +30,16 @@ button {
 }
 
 div {
-    color: var(--font-color);
+    color: var(--primary-color);
 }
 
 fieldset {
-    border: solid 1px var(--font-color);
+    border: solid 1px var(--primary-color);
 }
 
 input[type=text], input[type=number], select {
-    background-color: rgba(0, 0, 0, 0.15);
-    color: var(--font-color);
+    background-color:  var(--secondary-color);
+    color: var(--primary-color);
 
     border: none;
     border-radius: 3px;
@@ -53,11 +53,11 @@ input[type=text], input[type=number], select {
     transition: outline-color 500ms ease-out;
 
     &::placeholder {
-        color: var(--font-color);
+        color: var(--primary-color);
     }
 
     &:focus-visible {
-        outline-color: var(--font-color);
+        outline-color: var(--primary-color);
         
         &::placeholder {
             color: transparent;
@@ -70,7 +70,7 @@ label {
 }
 
 svg {
-    fill: var(--font-color);
+    fill: var(--primary-color);
     vertical-align: top;
 }
 

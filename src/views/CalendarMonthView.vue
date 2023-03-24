@@ -220,8 +220,8 @@ export default {
     grid-template: repeat(4, 1fr) / repeat(7, 1fr);
 
     // Removes double borders
-    border-top: 1px solid rgba(0, 0, 0, 0.15);
-    border-left: 1px solid rgba(0, 0, 0, 0.15);
+    border-top: 1px solid  var(--secondary-color);
+    border-left: 1px solid  var(--secondary-color);
 }
 
 .day-container {    
@@ -231,8 +231,8 @@ export default {
 
     padding: 5px;
 
-    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-    border-right: 1px solid rgba(0, 0, 0, 0.15);
+    border-bottom: 1px solid  var(--secondary-color);
+    border-right: 1px solid  var(--secondary-color);
 }
 
 .day-count {    

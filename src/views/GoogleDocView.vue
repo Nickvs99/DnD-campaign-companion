@@ -121,7 +121,7 @@ export default {
     
     // Overwrite default css applied by google
     :deep(*) {
-        color: var(--font-color) !important;
+        color: var(--primary-color) !important;
         background: none !important;
     }
 

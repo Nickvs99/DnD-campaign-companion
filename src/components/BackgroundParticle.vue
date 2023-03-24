@@ -53,7 +53,7 @@ export default {
 }
 
 .particle {
-    background: radial-gradient(var(--font-color), transparent 75%);
+    background: radial-gradient(var(--primary-color), transparent 75%);
 
     border-radius: 50%;
 

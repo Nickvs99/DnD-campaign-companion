@@ -21,7 +21,7 @@ export default {
 <style lang="scss" scoped>
 
 .calendar-event {
-    background-color: rgba(0, 0, 0, 0.15);
+    background-color: var(--secondary-color);
     font-size: 0.75rem;
 
     // font-size + padding

@@ -1,27 +1,29 @@
 @import "@/styles/_houdini.scss";
 
 #app, #app[theme="default"] {  
-    --font-color: #ffd400;
+    --primary-color: #ffd400;
     --gradient-color-primary: #3b0066;
     --gradient-color-secondary: #333;
+    
+    --secondary-color: rgba(0, 0, 0, 0.15);
     --font-family: Garamond, serif;
 
-    color: var(--font-color);
+    color: var(--primary-color);
     font-family: var(--font-family);
 
-    transition: --font-color, --gradient-color-primary, --gradient-color-secondary;
+    transition: --primary-color, --gradient-color-primary, --gradient-color-secondary;
     transition-duration: 1s; // Duration should be twice the fade in/out time of App.vue
     transition-timing-function: ease-in-out;
 }
 
 #app[theme="grug"] {
-    --font-color: #111;
+    --primary-color: #111;
     --gradient-color-primary: #ff2a00;
     --gradient-color-secondary: #ffea00;
 }
 
 #app[theme="lenova"] {
-    --font-color: black;
+    --primary-color: black;
     --gradient-color-primary: green;
     --gradient-color-secondary: aquamarine;
 }

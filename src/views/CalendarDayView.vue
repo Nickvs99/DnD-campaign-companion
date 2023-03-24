@@ -168,7 +168,7 @@ export default {
 }
 
 .event {
-    background-color: rgba(0, 0, 0, 0.15);
+    background-color:  var(--secondary-color);
     font-size: 1rem;
 
     border-radius: 4px;
