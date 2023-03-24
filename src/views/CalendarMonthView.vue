@@ -61,7 +61,7 @@ export default {
 
         prefetchComponents(Component.CalendarDayView);
 
-        let customEvents = localStorage.getObject("events");
+        let customEvents = localStorage.getObject(this.calendar.localStorageKey);
 
         let keys = [this.year, this.month];
         if(customEvents && objectContainsKeys(customEvents, keys)) {

@@ -65,7 +65,7 @@ export default {
 
         prefetchComponents(Component.CreateCalendarEventView);
         
-        let customEvents = localStorage.getObject("events");
+        let customEvents = localStorage.getObject(this.calendar.localStorageKey);
 
         let keys = [this.year, this.month, this.day];
         if(customEvents && objectContainsKeys(customEvents, keys)) {
@@ -125,9 +125,9 @@ export default {
             this.events = this.events.filter(item => !this.areArraysEqual(item, evt));
             
             // Remove event from localstorage
-            let customEvents = localStorage.getObject("events");
+            let customEvents = localStorage.getObject(this.calendar.localStorageKey);
             customEvents[this.year][this.month][this.day] = customEvents[this.year][this.month][this.day].filter(item => !this.areArraysEqual(item, evt));
-            localStorage.setObject("events", customEvents);
+            localStorage.setObject(this.calendar.localStorageKey, customEvents);
         },
         areArraysEqual(arr1, arr2) {
             if (arr1 === arr2) return true;

@@ -20,6 +20,7 @@ const events = [
 ];
 
 export const lenovaCalendar = {
+    localStorageKey: "calendar-lenova",
     dayNames: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
     monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
     weeksPerMonth: 4,

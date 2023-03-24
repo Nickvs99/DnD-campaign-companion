@@ -101,7 +101,7 @@ export default {
                 evt = [timeString, this.description];
             }
             
-            let customEvents = localStorage.getObject("events");
+            let customEvents = localStorage.getObject(this.calendar.localStorageKey);
             if(customEvents == null) {
                 customEvents = {};
             }
@@ -112,7 +112,7 @@ export default {
             
             sortEvents(customEvents);
 
-            localStorage.setObject("events", customEvents);
+            localStorage.setObject(this.calendar.localStorageKey, customEvents);
 
             this.goToDayView();
         },
