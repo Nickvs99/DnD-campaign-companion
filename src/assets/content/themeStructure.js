@@ -1,5 +1,4 @@
 
-import { Endpoint } from "@/router/endPoint.js";
 import { Theme } from "@/styles/themes.js";
 
 import { structure } from "./structure.js";
@@ -35,7 +34,8 @@ function createThemeStructure(themeStructure, structure) {
     for(let key in structure) {
         let value = structure[key];
 
-        if (typeof value === "function" || value instanceof Endpoint) {
+        // Check for vue component, array (which contains an item from the component enum), or an item from the component enum
+        if (typeof value === "function" || value instanceof Array || typeof value === "string") {
             themeStructure[key] = null;
             continue;
         }

@@ -1,15 +1,14 @@
 import { Component } from "@/router/lazyLoadComponents.js";
-import { Endpoint } from "@/router/endPoint.js";
 
 export const characterStructure = {
     "empty": {
-        "Balro": new Endpoint(Component.CharacterView, {"ID": "53799196"}),
-        "Siren": new Endpoint(Component.CharacterView, {"ID": "87953644"}),
-        "Ginger": new Endpoint(Component.CharacterView, {"ID": "49093889"}),
-        "Grug": new Endpoint(Component.UnderConstructionView),
+        "Balro": [Component.CharacterView, {"ID": "53799196"}],
+        "Siren": [Component.CharacterView, {"ID": "87953644"}],
+        "Ginger": [Component.CharacterView, {"ID": "49093889"}],
+        "Grug": [Component.UnderConstructionView],
         "Safqwyn": {
-            "Druid": new Endpoint(Component.UnderConstructionView),
-            "Fighter": new Endpoint(Component.UnderConstructionView),
+            "Druid": Component.UnderConstructionView,
+            "Fighter": Component.UnderConstructionView,
         }
     },
 };

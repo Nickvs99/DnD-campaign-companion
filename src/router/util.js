@@ -44,14 +44,22 @@ export function addStructureToRoutes(routes, structure, prefix="") {
         if(["messages", "Julia"].includes(key)) {
             routes.push({path: `${slug}/:param`, component: () => import(`@/${Component.AccessDeniedView}`)});
         }
-
+        console.log(key, value, Object.values(Component).includes(value));
         // Check if value is a vue component
         if(typeof value.render === "function"){
             routes.push({path: slug, component: value});
         }
-        else if (value instanceof Endpoint) {
+        else if (value instanceof Array || typeof value === "string") {
             
-            if(value.componentName == "CalendarMonthView") {
+            let endPoint;
+            if(value instanceof Array) {
+                endPoint = new Endpoint(...value);
+            }
+            else {
+                endPoint = new Endpoint(value);
+            }
+
+            if(endPoint.componentName == "CalendarMonthView") {
 
                 // A calendar needs both the month as well as the day view, furthermore
                 // a click through menu is shown when a user navigates to just the year path.
@@ -61,7 +69,7 @@ export function addStructureToRoutes(routes, structure, prefix="") {
                 let dayPath = `${monthPath}/:day`;
                 let newPath = `${slug}/new`;
 
-                let calendar = value.props.calendar;
+                let calendar = endPoint.props.calendar;
                 let yearEndPoint = new Endpoint(Component.ClickThroughView, {items: calendar.monthNames});
                 let dayEndpoint = new Endpoint(Component.CalendarDayView);
                 let newEndpoint = new Endpoint(Component.CreateCalendarEventView, {calendar: calendar});
@@ -71,12 +79,12 @@ export function addStructureToRoutes(routes, structure, prefix="") {
                 
                 routes.push({path: slug, redirect: currentDatePath});
                 routes.push({path: yearPath, component: yearEndPoint.vueComponent, props: yearEndPoint.props});
-                routes.push({path: monthPath, component: value.vueComponent, props: value.props});
-                routes.push({path: dayPath, component: dayEndpoint.vueComponent, props: value.props});
+                routes.push({path: monthPath, component: endPoint.vueComponent, props: endPoint.props});
+                routes.push({path: dayPath, component: dayEndpoint.vueComponent, props: endPoint.props});
                 routes.push({path: newPath, component: newEndpoint.vueComponent, props: newEndpoint.props});
             }
             else {
-                routes.push({path: slug, component: value.vueComponent, props: value.props});
+                routes.push({path: slug, component: endPoint.vueComponent, props: endPoint.props});
             }
         }
         else {
@@ -154,7 +162,7 @@ export function CreateMessageRoutes(messageData, validPersonalCodes) {
     let routes = {};
     for(let hash in messageMap)
     {
-        routes[hash] = new Endpoint(Component.InboxView, {"messages": messageMap[hash]});
+        routes[hash] = [Component.InboxView, {"messages": messageMap[hash]}];
     }
 
     return routes;
