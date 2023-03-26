@@ -44,7 +44,6 @@ export function addStructureToRoutes(routes, structure, prefix="") {
         if(["messages", "Julia"].includes(key)) {
             routes.push({path: `${slug}/:param`, component: () => import(`@/${Component.AccessDeniedView}`)});
         }
-        console.log(key, value, Object.values(Component).includes(value));
         // Check if value is a vue component
         if(typeof value.render === "function"){
             routes.push({path: slug, component: value});
@@ -134,36 +133,21 @@ export function getTheme(themeStructure, path) {
 }
 
 export function CreateMessageRoutes(messageData, validPersonalCodes) {
-
-    // Collect messages for each hash
-    let messageMap = {};
+    
+    let routes = {};
     for(let row of messageData)
     {
         let personalCode = row[0];
         let DmCode = row[1];
-        let message = row[2];
-        let messageStyle = row[3]; 
 
         if(!validPersonalCodes.includes(personalCode)) {
             throw new Error(`${personalCode} is not a valid personal code.`);
         }
 
         let hash = hashCode(personalCode + DmCode);
-
-        if(!(hash in messageMap))
-        {
-            messageMap[hash] = [];
-        }
-
-        messageMap[hash].push({"message": message, "messageStyle": messageStyle});
+        routes[hash] = row[2];
     }
 
-    // Create routes with the messages
-    let routes = {};
-    for(let hash in messageMap)
-    {
-        routes[hash] = [Component.InboxView, {"messages": messageMap[hash]}];
-    }
 
     return routes;
 }

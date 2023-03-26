@@ -14,5 +14,6 @@ export const Component = Object.freeze({
     ImageDocView: "views/ImageDocView.vue",
     InboxLoginView: "views/InboxLoginView.vue",
     InboxView: "views/InboxView.vue",
+    MessageBox: "components/MessageBox.vue",
     UnderConstructionView: "views/UnderConstructionView.vue",
 });
