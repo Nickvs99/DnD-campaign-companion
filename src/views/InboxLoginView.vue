@@ -18,8 +18,7 @@
 
 import CenterToScreen from "@/components/CenterToScreen.vue";
 import LoadIcon from "@/components/LoadIcon.vue";
-import { Component } from "@/router/lazyLoadComponents.js";
-import { prefetchComponents } from "@/router/util.js";
+import { prefetchComponentsFromRoutes } from "@/router/util.js";
 import { hashCode, randomUniform, sleep } from "@/util.js";
 
 export default {
@@ -32,9 +31,6 @@ export default {
             showInvalidCode: false,
             loadMessage: "",
         };
-    },
-    mounted() {
-        prefetchComponents(Component.InboxView);
     },
     methods:
     {
@@ -50,6 +46,8 @@ export default {
             let targetSlug = concat + "/messages/" + hashCode(this.$refs.personalCode.value + this.$refs.dmCode.value);
             
             let validRoute = this.isValidRoute(targetSlug);
+            
+            if(validRoute) prefetchComponentsFromRoutes(targetSlug);
 
             if (!(this.$refs.dmCode.value === "" && this.$refs.personalCode.value === ""))
             {
@@ -75,6 +73,7 @@ export default {
 
 
             if(validRoute) {
+                prefetchComponentsFromRoutes(targetSlug);
                 this.$router.push(targetSlug);
             }
             else{
