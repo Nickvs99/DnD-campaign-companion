@@ -21,7 +21,6 @@
 
 import { Simulator } from "@/simulator/simulator.js";
 import { Vector } from "@/simulator/vector.js";
-import { containsQuerySelector } from "@/util.js";
 
 import BackgroundParticle from "./BackgroundParticle.vue";
 
@@ -51,35 +50,29 @@ export default {
     methods: {
         onClick(evt) {
 
-            let elements = document.elementsFromPoint(evt.clientX, evt.clientY);
-
-            if(this.checkSpawnCondition(elements)) {
-                
-                // Map mouse coordinates to a 1x1 cell, with the origin at the bottom left
-                let position = new Vector(
-                    evt.clientX / document.documentElement.clientWidth, 
-                    1 - evt.clientY / document.documentElement.clientHeight
-                );
-
-                this.sim.spawnIsotropicParticles(position, 5);
-            }
-        },
-
-        /**
-         * Not all clicks should spawn particles. Only a location outside the content wrapper is clicked,
-         * or if the click-through menu is clicked within the content wrapper, or an empty space within
-         * the content wrapper is clicked
-         */
-        checkSpawnCondition(elements) {
+            let xCoor, yCoor;
             
-            if(!containsQuerySelector(elements, ".content-wrapper") ||
-                containsQuerySelector(elements, ".menu-wrapper") ||
-                elements[0].matches(".content-wrapper")) {
-
-                return true;
+            // Check if event is triggered by the enter key
+            if (evt.pointerType === "") {
+                
+                // Set coordinates to center of element
+                let el = evt.srcElement;
+                let rect = el.getBoundingClientRect();
+                
+                xCoor = (rect.left + rect.right) / 2;
+                yCoor = (rect.top + rect.bottom) / 2;
             }
+            else {
+                [xCoor, yCoor] = [evt.clientX, evt.clientY];
+            }
+                
+            // Map mouse coordinates to a 1x1 cell, with the origin at the bottom left
+            let position = new Vector(
+                xCoor / document.documentElement.clientWidth, 
+                1 - yCoor / document.documentElement.clientHeight
+            );
 
-            return false;
+            this.sim.spawnIsotropicParticles(position, 5);
         },
     }
 };
