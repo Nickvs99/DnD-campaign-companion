@@ -29,7 +29,8 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center;
-    
+    justify-content: space-between;
+
     padding: 0.5em;
     column-gap: 0.5em;
     
