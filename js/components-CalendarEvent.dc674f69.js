@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkdnd_campaign_companion"]=self["webpackChunkdnd_campaign_companion"]||[]).push([[752],{1882:function(n,e,a){a.r(e),a.d(e,{default:function(){return s}});var t=a(3396),c=a(7139);const r={class:"calendar-event"};function d(n,e,a,d,i,o){return(0,t.wg)(),(0,t.iD)("div",r,(0,c.zw)(a.event[a.event.length-1]),1)}var i={name:"CalendarEvent",props:{event:{type:Object,required:!0}}},o=a(89);const p=(0,o.Z)(i,[["render",d],["__scopeId","data-v-4de39ad4"]]);var s=p}}]);
+//# sourceMappingURL=components-CalendarEvent.dc674f69.js.map

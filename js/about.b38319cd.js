@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkdnd_campaign_companion"]=self["webpackChunkdnd_campaign_companion"]||[]).push([[443],{3336:function(n,a,u){u.r(a),u.d(a,{default:function(){return p}});var c=u(3396);const e={class:"about"},i=(0,c._)("h1",null,"This is an about page",-1),t=[i];function o(n,a,u,i,o,r){return(0,c.wg)(),(0,c.iD)("div",e,t)}var r={name:"AboutView"},s=u(89);const d=(0,s.Z)(r,[["render",o]]);var p=d}}]);
+//# sourceMappingURL=about.b38319cd.js.map
